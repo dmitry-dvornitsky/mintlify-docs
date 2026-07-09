@@ -41,6 +41,15 @@ Tasks (Follow-up) ──────────► Inbox/Email
   Автоматические follow-up задачи закрываются когда SDR отправляет письмо в тред (существующий или новый)
 ```
 
+Settings/Lists ──────────────► Company / Contact
+  Компании и контакты добавляются в Lists. Один лист — только компании или только контакты.
+
+Contacts (add via LinkedIn) ─► Generect API
+  LinkedIn URL → парсим данные контакта через Generect API
+
+Contacts (add via Email) ────► Apollo → Generect API
+  Email → находим LinkedIn профиль через Apollo → парсим данные через Generect API
+
 ## TBD — нужно уточнить
 
 - Что именно тригерит автосоздание Tasks

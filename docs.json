@@ -35,14 +35,13 @@
         "pages": []
       },
       {
-        "group": "Фичи",
+        "group": "Модули",
         "pages": [
-          "features/table",
           "features/projects-overview",
-          "features/insights",
-          "features/meetings",
           "features/inbox",
           "features/tasks",
+          "features/meetings",
+          "features/insights",
           {
             "group": "Settings",
             "pages": [
@@ -53,9 +52,18 @@
               "features/settings/products",
               "features/settings/calendars",
               "features/settings/slack",
-              "features/settings/labels"
+              "features/settings/labels",
+              "features/settings/lists"
             ]
           }
+        ]
+      },
+      {
+        "group": "Компоненты",
+        "pages": [
+          "features/table",
+          "components/company-contact-overlay",
+          "components/ai-editor"
         ]
       },
       {
