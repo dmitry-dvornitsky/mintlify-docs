@@ -15,8 +15,10 @@
 - [ ] Projects / Leads (Companies + Contacts) — детали
 - [ ] Projects / Requests — **переработка**, обсудить отдельно
 - [ ] Projects / Insights — детали
-- [ ] Projects / Meetings — детали
-- [ ] Projects / Settings — в процессе (General, KPI, Billing верхний уровень готовы)
+  - [ ] **Strategies** (внутри Insights → Product) — важная фича, описать детально
+- [ ] Projects / Meetings — колонки таблицы (описать позже)
+- [ ] Projects / Settings — в процессе (General, KPI, Billing, Products готовы)
+  - [ ] **Slack** — уточнить что именно содержит алерт (поля, формат)
   - [ ] **Billing** — описать детально: Services (структура подписок), Invoices (колонки таблицы)
   - [ ] **Billing Information → вынести** в отдельный раздел сайдбара Settings. Предлагаемое название: **Billing Contact**. Обсудить с командой.
 - [ ] Роли Admin приложения

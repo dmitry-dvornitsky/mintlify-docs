@@ -39,7 +39,23 @@
         "pages": [
           "features/table",
           "features/projects-overview",
-          "features/settings"
+          "features/insights",
+          "features/meetings",
+          "features/inbox",
+          "features/tasks",
+          {
+            "group": "Settings",
+            "pages": [
+              "features/settings/index",
+              "features/settings/general",
+              "features/settings/kpi",
+              "features/settings/billing",
+              "features/settings/products",
+              "features/settings/calendars",
+              "features/settings/slack",
+              "features/settings/labels"
+            ]
+          }
         ]
       },
       {
