@@ -1,0 +1,46 @@
+---
+title: "Columns"
+description: "Кастомные поля для компаний и контактов с AI-обогащением"
+---
+
+Columns — кастомные поля специфичные для конкретного проекта. Два таба: **Contacts** и **Companies**.
+
+Таблица с кнопкой **Add column**.
+
+## Add Column
+
+| Поле | Описание |
+|---|---|
+| Name * | Название колонки, e.g. "Tech Stack", "Funding Stage" |
+| Type * | Тип данных: Text, Long text, Number, Date, True / False, Single choice, Multiple choice |
+| Description | Что хранится в этом поле |
+| AI enrichment instructions | Инструкция для AI: что именно искать и откуда брать данные. Например: "Find the main programming languages used by this company based on their website and job postings" |
+
+После создания колонки она появляется в таблицах Leads → Companies / Contacts как дополнительное поле.
+
+## Enrich Custom Columns
+
+Запуск обогащения кастомных колонок через AI.
+
+**Текущий флоу:**
+1. Leads → Contacts → выбрать контакты чекбоксами
+2. Toolbar → **Enrich custom columns**
+3. Создаётся Request → AI заполняет колонки по инструкции
+
+AI ищет данные на сайте компании или в LinkedIn профиле контакта и автоматически заполняет поле.
+
+<Warning>
+**Флоу требует доработки.** Планируемое поведение:
+
+При нажатии "Enrich custom columns" открывается попап со списком всех кастомных колонок и чекбоксами — выбираешь какие именно колонки нужно обогатить. Создаётся Request только на выбранные колонки.
+
+Сейчас запускается обогащение всех колонок сразу без возможности выбора.
+</Warning>
+
+История запусков хранится в Requests (таба — уточнить название).
+
+## Связи
+
+- [Leads → Contacts](/features/leads#contacts) — запуск Enrich через Toolbar
+- [Leads → Companies](/features/leads#companies) — запуск Enrich через Toolbar
+- [Requests](/features/requests) — история обогащений

@@ -135,4 +135,75 @@ LinkedIn отдаёт ограниченное количество резуль
 
 **Actions:**
 - **Import contacts** — импорт контактов
-- **Find contacts** — поиск контактов (описать отдельно)
+- **Find contacts** — поиск контактов по комбинации критериев компании и контакта
+
+### Find Contacts in Companies
+
+Поиск контактов внутри уже найденных компаний.
+
+**Флоу:**
+1. Leads → Companies — выбрать компании чекбоксами
+2. В Bulk Action Bar нажать **Find contacts**
+3. Открывается страница с критериями поиска контактов
+4. Создаётся Request в Requests → Find Contacts in Companies
+
+**Критерии поиска (New Contact Search):**
+
+| Поле | Описание |
+|---|---|
+| Locations | Локация контактов (опционально) |
+| Audiences — First Priority * | Основная целевая аудитория из [Settings → Audiences](/features/settings/audiences) |
+| Audiences — Secondary Priority | Запасная аудитория (если контакты первой не найдены) |
+| Max Contacts Per Company * | Максимум контактов с одной компании (например, 3) |
+| Photo optional | Включать контакты без фото в LinkedIn |
+| Job dates optional | Включать контакты без дат трудоустройства |
+| Skip C-level on large headcount companies | Пропускать C-level в крупных компаниях (до них сложнее добраться) |
+| Years in current company | Диапазон лет в текущей должности (слайдер: <1, 1-2, 3-5, 6-10, 10+) |
+| Apply Contacts DNC list | Пропустить контакты из DNC (по умолчанию включено) |
+
+**Страница Request (Requests → Find Contacts in Companies → {Name}):**
+
+Статистика: Number of found contacts, Companies with found contacts
+
+Табы: **Contacts** | **Companies** | **Searches**
+
+Колонки таблицы Searches: Actions, Status, Name, Found Contacts, Processed Companies
+
+<Warning>Флоу требует переработки — см. [redesigns/leads-find-contacts.md](/redesigns/leads-find-contacts).</Warning>
+
+### Find Contacts
+
+Поиск контактов напрямую — без предварительного выбора компаний. Вход: Leads → Contacts → **Find contacts**.
+
+Форма разбита на две колонки: **Company details** (критерии компаний, в которых искать) и **Contact details** (критерии самих контактов). Результаты идут в Leads → Contacts и сохраняются в Requests → Find Contacts.
+
+#### Company details
+
+| Поле | Описание |
+|---|---|
+| Locations | Страны/регионы компании |
+| Industry | Индустрии |
+| Exclude Industries | Индустрии для исключения |
+| Type | Тип компании (Public, Private, Non-profit и др.) |
+| Company size | Размер по количеству сотрудников |
+| Revenue min / max ($M) | Диапазон выручки |
+| Collect revenue | Подтянуть данные о выручке |
+| Skip range revenue | Пропустить компании вне диапазона |
+| Small companies first | Показывать маленькие компании первыми |
+
+#### Contact details
+
+| Поле | Описание |
+|---|---|
+| Audiences (Job Titles) * | Целевая аудитория из [Settings → Audiences](/features/settings/audiences). Одиночный выбор |
+| Locations | Локация контактов (отдельно от локации компании) |
+| Max contacts per company | Максимум контактов с одной компании (по умолчанию 1) |
+| Years in current company | Диапазон лет в текущей должности (слайдер: <1, 1-2, 3-5, 6-10, 10+) |
+| Photo optional | Включать контакты без фото в LinkedIn |
+| Job dates optional | Включать контакты без дат трудоустройства |
+| Recently posted on LinkedIn | Искать только тех кто недавно был активен в LinkedIn |
+
+<Note>
+В отличие от **Find Contacts in Companies**, этот флоу не привязан к конкретным компаниям из Leads — компании находятся по критериям одновременно с поиском контактов.
+Поле Audiences здесь одиночный выбор, без First/Secondary Priority.
+</Note>

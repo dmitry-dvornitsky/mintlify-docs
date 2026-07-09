@@ -3,11 +3,16 @@ title: "Settings"
 description: "Настройки проекта"
 ---
 
-Настройки проекта организованы в разделы в левом сайдбаре.
+## Клиент
+
+Всё о конкретном клиенте — кто они, что продают, какие цели и условия контракта.
 
 <CardGroup cols={2}>
   <Card title="General" icon="sliders" href="/features/settings/general">
-    Основная информация о клиенте и контракте
+    Основная информация о компании и контракте
+  </Card>
+  <Card title="Products" icon="box" href="/features/settings/products">
+    Продукты и сервисы клиента
   </Card>
   <Card title="KPI" icon="chart-line" href="/features/settings/kpi">
     Плановые показатели по встречам
@@ -15,22 +20,71 @@ description: "Настройки проекта"
   <Card title="Billing" icon="file-invoice-dollar" href="/features/settings/billing">
     Финансовая информация, инвойсы, чарн
   </Card>
-  <Card title="Products" icon="box" href="/features/settings/products">
-    Продукты и сервисы клиента
-  </Card>
-  <Card title="Calendars" icon="calendar" href="/features/settings/calendars">
-    Интеграции с Google, Microsoft и Calendly
-  </Card>
-  <Card title="Slack" icon="slack" href="/features/settings/slack">
-    Подключение Slack-канала для уведомлений о встречах
-  </Card>
-  <Card title="Labels" icon="tag" href="/features/settings/labels">
-    Группы и метки для классификации тредов в Inbox
-  </Card>
-  <Card title="Lists" icon="list" href="/features/settings/lists">
-    Именованные списки компаний или контактов
+</CardGroup>
+
+## Команда
+
+Кто работает на проекте и сколько тратится ресурсов.
+
+<CardGroup cols={2}>
+  <Card title="Team" icon="users" href="/features/settings/team">
+    Участники проекта и их роли
   </Card>
   <Card title="Usage" icon="chart-bar" href="/features/settings/usage">
-    Расходы на Generect и другие инструменты обогащения
+    Расходы на внешние инструменты и API
+  </Card>
+</CardGroup>
+
+## Аккаунты
+
+Подключённые аккаунты и сервисы через которые команда ведёт outreach и получает уведомления.
+
+<CardGroup cols={2}>
+  <Card title="Mailboxes" icon="envelope" href="/features/settings/mailboxes">
+    Email-ящики (Google, Microsoft)
+  </Card>
+  <Card title="LinkedIn Accounts" icon="linkedin" href="/features/settings/linkedin-accounts">
+    LinkedIn аккаунты через Unipile
+  </Card>
+  <Card title="Calendars" icon="calendar" href="/features/settings/calendars">
+    Календари для бронирования встреч
+  </Card>
+  <Card title="Slack" icon="slack" href="/features/settings/slack">
+    Уведомления о встречах в Slack
+  </Card>
+</CardGroup>
+
+## Лиды
+
+Конфигурация поиска, квалификации и управления лидами.
+
+<CardGroup cols={2}>
+  <Card title="Audiences" icon="crosshairs" href="/features/settings/audiences">
+    Целевые роли для поиска контактов
+  </Card>
+  <Card title="Criteria Groups" icon="check-circle" href="/features/settings/criteria-groups">
+    Критерии AI-квалификации компаний
+  </Card>
+  <Card title="Columns" icon="table-columns" href="/features/settings/columns">
+    Кастомные поля с AI-обогащением
+  </Card>
+  <Card title="Do Not Contact" icon="ban" href="/features/settings/do-not-contact">
+    Исключения из поиска и импорта
+  </Card>
+  <Card title="Lists" icon="list" href="/features/settings/lists">
+    Именованные списки компаний и контактов
+  </Card>
+</CardGroup>
+
+## Inbox
+
+Инструменты для работы с перепиской.
+
+<CardGroup cols={2}>
+  <Card title="Message Templates" icon="file-lines" href="/features/settings/message-templates">
+    Шаблоны для Email и LinkedIn
+  </Card>
+  <Card title="Labels" icon="tag" href="/features/settings/labels">
+    Метки для классификации тредов
   </Card>
 </CardGroup>

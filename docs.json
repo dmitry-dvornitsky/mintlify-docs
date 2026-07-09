@@ -48,14 +48,48 @@
             "group": "Settings",
             "pages": [
               "features/settings/index",
-              "features/settings/general",
-              "features/settings/kpi",
-              "features/settings/billing",
-              "features/settings/products",
-              "features/settings/calendars",
-              "features/settings/slack",
-              "features/settings/labels",
-              "features/settings/lists"
+              {
+                "group": "Клиент",
+                "pages": [
+                  "features/settings/general",
+                  "features/settings/products",
+                  "features/settings/kpi",
+                  "features/settings/billing"
+                ]
+              },
+              {
+                "group": "Команда",
+                "pages": [
+                  "features/settings/team",
+                  "features/settings/usage"
+                ]
+              },
+              {
+                "group": "Аккаунты",
+                "pages": [
+                  "features/settings/mailboxes",
+                  "features/settings/linkedin-accounts",
+                  "features/settings/calendars",
+                  "features/settings/slack"
+                ]
+              },
+              {
+                "group": "Лиды",
+                "pages": [
+                  "features/settings/audiences",
+                  "features/settings/criteria-groups",
+                  "features/settings/columns",
+                  "features/settings/do-not-contact",
+                  "features/settings/lists"
+                ]
+              },
+              {
+                "group": "Inbox",
+                "pages": [
+                  "features/settings/message-templates",
+                  "features/settings/labels"
+                ]
+              }
             ]
           }
         ]

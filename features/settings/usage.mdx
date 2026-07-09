@@ -1,0 +1,50 @@
+---
+title: "Usage"
+description: "Расходы на внешние инструменты и API в разрезе модулей и пользователей"
+---
+
+<Warning>Раздел требует улучшений по UX и названиям — см. [redesigns/settings-usage.md](/redesigns/settings-usage).</Warning>
+
+Usage — детализация расходов на внешние инструменты (Generect, OpenAI, Apollo и др.) в рамках проекта.
+
+## Фильтры
+
+| Фильтр | Варианты |
+|---|---|
+| Module | All Modules / Insights / Campaigns / Leads / Inbox / Tasks / Meetings / Other |
+| User | All Users / System / {имена пользователей} |
+| Date range | Select dates (правый верхний угол) |
+| Export | Скачать данные |
+
+## Total Spent
+
+Суммарный расход за выбранный период. Рядом — 3 карточки Coming Soon (данные не готовы).
+
+## Daily Usage
+
+Bar-chart с расходами по дням. Переключатель **Tool / Feature** меняет группировку:
+- **Tool** — цвет = инструмент (Apollo, Generect, Gsuite, Hunter, OpenAI, Quickemail, Rapidapi)
+- **Feature** — цвет = фича внутри инструмента
+
+## Breakdown
+
+Таблица с итогами за период. Переключатель **Tool / Feature**.
+
+**Колонки:** Tool / Feature, Share (визуальная полоса), Credits, Cost, %
+
+**Инструменты:**
+| Инструмент | Назначение |
+|---|---|
+| Generect | Парсинг LinkedIn-профилей и данных компаний |
+| OpenAI | AI-функции (AI Editor, Company AI Analysis, Column Enrichment, Campaigns) |
+| Hunter | Поиск и верификация email-адресов |
+| Apollo | Поиск LinkedIn по email, Phone Enrichment |
+| Quickemail | Email delivery / warming |
+| Rapidapi | Дополнительные API-запросы |
+| Gsuite | Google Calendar / Gmail интеграция |
+
+## Request Log
+
+Лог каждого API-вызова. Фильтры: All Tools, All Features.
+
+**Колонки:** Tool, Feature, Credits, Cost / Credit, Total Cost, Date

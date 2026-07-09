@@ -50,6 +50,29 @@ Contacts (add via LinkedIn) ─► Generect API
 Contacts (add via Email) ────► Apollo → Generect API
   Email → находим LinkedIn профиль через Apollo → парсим данные через Generect API
 
+Settings/Columns ────────────► Leads/Companies + Leads/Contacts
+  Кастомные колонки появляются в таблицах. AI enrichment instructions используются при запуске обогащения.
+
+Leads/Contacts (Toolbar) ────► Apollo → Contacts.Phone
+  Enrich phone numbers: телефоны берутся из Apollo и записываются контактам. История в Requests/Phone Enrichment.
+
+Leads/Contacts (Toolbar) ────► Requests/Column Enrichment
+  Выбираешь контакты → Enrich custom columns → AI заполняет поля по инструкции (сайт / LinkedIn)
+
+Settings/Criteria Groups ────► Requests/Company AI Analysis
+  Criteria Group выбирается при запуске анализа. AI проверяет сайт компании на соответствие критериям.
+
+Leads/Companies (Bulk) ──────► Requests/Company AI Analysis
+  Выбираешь компании чекбоксами → Bulk Action → Run AI Analysis
+
+Leads/Contacts (Bulk) ───────► Requests/LinkedIn Activity
+  Выбираешь контакты чекбоксами → Bulk Action → Run LinkedIn Activity
+  Результат: LinkedIn Score на каждом контакте (живость аккаунта, активность, полнота профиля)
+
+Settings/Audiences ──────────► Leads/Find Contacts
+  Audience (набор должностей + описание) выбирается как First/Secondary Priority при поиске контактов.
+  AI использует Description для квалификации контактов.
+
 ## TBD — нужно уточнить
 
 - Что именно тригерит автосоздание Tasks

@@ -1,0 +1,41 @@
+---
+title: "Criteria Groups"
+description: "Наборы критериев соответствия для AI-анализа сайтов компаний"
+---
+
+<Warning>Раздел называется "Criteria Groups" — название планируется изменить.</Warning>
+
+Criteria Groups — именованные наборы критериев соответствия, по которым AI проверяет сайты компаний. Задаёте один раз, применяете к любому количеству компаний.
+
+Таблица с кнопкой **Create Criteria Group**.
+
+## Create Criteria Group
+
+| Поле | Описание |
+|---|---|
+| Group Name * | Название группы, e.g. "SaaS Companies Criteria" |
+| Criteria | Список критериев (до 3 Should + до 3 Should not) |
+
+Каждый критерий:
+- **Тип** — `Should` (должна соответствовать) или `Should not` (не должна)
+- **Описание** — свободный текст: что именно AI ищет на сайте
+
+Кнопка **+ Add Criterion** — добавить критерий. Счётчик показывает использованный лимит: `2/3 should · 2/3 should not`.
+
+## Как работает анализ
+
+1. Settings → Criteria Groups → создать группу с критериями
+2. Leads → Companies → выбрать компании чекбоксами
+3. Bulk Action → **Run AI Analysis** → выбрать Criteria Group
+4. AI обходит сайт каждой компании и проверяет каждый критерий
+5. Компания получает оценку: подходит / не подходит
+
+История запусков хранится в [Requests → Company AI Analysis](/features/requests#company-ai-analysis).
+
+Анализ можно также запустить автоматически после завершения Find Companies — опция **Run Company AI Analysis after search completion** при запуске нового Search.
+
+## Связи
+
+- [Leads → Companies](/features/leads#companies) — запуск анализа через Bulk Action
+- [Requests → Company AI Analysis](/features/requests#company-ai-analysis) — история запусков
+- [Find Companies](/features/leads#find-companies) — автозапуск после поиска

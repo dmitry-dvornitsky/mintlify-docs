@@ -1,0 +1,35 @@
+---
+title: "Do Not Contact"
+description: "Списки исключений — компании и контакты которым нельзя писать"
+---
+
+Do Not Contact (DNC) — глобальные списки исключений проекта. Компании и контакты из этих списков автоматически фильтруются при поиске и импорте.
+
+Два таба: **Companies** и **Contacts**.
+
+## Companies
+
+Таблица доменов исключённых компаний.
+
+**Колонки:** Domain, Company Name, Added
+
+**Actions:**
+- **+ Add Domain** — добавить домен вручную
+- **Import CSV** — массовый импорт доменов из файла
+
+## Contacts
+
+Таблица исключённых контактов (аналогичная структура).
+
+## Как применяется
+
+DNC список подключается через чекбокс при каждой операции поиска и импорта:
+
+| Операция | Чекбокс |
+|---|---|
+| Find Companies → New Search | Apply Companies DNC List |
+| Import Companies | Apply Companies DNC List |
+| Find Contacts | Apply Contacts DNC list |
+| Find Contacts in Companies → New Search | Apply Contacts DNC list |
+
+По умолчанию чекбокс включён. Компании/контакты из DNC пропускаются и не попадают в Leads.
