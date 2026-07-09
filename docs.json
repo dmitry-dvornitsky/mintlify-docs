@@ -38,6 +38,8 @@
         "group": "Модули",
         "pages": [
           "features/projects-overview",
+          "features/leads",
+          "features/requests",
           "features/inbox",
           "features/tasks",
           "features/meetings",

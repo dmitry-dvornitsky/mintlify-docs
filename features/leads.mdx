@@ -1,0 +1,138 @@
+---
+title: "Leads"
+description: "Поиск, импорт и управление лидами — компании и контакты"
+---
+
+Leads — база компаний и контактов для outreach. Разделён на две табы: **Companies** и **Contacts**.
+
+Тесно связан с модулем [Requests](/features/requests) — история всех импортов и поисков хранится там.
+
+## Companies
+
+Таблица компаний проекта.
+
+**Actions:**
+- **Import companies** — импорт компаний из CSV или списка LinkedIn URL
+- **Find companies** — поиск компаний по ICP-критериям
+
+### Find Companies
+
+Форма поиска компаний по параметрам. Результаты идут в Leads → Companies и сохраняются в Requests → Find Companies.
+
+Поля с `*` обязательны.
+
+#### Company details
+
+| Поле | Описание |
+|---|---|
+| Locations * | Страны и регионы. Мульти-селект с поиском, иерархический (страна → штат/город). Можно выбрать "All" для всей страны или углубиться. |
+| Industry * | Индустрии. Мульти-селект с поиском и иерархией. |
+| Exclude Industries | Индустрии которые нужно исключить. |
+| Type * | Тип компании: Public Company, Privately Held, Non Profit, Partnership, Government Agency, Educational, Self Employed, Self Owned. |
+| Company size * | Размер по количеству сотрудников (например, 11–50). |
+| Keywords | Ключевые слова для поиска — вводятся тегами. |
+| Exclude keywords | Ключевые слова для исключения. |
+
+#### Department headcount
+
+| Поле | Описание |
+|---|---|
+| Department | Конкретный департамент внутри компании |
+| Headcount min / max | Размер департамента |
+
+#### Revenue range
+
+| Поле | Описание |
+|---|---|
+| LinkedIn revenue min / max ($M) | Диапазон выручки по данным LinkedIn |
+| Revenue min / max ($M) | Диапазон выручки по другим источникам |
+
+#### Search options
+
+| Опция | Описание |
+|---|---|
+| Collect revenue | Подтянуть данные о выручке для найденных компаний |
+| Skip range revenue | Пропустить компании вне заданного диапазона выручки |
+| Small companies first | Показывать маленькие компании первыми (проще выйти на ЛПР) |
+
+#### Step 2 — Preview & Name
+
+Сводка всех выбранных критериев для проверки перед запуском поиска. Поле **Name*** — название этого поиска, сохраняется в [Requests → Find Companies](/features/requests) как именованный Request.
+
+#### Как работает пагинация
+
+LinkedIn отдаёт ограниченное количество результатов на один запрос (несколько тысяч). Чтобы выгрузить больше компаний из большого региона (например, US), нужно разбивать поиск на части — например, по штатам.
+
+Для этого используется **Request** как контейнер ICP-сегмента. Внутри Request можно запускать несколько **Searches** последовательно. Каждый новый Search видит что уже было найдено (Skip Already Searched Companies) и не дублирует результаты.
+
+**Страница Request (Requests → Find Companies → {Name}):**
+
+Статистика вверху:
+- Number of found companies
+- Number of processed companies
+- Companies on LinkedIn
+- Average company price
+
+Табы: **Companies** (все найденные компании) | **Searches** (история запусков)
+
+Колонки таблицы Searches: Actions, Status, Name, Requested Amount, Found Companies, Processed Companies
+
+**Запуск нового Search** (кнопка "New search"):
+
+| Поле | Описание |
+|---|---|
+| Companies * | Сколько компаний найти в этом запуске |
+| Apply Companies DNC List | Пропустить компании из DNC (по умолчанию включено) |
+| Skip Already Searched Companies | Не повторять уже найденные (по умолчанию включено) |
+| Run Company AI Analysis after search completion | Автоматически запустить AI-анализ после завершения |
+
+### Import Companies
+
+Мульти-степ флоу из 3 шагов.
+
+---
+
+#### Step 1 — Данные
+
+Два способа загрузки:
+- **CSV** — загрузить файл
+- **LinkedIn URLs** — вставить список ссылок на компании
+
+---
+
+#### Step 2 — Validation Results
+
+<Warning>Этот шаг перегружен — планируется переработка UX. Пока документируем как есть.</Warning>
+
+Экран совмещает настройки импорта и результаты валидации.
+
+**Настройки:**
+
+| Поле | Описание |
+|---|---|
+| Import Name | Название этого импорта для истории в Requests |
+| Intent | **Warm** или **Cold** — знает ли лид о клиенте. Warm = есть связь (например, бывшие клиенты), Cold = нет. Переименовать в **Lead Type** или **Audience**. |
+| Apply Companies DNC List | Пропустить компании из Do Not Contact списка |
+| Skip Already Searched Companies | Пропустить компании которые уже есть в системе |
+
+**Revenue filter** — опциональный фильтр по выручке:
+
+| Поле | Описание |
+|---|---|
+| Collect revenue | Подтянуть данные о выручке для каждой компании |
+| Revenue min / max ($M) | Диапазон выручки — компании вне диапазона помечаются |
+| Skip range revenue | Пропустить компании вне диапазона |
+
+**Результаты валидации:**
+
+Два таба — **Valid** и **Invalid** — показывают какие записи прошли проверку. Кнопки View и Export для просмотра и скачивания.
+
+---
+
+## Contacts
+
+Таблица контактов проекта.
+
+**Actions:**
+- **Import contacts** — импорт контактов
+- **Find contacts** — поиск контактов (описать отдельно)
