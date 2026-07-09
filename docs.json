@@ -98,7 +98,14 @@
         "group": "Компоненты",
         "pages": [
           "features/table",
-          "components/company-contact-overlay",
+          {
+            "group": "Company & Contact Overlay",
+            "pages": [
+              "components/company-contact-overlay/index",
+              "components/company-contact-overlay/overview",
+              "components/company-contact-overlay/emails"
+            ]
+          },
           "components/ai-editor"
         ]
       },

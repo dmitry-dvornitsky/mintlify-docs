@@ -1,0 +1,61 @@
+---
+title: "Overview"
+description: "Мини-дашборд компании или контакта — всё для принятия решения без переключения табов"
+---
+
+Overview — первая таба оверлея. Цель: SDR должен понять «писать или нет и через какой канал» без перехода в другие табы.
+
+## Company Overview
+
+**AI Qualification** — результат анализа из [Criteria Groups](/features/settings/criteria-groups):
+- ✅ Qualified / ❌ Not qualified / ⏳ Not analyzed
+- Название группы критериев и дата анализа
+- Кнопка **Run Analysis** если анализ ещё не запускался
+
+**Outreach Stats** — сводная статистика по всем каналам:
+
+| Метрика | Источник |
+|---|---|
+| Emails sent | Таба Emails |
+| LinkedIn messages | Таба LinkedIn |
+| Calls | Таба Calls |
+| Meetings | Таба Meetings |
+
+**Contacts** — список контактов компании с LinkedIn Score каждого. Сортировка по Score — лучшие кандидаты вверху. Клик открывает Contact Overview.
+
+**Open Tasks** — активные задачи по компании с дедлайнами. Клик переходит в табу Tasks.
+
+**Last Activity** — последнее действие любого из членов команды (дата + тип + кто).
+
+**Custom Columns** — значения кастомных полей из [Settings → Columns](/features/settings/columns), специфичных для этого проекта. Позволяют каждому проекту вынести ключевые данные прямо на первый экран (например "Funding Stage", "Tech Stack", "AI Fit Score").
+
+---
+
+## Contact Overview
+
+**LinkedIn Score** — оценка «живости» аккаунта из [LinkedIn Activity](/features/requests#linkedin-activity):
+- Score (0–100) + дата последнего анализа
+- Сигнал активности: Active / Low activity / Inactive
+- Кнопка **Analyze** если анализ не запускался
+
+**Job Signal** — карточка с датой начала работы в текущей должности (`Job started on`):
+
+| Стаж в роли | Метка | Смысл |
+|---|---|---|
+| < 1 года | 🟢 **New in role** | Высокий приоритет — человек только входит в роль, открыт к изменениям |
+| 1–2 года | 🟡 **Recently joined** | Средний приоритет |
+| > 2 лет | — | Без метки |
+
+**Outreach Stats** — статистика по контакту:
+
+| Метрика | Источник |
+|---|---|
+| Emails sent | Таба Emails |
+| LinkedIn messages | Таба LinkedIn |
+| Calls | Таба Calls |
+
+**Open Tasks** — активные задачи по контакту с дедлайнами.
+
+**Last Activity** — последнее действие команды по этому контакту.
+
+**Custom Columns** — значения кастомных полей контакта из [Settings → Columns](/features/settings/columns). Отображаются только заполненные поля — пустые скрыты.
