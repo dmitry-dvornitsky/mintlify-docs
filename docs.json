@@ -38,6 +38,7 @@
         "group": "Модули",
         "pages": [
           "features/projects-overview",
+          "features/strategies",
           "features/leads",
           "features/campaigns",
           "features/requests",
@@ -116,6 +117,17 @@
           "roadmap/index",
           "roadmap/personal-dashboard",
           "roadmap/must-have-features"
+        ]
+      },
+      {
+        "group": "Редизайн & Предложения",
+        "pages": [
+          "redesigns/strategy-redesign",
+          "redesigns/campaigns-overview",
+          "redesigns/leads-find-companies",
+          "redesigns/leads-find-contacts",
+          "redesigns/settings-usage",
+          "redesigns/settings-team"
         ]
       }
     ]

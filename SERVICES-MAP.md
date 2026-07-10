@@ -69,8 +69,23 @@ Leads/Contacts (Bulk) ───────► Requests/LinkedIn Activity
   Выбираешь контакты чекбоксами → Bulk Action → Run LinkedIn Activity
   Результат: LinkedIn Score на каждом контакте (живость аккаунта, активность, полнота профиля)
 
-Insights/Strategies ─────────► Campaigns
-  Strategy выбирается при создании кампании и даёт AI контекст для генерации текстов последовательности
+Strategies ───────────────────► Campaigns (Step 1)
+  Strategy выбирается при создании кампании. AI генерирует сиквенс на основе ICP + Messaging + Product данных.
+
+Strategies (Company ICP) ────► Leads/Find Companies
+  "Use strategy" → автозаполнение всех полей Company ICP
+
+Strategies (Contact ICP) ────► Leads/Find Contacts
+  "Use strategy" → автозаполнение всех полей Contact ICP
+
+Settings/Audiences ──────────► Strategies (Contact ICP)
+  Audiences используются как First/Secondary Priority в Contact ICP стратегии
+
+Settings/Columns ────────────► Strategies (Personalization hook)
+  Custom Column выбирается как сигнал для гиперперсонализации писем
+
+Insights/Product ────────────► Strategies (AI context)
+  Product описание, конкуренты, возражения — AI использует при генерации сиквенса
 
 Settings/Products ───────────► Campaigns
   Product обязателен при создании кампании — определяет контекст outreach

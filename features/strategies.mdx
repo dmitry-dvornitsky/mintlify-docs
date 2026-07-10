@@ -1,0 +1,123 @@
+---
+title: "Strategies"
+description: "Playbook'и для поиска лидов и запуска кампаний"
+---
+
+<Warning>Модуль в разработке. Описание основано на согласованном дизайне — см. redesigns/strategy-redesign.md</Warning>
+
+Strategy — операционный playbook для конкретного сегмента. Создаётся один раз Account Strategist'ом и используется всей командой: Researcher ищет лидов по ICP из стратегии, SDR запускает кампанию с AI-сгенерированным сиквенсом.
+
+## Таблица стратегий
+
+**Колонки:** Name, Product, Goal, Updated, Status
+
+**Actions:** Sort, Filter, View, **Create Strategy**
+
+---
+
+## Создание стратегии
+
+Если в проекте **один продукт** — он привязывается автоматически. Если **два и больше** — первый шаг это выбор продукта.
+
+### Step 1 — Goal
+
+Тип outreach-кампании для которой создаётся стратегия:
+
+| Goal | Описание |
+|---|---|
+| **Extra Leads** | Стандартный outreach — новые контакты |
+| **Re-engagement** | Возврат к лидам с которыми был контакт ранее |
+| **Event / Trigger** | Реакция на событие: funding, смена роли, найм CDO и др. |
+| **Referral** | Тёплые рекомендации через существующие связи |
+
+**Details** — контекст: почему именно этот сегмент, почему сейчас. AI использует это при генерации писем.
+
+---
+
+### Step 2 — Company ICP
+
+Критерии компаний для поиска. Автоматически подставляются в [Find Companies](/features/leads#find-companies) при выборе стратегии.
+
+| Поле | Описание |
+|---|---|
+| Industry * | Целевые индустрии |
+| Exclude Industries | Исключить |
+| Location * | Страны / регионы |
+| Company size * | Диапазон по числу сотрудников |
+| Type | Public / Private / Non-profit и др. |
+| Keywords | Ключевые слова для поиска |
+| Exclude keywords | Исключить |
+| Revenue range | LinkedIn revenue / Revenue min-max ($M) |
+| Department headcount | Размер конкретного департамента |
+
+---
+
+### Step 3 — Contact ICP
+
+Критерии контактов. Автоматически подставляются в [Find Contacts](/features/leads#find-contacts) при выборе стратегии.
+
+| Поле | Описание |
+|---|---|
+| Audience * | Первичный набор должностей из [Settings → Audiences](/features/settings/audiences) |
+| Secondary Audience | Вторичный приоритет |
+| Location | Страна / регион контакта |
+| Max per company | Максимум контактов из одной компании |
+| Recently posted on LinkedIn | Только активные профили |
+| Years in role | Диапазон лет в текущей роли |
+
+---
+
+### Step 4 — Messaging
+
+Контекст для AI при генерации писем. Чем точнее заполнен — тем лучше сиквенс.
+
+| Поле | Описание |
+|---|---|
+| **Core need** | Какую конкретную бизнес-проблему закрывает продукт для этого сегмента |
+| **Value proposition** | Почему именно мы и именно сейчас |
+| **Key talking points** | 3–5 тезисов которые AI должен использовать в письмах |
+| **Avoid** | Что НЕ говорить: клише, болезненные темы, упоминания конкурентов |
+| **Social proof** | Кейс или результат который стоит упоминать |
+| **Tone of voice** | Формальный / дружеский / провокационный / peer-to-peer |
+
+---
+
+### Step 5 — Personalization hook
+
+Какой сигнал AI использует для гиперперсонализации каждого письма:
+
+| Вариант | Откуда данные |
+|---|---|
+| **Custom Column** | Выбрать колонку из [Settings → Columns](/features/settings/columns) — AI встраивает значение в текст |
+| **LinkedIn activity** | Последний пост контакта (требует запуска LinkedIn Activity в Requests) |
+| **Job Signal** | New in role / Recently joined — AI меняет угол письма под сигнал |
+| **Company news** | Результат Company AI Analysis |
+| **None** | Без гиперперсонализации |
+
+---
+
+## Использование стратегии
+
+### Поиск лидов
+
+В [Find Companies](/features/leads#find-companies) и [Find Contacts](/features/leads#find-contacts) появляется кнопка **"Use strategy"**. При выборе стратегии все поля формы заполняются автоматически из ICP. Researcher может скорректировать перед запуском.
+
+### Создание кампании
+
+На [Step 1](/features/campaigns#step-1--campaign-details) выбора кампании — только **Product** и **Strategy**. AI генерирует сиквенс автоматически на основе:
+- Product (описание, конкуренты, возражения из Insights)
+- Messaging (need, value prop, talking points, avoid, social proof)
+- Personalization hook (данные конкретного контакта)
+
+SDR не трогает редактор последовательности если не хочет.
+
+---
+
+## Связи
+
+- [Settings → Audiences](/features/settings/audiences) — Audiences используются в Contact ICP
+- [Settings → Columns](/features/settings/columns) — Custom Column для персонализации
+- [Leads → Find Companies](/features/leads#find-companies) — автозаполнение из Company ICP
+- [Leads → Find Contacts](/features/leads#find-contacts) — автозаполнение из Contact ICP
+- [Campaigns](/features/campaigns) — Strategy выбирается на Step 1, AI пишет сиквенс
+- [Insights](/features/insights) — Product данные используются AI при генерации текстов
