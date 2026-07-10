@@ -291,3 +291,78 @@ Campaigns → Create
 | ~~Можно ли запустить кампанию без стратегии?~~ | ✅ **Нельзя** — Strategy обязательна при создании кампании |
 | ~~Что видит Researcher в форме — locked поля или editable?~~ | ✅ **Editable** — стратегия рекомендует, Researcher может скорректировать под конкретный запуск |
 | Auto-generate стратегии из Insights? | AI предлагает ICP и messaging на основе заполненных Product/Client страниц |
+
+---
+
+## План разработки
+
+Порядок важен: Strategies должны существовать до того как Leads и Campaigns начнут их использовать. Внутри каждой фазы задачи независимы и могут идти параллельно.
+
+---
+
+### Фаза 1 — Новый модуль Strategies
+
+Всё что нужно чтобы стратегия существовала как сущность. Без этого ничего дальше не работает.
+
+| # | Задача |
+|---|---|
+| 1.1 | **DB: Strategy entity** — поля: name, product_id, goal, details, company_icp (JSON), contact_icp (JSON), messaging (JSON), personalization_hook (type + column_id), status, created_by, created_at |
+| 1.2 | **DB: Campaign.strategy_snapshot** — при создании кампании сохранять копию стратегии (JSON) чтобы изменения не влияли на активные кампании |
+| 1.3 | **UI: Таблица стратегий** — Name, Product, Goal, Contacts found, Campaigns, Updated, Status. Sort, Filter, View |
+| 1.4 | **UI: Wizard создания** — 5 шагов: Goal → Company ICP → Contact ICP → Messaging → Personalization hook. Если 1 продукт — шаг выбора продукта скрыт |
+| 1.5 | **UI: Страница стратегии** — просмотр всех полей, кнопка Edit, список связанных кампаний и поисков |
+
+---
+
+### Фаза 2 — Leads: тегирование и автозаполнение
+
+Добавляем стратегию в поиск лидов. Результат: компании и контакты знают по какой стратегии они найдены.
+
+| # | Задача |
+|---|---|
+| 2.1 | **DB: Company.strategy_id** — связь компании со стратегией по которой она найдена |
+| 2.2 | **DB: Contact.strategy_id** — то же для контактов |
+| 2.3 | **UI: Find Companies — "Use strategy"** — кнопка/селектор стратегии в форме. При выборе: все поля Company ICP заполняются из стратегии. Поля редактируемые |
+| 2.4 | **UI: Find Contacts — "Use strategy"** — то же: Audience, Locations, Max per company, Years in role, LinkedIn filter |
+| 2.5 | **UI: Таблица Companies** — добавить колонку Strategy |
+| 2.6 | **UI: Таблица Contacts** — добавить колонку Strategy + Quick Filter "By strategy" |
+| 2.7 | **Logic: Find Contacts in Companies** — если компании найдены по стратегии, автоматически предлагать ту же стратегию для поиска контактов |
+
+---
+
+### Фаза 3 — Campaigns: обязательная стратегия и упрощение wizard'а
+
+Кампания теперь требует стратегию и использует её для генерации сиквенса.
+
+| # | Задача |
+|---|---|
+| 3.1 | **UI: Campaign Step 1** — убрать Description и Name. Оставить: Strategy (required) + Product (если несколько). Имя кампании автогенерируется: `{Client} / {Goal} / {Segment} / {Date}` |
+| 3.2 | **Logic: Strategy обязательна** — нельзя перейти к Step 2 без выбранной стратегии |
+| 3.3 | **UI: Campaign Step 2 (Contacts)** — default filter = контакты тегированные выбранной стратегией. Можно добавить другие вручную |
+| 3.4 | **Logic: Strategy snapshot** — при сохранении кампании записать campaign.strategy_snapshot из текущей версии стратегии |
+
+---
+
+### Фаза 4 — AI: контекстная генерация сиквенса
+
+Самая сложная фаза — AI должен строить сиквенс из структурированных данных, а не свободного текста.
+
+| # | Задача |
+|---|---|
+| 4.1 | **AI context pipeline** — собрать контекст при генерации: Product (из Insights) + Strategy.messaging + стратегии snapshot |
+| 4.2 | **Personalization hook resolver** — для каждого контакта получить значение hook'а: custom column value / LinkedIn post / job signal date / company AI analysis result |
+| 4.3 | **UI: Campaign Step 3** — не пустой редактор, а AI генерирует письма сразу при входе на шаг. SDR видит готовый сиквенс и редактирует если нужно |
+| 4.4 | **AI prompt engineering** — промпты используют structured fields (talking_points[], avoid[], social_proof) а не свободный текст описания кампании |
+
+---
+
+### Фаза 5 — Polish
+
+После того как всё работает — UX-улучшения.
+
+| # | Задача |
+|---|---|
+| 5.1 | **Strategy card: статистика** — Contacts found (N), Campaigns (N active / N total), Reply rate across campaigns |
+| 5.2 | **Versioning UI** — на странице кампании показывать "Strategy: CFO UK v2 (snapshot от 10 Jun 2026)" |
+| 5.3 | **Auto-generate strategy из Insights** — AI предлагает ICP + messaging на основе заполненных Product/Client страниц. Strategist корректирует и сохраняет |
+| 5.4 | **Strategy duplication** — "Duplicate strategy" для быстрого создания похожей под другой сегмент |
