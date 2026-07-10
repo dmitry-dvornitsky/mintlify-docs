@@ -1,0 +1,107 @@
+# Redesign: Campaign Dashboard / Overview tab
+
+Таба не существует. Предложение на основе данных которые уже есть в системе.
+
+---
+
+## Цель страницы
+
+Единый экран для быстрой оценки здоровья кампании. AD и SDR должны за 5 секунд понять: кампания работает нормально? Есть ли результаты? Нужно ли что-то починить?
+
+---
+
+## Предлагаемая структура
+
+### 1. Summary bar — главные числа
+
+Горизонтальная строка из 5 ключевых показателей:
+
+| Метрика | Откуда |
+|---|---|
+| **Contacts** | Всего в кампании |
+| **Meetings booked** | Email + LinkedIn вместе — главный KPI |
+| **Reply Rate** | % ответивших (Email) |
+| **Positive replies** | % позитивных из всех ответов |
+| **Days running** | Сколько дней кампания активна |
+
+Meetings booked — самая крупная цифра, выделена визуально.
+
+---
+
+### 2. Channel performance — Email vs LinkedIn
+
+Два блока рядом.
+
+**Email**
+- Contacted: N (N%)
+- Emails Sent: N
+- Reply Rate: N%
+- Bounces: N
+- → ссылка на таб Email
+
+**LinkedIn**
+- Contacted: N (N%)
+- Connects Sent: N
+- Connects Accepted: N (N%)
+- Replies: N
+- → ссылка на таб LinkedIn
+
+---
+
+### 3. Sequence funnel
+
+Воронка по шагам последовательности — сколько контактов на каждом шаге:
+
+```
+Step 1 ████████████████████ 3111  (100%)
+Step 2 ██████████████       2100   (67%)
+Step 3 ████████              950   (31%)
+  ✓ Completed               420   (13%)
+  ∅ Unsubscribed             48    (2%)
+```
+
+Помогает видеть drop-off между шагами — где теряются контакты.
+
+---
+
+### 4. Reply Types — donut
+
+Тот же donut что в таб Email, но в компактном виде. Быстрый взгляд на структуру ответов: сколько Appointment, Talking, Unsubscribe и др.
+
+---
+
+### 5. Mailbox health
+
+Компактная таблица ящиков:
+
+| Email | Usage | Status |
+|---|---|---|
+| adam@iwocateam.com | 50/50 | 🔴 Limit reached |
+| richard@iwocateam.com | 32/50 | 🟡 High |
+| a.beauchamp@iwocateam.com | 10/50 | 🟢 OK |
+
+Красная строка сразу привлекает внимание — ящик на лимите, завтра отправка не пойдёт.
+
+---
+
+### 6. Recent replies — лента последних ответов
+
+Последние 5–10 ответов с типом:
+
+```
+🟢 Appointment  — John Wistow <john@clivegraham.com>   — 2 hours ago
+💬 Talking      — Laura Cansfield <laura@scruffs.com>   — 5 hours ago
+🔴 Unsubscribe  — Mick Moorhouse <mick@hargreaves.com>  — Yesterday
+```
+
+Клик → открывает тред в Inbox. Даёт SDR быстрый доступ к горячим лидам без захода в Inbox.
+
+---
+
+## UX-заметки
+
+- **Meetings booked** — единственная метрика которую AD смотрит каждый день. Должна быть самой заметной.
+- **Mailbox health** здесь — чтобы не надо было идти в сайдбар Mailboxes ради одного взгляда.
+- **Sequence funnel** — отвечает на вопрос "почему мало ответов?" — сразу видно что 70% контактов не дошли до Step 3.
+- **Recent replies** — превращает Dashboard в отправную точку рабочего дня SDR.
+- Все секции linkable — клик → соответствующий таб или страница.

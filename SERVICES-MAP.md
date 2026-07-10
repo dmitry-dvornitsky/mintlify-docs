@@ -69,6 +69,21 @@ Leads/Contacts (Bulk) ───────► Requests/LinkedIn Activity
   Выбираешь контакты чекбоксами → Bulk Action → Run LinkedIn Activity
   Результат: LinkedIn Score на каждом контакте (живость аккаунта, активность, полнота профиля)
 
+Insights/Strategies ─────────► Campaigns
+  Strategy выбирается при создании кампании и даёт AI контекст для генерации текстов последовательности
+
+Settings/Products ───────────► Campaigns
+  Product обязателен при создании кампании — определяет контекст outreach
+
+Settings/Mailboxes ──────────► Campaigns (Step 4)
+  Email-ящики выбираются при создании кампании для Email-шагов
+
+Settings/LinkedIn Accounts ──► Campaigns (Step 5)
+  LinkedIn аккаунты выбираются при создании кампании для LinkedIn-шагов
+
+Leads/Contacts ──────────────► Campaigns (Step 2)
+  Контакты добавляются в кампанию на шаге Select contacts
+
 Settings/Audiences ──────────► Leads/Find Contacts
   Audience (набор должностей + описание) выбирается как First/Secondary Priority при поиске контактов.
   AI использует Description для квалификации контактов.

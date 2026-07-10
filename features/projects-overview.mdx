@@ -5,6 +5,94 @@ description: "Основное рабочее пространство Delivery 
 
 Каждый Project соответствует одному клиенту Belkins. Внутри проекта сосредоточена вся работа по этому клиенту — от поиска лидов до назначенных встреч.
 
+---
+
+## Dashboard
+
+Главная страница проекта — сводка по всем каналам и метрикам за выбранный период. Этот же экран видит клиент в своём кабинете.
+
+**Фильтры:** Date range (по умолчанию последние 30 дней) + кнопка **Export**.
+
+**Табы:** Overview (текущий) — дополнительные разделы в разработке.
+
+### Statistics + Project info
+
+Два блока рядом:
+
+**Statistics (слева)** — линейный график метрик за период (Actual). Под графиком три карточки:
+
+| Метрика | Описание |
+|---|---|
+| Meetings | Встречи за период |
+| Companies | Компании в работе |
+| Contacts | Контакты в работе |
+
+**Project info (справа)** — карточка проекта. Данные берутся из [Settings → General](/features/settings/general).
+
+<Note>Поля карточки меняются — актуальный список уточнить после обновления Settings → General.</Note>
+
+| Поле | Описание |
+|---|---|
+| Название + индустрия | Из Settings → General |
+| Status | Статус проекта: Pending / Active и др. |
+| Description | Описание — elevator pitch Belkins для этого клиента |
+| Account Strategist | Ответственный стратег |
+| SDR | Ответственный SDR |
+| Lead Research | Ответственный за поиск лидов |
+| Timeline | Сроки проекта |
+| Region | Целевой регион |
+| Target | Целевая индустрия / сегмент |
+| Budget | Бюджет |
+| Website | Сайт клиента |
+
+### Overview
+
+Три сводные карточки по всем каналам:
+
+| Метрика | Описание |
+|---|---|
+| **Contacted** | Контактов охвачено (% от всех) |
+| **Responses** | Ответов (% reply rate) |
+| **Engagement rate** | Общий engagement по всем каналам |
+
+### Emails
+
+| Метрика | Описание |
+|---|---|
+| **Contacted** | Контактов которым отправлено письмо (% от всех) |
+| **Sent** | Писем отправлено (в среднем на контакт) |
+| **Responses** | Ответов (% reply rate) |
+| **Meetings** | Встреч из email-канала (% от ответов) |
+
+### LinkedIn
+
+| Метрика | Описание |
+|---|---|
+| **Requests** | Запросов на подключение отправлено |
+| **Connected** | Принятых подключений (% acceptance rate) |
+| **Responses** | Ответов в LinkedIn (% reply rate) |
+| **Meetings** | Встреч из LinkedIn-канала (% от ответов) |
+
+### Campaigns
+
+Таблица всех кампаний проекта с агрегированными метриками:
+
+**Колонки:** Campaign, Status, Contacted, Sent, Replies, Reply Rate, Reply Types
+
+Reply Types отображается как мини-donut прямо в ячейке (● Positive / ● Negative).
+
+### Performance
+
+Гибкий аналитический график — аналогичен разделу Performance в [Campaign → Email](/features/campaigns):
+
+| Параметр | По умолчанию |
+|---|---|
+| Metric | Reply Rate |
+| Group by | Reply Type |
+| Split by | None |
+
+---
+
 ## Модули
 
 <CardGroup cols={2}>

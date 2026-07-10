@@ -1,0 +1,446 @@
+---
+title: "Campaigns"
+description: "Создание и управление outreach-кампаниями по Email и LinkedIn"
+---
+
+Campaigns — модуль для запуска outreach-последовательностей по Email и LinkedIn. Кампания создаётся через мастер из **8 шагов**.
+
+## Таблица кампаний
+
+**Колонки:** Campaign Name, Status, Message Type, Created, Updated
+
+**Actions:** Sort, Filter, View, Quick Filters, **Create Campaign**
+
+### Статусы
+
+| Статус | Описание |
+|---|---|
+| **Draft** | Кампания создана но не запущена |
+| **Active** | Кампания запущена и отправляет сообщения |
+
+### Message Type
+
+| Тип | Описание |
+|---|---|
+| **AI** | AI генерирует уникальное письмо для каждого контакта |
+| **Template** | SDR пишет шаблон вручную с Variables, Spintax и A/B тестом |
+
+Соответствует режиму Template mode при создании последовательности.
+
+### Конвенция именования
+
+Из практики команды: `{Клиент} / {Тип} / {Сегмент} / {Дата}`
+
+Например: `Iwoca / Extra Leads (Main Campaign) / All Leads / 05-26-26`
+
+---
+
+## Создание кампании
+
+### Step 1 — Campaign details
+
+| Поле | Описание |
+|---|---|
+| Product * | Продукт клиента из [Settings → Products](/features/settings/products). Определяет контекст кампании |
+| Strategy | Стратегия из [Insights → Strategies](/features/insights) — необязательно, но даёт AI дополнительный контекст |
+| Name * | Название кампании |
+| Campaign description * | Описание цели и идеи кампании. Кнопка **✦ Improve with AI** — улучшает формулировку. Используется AI при генерации текстов последовательности |
+
+---
+
+### Step 2 — Select contacts
+
+Таблица контактов которые попадут в кампанию.
+
+**Колонки:** Full name, Email, Email status, Job title, Found (дата добавления в Leads)
+
+**Actions:** Sort, Filter, View, **+ Add contacts**
+
+---
+
+### Step 3 — Create sequence
+
+Конструктор последовательности касаний. Структура:
+
+```
+Step 1  — немедленно после запуска
+  Action 1: [тип действия]
+  Action 2: [опционально]
+  + Add action
+
+Step 2  — After [N days]
+  Action 1: [тип действия]
+  ...
+```
+
+#### Типы действий
+
+| Action | Описание |
+|---|---|
+| **Send email** | Отправить email по шаблону |
+| **LinkedIn connection (no note)** | Отправить запрос на подключение без сообщения |
+| **LinkedIn connection + message** | Запрос на подключение с сопроводительным текстом |
+
+#### Редактор шага
+
+Каждый action имеет редактор с:
+- **✦ AI** — генерация текста
+- **{}** — переменные персонализации (имя, компания, должность и др.)
+- Форматирование: T, B, I, U, списки, ссылки, отмена
+- **Override subject** — переопределить тему письма для этого шага
+
+#### Правая панель
+
+**Template mode** — режим ручного управления шаблоном. Когда выключен (по умолчанию) — AI генерирует уникальное письмо для каждого контакта с нуля. Когда включён — SDR сам пишет структуру, AI только заполняет незаполненные переменные.
+
+При включении Template mode в редакторе появляются три дополнительных инструмента:
+
+| Инструмент | Описание |
+|---|---|
+| **{}** Variables | Токены персонализации. Вставляются в Subject/Body или внутрь Spintax-вариантов |
+| **⇄** Spintax | Случайные вариации текста — каждый контакт получает случайный вариант из набора. Помогает избежать спам-фильтров |
+| **A / + Add variant** | A/B тест — несколько вариантов Subject или Body. Система распределяет контакты между вариантами |
+
+**Variables** — доступные токены:
+
+| Название | Токен |
+|---|---|
+| First Name | `{{FirstName}}` |
+| Last Name | `{{LastName}}` |
+| Full Name | `{{FullName}}` |
+| Company Name | `{{CompanyName}}` |
+| Referral Name | `{{ReferralName}}` |
+| Job Title | `{{Title}}` |
+
+**Spintax** — редактор вариантов: синтаксис `{вариант 1|вариант 2|вариант 3}`. Открывается отдельное окно со списком вариантов (drag & drop для сортировки, кнопка **+ Add option**). Внутри каждого варианта можно вставить Variables через **{}**. Таким образом можно делать такие конструкции: `{Привет, {{FirstName}}|Добрый день, {{FirstName}}|{{FirstName}}, здравствуйте}`.
+
+**Context** (0.0k / 10.0k) — контекст для AI. В обычном режиме AI использует его для генерации уникальных писем. В Template mode — только для заполнения незаполненных переменных. AI выбирает контекст автоматически (Product + Strategy + описание кампании), доступно ручное управление через **Select context**.
+
+<Note>Template mode требует переименования — текущее название не передаёт суть. Предложения в THINK.</Note>
+
+---
+
+### Step 4 — Select mailboxes
+
+Выбор email-ящиков из которых будут отправляться письма кампании.
+
+**Колонки:** Email, Sender name, Provider, Status, Usage (Daily emails N/N с прогресс-баром), Added
+
+Usage показывает сколько писем уже отправлено сегодня из этого ящика. Жёлтый — умеренная загрузка, красный — близко к лимиту.
+
+---
+
+### Step 5 — Select LinkedIn accounts
+
+Выбор LinkedIn аккаунтов для шагов с LinkedIn-действиями.
+
+Если в последовательности нет LinkedIn-действий — шаг показывает пустое состояние: **"LinkedIn accounts are not required"** и его можно пропустить.
+
+---
+
+### Step 6 — Sequence preview
+
+Предпросмотр последовательности с реальной персонализацией под конкретного контакта.
+
+**Preview for contact** — выбрать контакт из кампании для предпросмотра.
+
+Слева показывается отрендеренная последовательность — как будет выглядеть каждое письмо для выбранного контакта. Рядом с каждым шагом кнопка **Send test** — отправить тестовое письмо себе.
+
+Справа — панель контекста:
+
+**AI Description** — объяснение как AI персонализировал письма: какой угол выбрал, что использовал из данных о контакте, что намеренно не включил. Прозрачность логики AI — строит доверие к сгенерированному тексту. Этот же паттерн стоит применить в [AI Editor](/components/ai-editor).
+
+**Company / Contact** — данные которые AI использовал: Name, Website, Industry, Headcount, Location, Description / Name, Business Email, Job Title in LinkedIn. Пустые поля видны — сигнал что данных не хватает для лучшей персонализации.
+
+---
+
+### Step 7 — Setup configurations
+
+**Time zone** — часовой пояс для отправки (например GMT+00:00 London).
+
+**Daily sending limit per domain** — максимум писем в день на один домен получателя. Субдомены считаются как один домен (`sales.acme.com` + `eng.acme.com` = `acme.com`). По умолчанию: Unlimited.
+
+**Schedule configurations** — окно отправки по дням недели:
+
+| День | По умолчанию |
+|---|---|
+| Monday – Friday | 8:00 AM – 4:00 PM |
+| Saturday / Sunday | Выключено |
+
+Чекбокс **Include weekends** — включить субботу и воскресенье.
+
+**Timeline** — визуализация расписания на календаре. Показывает в какие конкретные даты упадёт каждый шаг последовательности с учётом задержек и выходных. Например: Step 1 — пятница, Step 2 — вторник (+2 рабочих дня), Step 3 — четверг (+2 рабочих дня).
+
+---
+
+### Step 8 — Overview
+
+Финальный экран перед запуском. Сводка всего:
+
+**Campaign** — Name, Product, Description
+
+**Contacts** — количество + разбивка по атрибутам: Locations, Company industry, Job titles, Job levels, Departments
+
+**Mailboxes** — подключённые ящики с лимитом в день (например `adam@iwocateam.com — limit 20/day`)
+
+**LinkedIn accounts** — подключённые аккаунты или "No LinkedIn accounts selected"
+
+**Steps** — список шагов с типом действия и задержкой (delay N days)
+
+**Schedule** — компактный вид расписания по дням: время старта/окончания или OFF
+
+Кнопка **Create campaign** — запустить кампанию.
+
+---
+
+---
+
+## Страница кампании
+
+После создания каждая кампания открывается как отдельная страница.
+
+**Header:** название, статус (Running / Draft / Paused), дата запуска, количество контактов. Кнопки: **Pause** / **Resume**, **⋯** (дополнительные действия).
+
+**Левый сайдбар** — навигация внутри кампании:
+
+| Раздел | Описание |
+|---|---|
+| Dashboard | Общая сводка по кампании |
+| Contacts | Список контактов в кампании |
+| Sequence | Просмотр и редактирование последовательности |
+| Mailboxes | Управление email-ящиками этой кампании — добавить, убрать, просмотреть лимиты |
+| LinkedIn | Управление LinkedIn аккаунтами этой кампании |
+| Send Analytics | Аналитика отправок |
+| Settings | Настройки кампании |
+
+Mailboxes и LinkedIn в сайдбаре — отдельные страницы управления аккаунтами. Таба Email/LinkedIn в основном контенте — аналитика по каналу.
+
+**Табы в основном контенте (Dashboard):** Overview, Email, LinkedIn, Contacts
+
+---
+
+### Таба Overview
+
+Страница не существует — предложение по структуре в `redesigns/campaigns-overview.md`.
+
+**Предлагаемые секции:**
+
+| Секция | Что показывает |
+|---|---|
+| **Summary bar** | Contacts, Meetings booked, Reply Rate, Positive replies, Days running |
+| **Channel performance** | Email и LinkedIn метрики рядом — Contacted %, Reply Rate, ключевые числа по каждому каналу |
+| **Sequence funnel** | Сколько контактов на каждом шаге — где drop-off |
+| **Reply Types** | Компактный donut с разбивкой ответов |
+| **Mailbox health** | Статус каждого ящика (Usage + цветовой индикатор) — красный = лимит исчерпан |
+| **Recent replies** | Лента последних 5–10 ответов с типом и ссылкой в Inbox |
+
+Meetings booked — главная метрика, выделена визуально. Recent replies превращает Dashboard в отправную точку рабочего дня SDR.
+
+---
+
+### Страница Sequence
+
+Редактор последовательности для уже созданной кампании. Доступен через сайдбар → **Sequence**.
+
+**Заголовок:** Edit sequence
+
+**Кнопки:** **Show preview** — открыть предпросмотр как на Step 6 (с реальной персонализацией под контакт), **Confirm editing** — сохранить изменения.
+
+Интерфейс аналогичен Step 3 при создании — те же поля Subject / Body, тот же редактор с тулбаром (✦ AI, {}, T, B, I, U, списки, ссылка, отмена), тот же Context panel справа (Select context / 0.0k / 10.0k).
+
+**Валидация переменных** — в реальном времени. Если вставлена неизвестная переменная — под полем появляется красная ошибка:
+
+> Unknown variable: `{{Company}}`. Allowed: `{{FirstName}}`, `{{LastName}}`, `{{FullName}}`, `{{CompanyName}}`, `{{ReferralName}}`, `{{Title}}`.
+
+Переменные отображаются в редакторе как цветные pill-бейджи прямо в тексте — визуально отделены от обычного текста.
+
+---
+
+### Страница Settings
+
+Настройки кампании после её создания. Доступна через сайдбар → **Settings**.
+
+#### Schedule
+
+Расписание отправки — аналогично Step 7 при создании. Часовой пояс, окно по дням (Mon–Fri по умолчанию 8:00–16:00), чекбокс **Include weekends**.
+
+#### Sending limits
+
+Throttling rules applied to outgoing email.
+
+**Daily sending limit per domain** — максимум писем в день на один домен получателя. Субдомены считаются как один домен (`sales.acme.com` + `eng.acme.com` = `acme.com`). По умолчанию: Unlimited.
+
+**Override auto-limits** `Beta — disabled` — кампания-wide override лимитов. Пока недоступен. Временный обходной путь: редактировать лимит на уровне отдельного ящика в сайдбаре → Mailboxes и включить **Override auto-limits** там.
+
+#### Meetings
+
+Automations triggered by booked meetings.
+
+**Exclude a company's leads when a meeting is booked** — когда встреча забронирована с кем-то из компании, все остальные лиды из этой же компании останавливаются в кампании. Можно вернуть если встреча отменена.
+
+<Note>Override auto-limits и Meetings automation сложны в текущем виде — требуют упрощения. Заметки в THINK.</Note>
+
+---
+
+### Страницы Mailboxes и LinkedIn
+
+Управление аккаунтами в рамках конкретной кампании. Доступны через сайдбар → **Mailboxes** / **LinkedIn**.
+
+Интерфейс идентичен [Settings → Mailboxes](/features/settings/mailboxes) и [Settings → LinkedIn Accounts](/features/settings/linkedin-accounts), но отображает только аккаунты подключённые к этой кампании. Действие **+ Add mailboxes** / **+ Add LinkedIn accounts** — добавить ещё аккаунты в кампанию.
+
+---
+
+### Страница Contacts
+
+Список всех контактов в кампании с возможностью управления. Доступен через сайдбар → **Contacts**.
+
+**Колонки:** Full name, Email, Status, Channels, Steps
+
+**Actions:** Sort, Filter, View, Quick Filters, **+ Add contacts**
+
+| Колонка | Описание |
+|---|---|
+| **Status** | Статус контакта в кампании. **Added** — добавлен, ещё не начата отправка |
+| **Channels** | Иконки каналов (Email / LinkedIn). Серая — канал подключён но не использован, зелёная — отправка была |
+| **Steps** | Номер текущего шага + иконка канала. Оранжевая точка — шаг выполнен (отправка прошла) |
+
+---
+
+### Таба Email
+
+#### Contacts Metrics
+
+Сводка за всё время (`All time · N total contacts · N emails sent`):
+
+| Метрика | Описание |
+|---|---|
+| Contacted | Контактов которым отправлено хотя бы одно письмо (% от общего числа) |
+| Emails Sent | Всего отправлено писем |
+| Meetings booked | Встречи забронированные из этой кампании |
+| Bounces | Недоставленные письма |
+| Reply Rate | Процент ответивших |
+| Replies | Количество ответов |
+| Positive replies | Позитивные ответы (% от всех ответов) |
+| Negative replies | Негативные ответы (% от всех ответов) |
+
+#### Reply Types
+
+Donut-чарт + таблица разбивки ответов по типу. AI автоматически классифицирует каждый входящий ответ. Список фиксированный:
+
+| Тип | Описание |
+|---|---|
+| **Appointment** | Контакт согласился на встречу |
+| **Interested** | Проявил интерес, но встреча не назначена |
+| **Talking** | Диалог продолжается |
+| **Contact later** | Просит связаться позже |
+| **Forwarded** | Переадресовал на другого человека |
+| **Not interested** | Явный отказ |
+| **Unsubscribe** | Просит отписать от рассылки |
+| **DNC** | Do Not Contact — жёсткий отказ от любой коммуникации |
+| **Ghosted** | Ответил раньше, затем перестал отвечать |
+| **Automation** | Автоответ (out of office и аналогичные) |
+| **Unknown** | AI не смог классифицировать ответ |
+
+#### Reply Rate Heatmap
+
+Тепловая карта reply rate по шагам последовательности и дням недели. Показывает в какой день и на каком шаге лучше всего отвечают — помогает оптимизировать расписание следующих кампаний.
+
+#### Sequence
+
+Карточки по каждому шагу: Contacted, Replies, Reply rate. Позволяет сравнить эффективность разных шагов последовательности.
+
+#### Mailbox Capacity
+
+Карточки по каждому подключённому ящику:
+
+| Строка | Описание |
+|---|---|
+| Sent today (campaign) | Отправлено сегодня из этой кампании / лимит кампании |
+| Mailbox today (all campaigns) | Отправлено сегодня из всех кампаний / общий лимит ящика |
+
+Цвет прогресс-бара: синий — умеренно, красный — лимит исчерпан.
+
+#### Performance
+
+Гибкий аналитический график с настройками:
+
+| Параметр | Варианты |
+|---|---|
+| Metric | Reply Rate (и другие) |
+| Group by | Reply Type (и другие) |
+| Split by | None (и другие) |
+| Date Range | Выбор периода |
+
+Bar-chart + таблица с разбивкой выбранной метрики.
+
+---
+
+### Таба LinkedIn
+
+Аналогична табе Email, но метрики отражают специфику LinkedIn — запросы на подключение и их статусы.
+
+`All time · N total contacts (N with LinkedIn)` — показывает сколько контактов вообще имеют LinkedIn.
+
+#### LinkedIn Metrics
+
+| Метрика | Описание |
+|---|---|
+| Contacted | Контактов которым отправлено хотя бы одно действие |
+| Messages Sent | Отправлено сообщений |
+| Connects Sent | Отправлено запросов на подключение (% от общего числа) |
+| Meetings Booked | Встречи из LinkedIn-канала |
+| Already Connected | Контактов с которыми уже были связаны в LinkedIn |
+| Connects Pending | Запросы ожидают принятия |
+| Connects Accepted | Запросы приняты |
+| Connects Expired | Запросы истекли без ответа |
+| Replies | Ответы |
+| Positive replies | Позитивные ответы |
+| Negative replies | Негативные ответы |
+
+---
+
+### Таба Contacts
+
+Аналитика по составу аудитории кампании — кто именно загружен в кампанию. Помогает проверить что сегмент набран правильно до или во время запуска.
+
+Каждый блок — donut-чарт + таблица с колонками Type / Share / # / %.
+
+#### Email
+
+| Блок | Что показывает |
+|---|---|
+| **Email Status** | Valid / Catch All / Unknown / Processing |
+| **Email Type** | Esp / Spam Protection / Unknown / Not Specified |
+| **Email Service Provider** | Outlook / Google / Unknown — распределение почтовых провайдеров контактов |
+| **Spam Protection Tool** | Barracuda Networks, Proofpoint, Hornetsecurity и др. — какие антиспам-системы стоят у получателей |
+
+Email Service Provider и Spam Protection Tool особенно важны для оценки deliverability — если 94% контактов на Outlook, можно прогнозировать поведение писем и риски.
+
+#### Контакты
+
+| Блок | Что показывает |
+|---|---|
+| **Gender** | Male / Female / Not Specified |
+| **Audience** | Какие Audiences из Settings использовались при поиске |
+| **Department** | General / Finance / Operations / Business Development и др. |
+| **Level** | Director / Manager / Owner / C Level / VP / Other |
+
+#### Компании
+
+| Блок | Что показывает |
+|---|---|
+| **Industry** | Отрасль. Переключатель **Parent / Exact** — агрегированные категории или точные значения |
+| **Company Size** | Диапазоны по числу сотрудников (1-10 / 11-50 / 51-200 и др.) |
+| **Company Location** | Страна компании |
+| **Contact Location** | Страна контакта (может отличаться от Company Location) |
+
+---
+
+## Связи
+
+- [Settings → Products](/features/settings/products) — Product обязателен при создании
+- [Insights → Strategies](/features/insights) — Strategy даёт AI контекст для генерации текстов
+- [Settings → Mailboxes](/features/settings/mailboxes) — ящики для Email-шагов
+- [Settings → LinkedIn Accounts](/features/settings/linkedin-accounts) — аккаунты для LinkedIn-шагов
+- [Leads → Contacts](/features/leads#contacts) — контакты добавляются в кампанию
+- [Inbox](/features/inbox) — ответы на письма кампании приходят в Inbox

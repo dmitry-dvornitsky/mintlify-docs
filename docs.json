@@ -39,6 +39,7 @@
         "pages": [
           "features/projects-overview",
           "features/leads",
+          "features/campaigns",
           "features/requests",
           "features/inbox",
           "features/tasks",
