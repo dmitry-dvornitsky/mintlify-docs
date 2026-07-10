@@ -1,187 +1,274 @@
 ---
 title: "Redesign: Strategy как Playbook"
-description: "Предложения по улучшению UX"
+description: "Полный флоу: Account Strategist создаёт стратегию, Researcher ищет лидов, SDR запускает кампанию"
 ---
 
+## В двух словах
 
-## Проблема
+Сейчас Strategy — это текстовый документ в Insights. Researcher и SDR читают его и вручную переводят в действия: сами заполняют критерии поиска, сами настраивают кампанию. Это медленно, неточно и зависит от того насколько внимательно человек прочитал документ.
 
-Сейчас Strategy — это AI-сгенерированный текстовый документ. Он не связан с поиском лидов, не влияет на кампании, не упрощает работу SDR. Это знание на бумаге которое нужно переводить в действия вручную.
+**Новая концепция:** Strategy — это конфигурационная сущность. Account Strategist один раз задаёт ICP и messaging. Дальше Researcher нажимает одну кнопку и все поля поиска заполнены. SDR нажимает одну кнопку и AI пишет весь сиквенс. Вся команда работает строго в рамках одной стратегии.
 
 ---
 
-## Концепция: Strategy = Playbook
+## Роли и зоны ответственности
 
-Strategy должна быть **конфигурационной сущностью**, а не документом. Один Researcher создаёт Playbook — вся команда запускает по нему поиск и кампании.
+| Роль | Что делает | Когда |
+|---|---|---|
+| **Account Strategist** | Создаёт Strategy: задаёт ICP, messaging, personalization hook | Один раз при настройке нового сегмента |
+| **Researcher** | Ищет компании и контакты выбирая стратегию — все критерии уже заполнены | При каждом поиске лидов |
+| **SDR** | Создаёт кампанию выбирая стратегию — AI пишет сиквенс | При запуске нового outreach |
 
-**Три слоя:**
+---
+
+## Полный флоу от начала до конца
 
 ```
-Playbook
-├── ICP (кого искать)       → автозаполняет Find Companies + Find Contacts
-├── Messaging angle (почему это важно для них)  → AI пишет sequence
-└── Sequence config (как строить outreach)      → преднастраивает Campaign
+Account Strategist
+        │
+        ▼
+  Strategies → Create Strategy
+  ┌─────────────────────────────┐
+  │ 1. Goal (зачем пишем)       │
+  │ 2. Company ICP (каким компаниям) │
+  │ 3. Contact ICP (каким людям) │
+  │ 4. Messaging (что говорим)  │
+  │ 5. Personalization hook     │
+  └─────────────────────────────┘
+        │
+        │  Стратегия готова
+        │
+        ├──────────────────────────────────────┐
+        ▼                                      ▼
+   Researcher                                 SDR
+        │                                      │
+        ▼                                      ▼
+  Leads → Find Companies              Campaigns → Create
+  "Use strategy" →                    Выбрать Strategy →
+  Company ICP заполнен →              Contacts уже найдены →
+  Запустить поиск                     AI пишет сиквенс →
+        │                             Запустить кампанию
+        ▼
+  Leads → Find Contacts
+  "Use strategy" →
+  Contact ICP заполнен →
+  Запустить поиск
 ```
 
 ---
 
-## Структура Strategy (Playbook)
+## Блок 1 — Создание стратегии (Account Strategist)
 
-### 1. Goal
+Стратегия создаётся один раз и используется многократно. Если в проекте **один продукт** — он привязывается автоматически. При **двух и более** — первый экран это выбор продукта.
 
-Выбор типа кампании — определяет логику всего playbook:
+### Шаг 1 / Goal — зачем пишем
 
-| Goal | Описание |
+Тип outreach определяет угол всех писем:
+
+| Goal | Когда используется |
 |---|---|
-| Extra Leads | Стандартный outreach — новые контакты |
-| Re-engagement | Возврат к старым лидам |
-| Event / Trigger | Реакция на событие (funding, новый CDO, переезд) |
-| Referral | Тёплые рекомендации |
+| **Extra Leads** | Стандартный outreach по новому сегменту |
+| **Re-engagement** | Возврат к лидам которые не ответили ранее |
+| **Event / Trigger** | Реакция на событие: смена роли, funding, найм, новость |
+| **Referral** | Тёплые рекомендации через существующие связи |
 
-**Details** — свободное описание цели и контекста. AI использует это как "почему мы пишем именно сейчас".
+**Details** — свободный текст: что именно происходит в этом сегменте сейчас, почему момент подходящий. AI использует это как "контекст запуска".
+
+### Шаг 2 / Company ICP — каким компаниям пишем
+
+Критерии компаний. Эти же поля появятся в Find Companies при выборе стратегии:
+
+| Поле | Обязательно |
+|---|---|
+| Industry | ✓ |
+| Exclude Industries | — |
+| Location | ✓ |
+| Company size (сотрудники) | ✓ |
+| Type (public / private / non-profit) | — |
+| Keywords | — |
+| Exclude keywords | — |
+| Revenue range (LinkedIn / другие источники) | — |
+| Department headcount (размер отдела) | — |
+
+### Шаг 3 / Contact ICP — каким людям пишем
+
+Критерии контактов. Эти же поля появятся в Find Contacts при выборе стратегии:
+
+| Поле | Обязательно |
+|---|---|
+| Audience (первичный набор должностей) | ✓ |
+| Secondary Audience | — |
+| Locations | — |
+| Max contacts per company | — |
+| Years in role (диапазон) | — |
+| Recently posted on LinkedIn | — |
+
+### Шаг 4 / Messaging — что говорим
+
+Контекст для AI. Именно здесь разница между "хорошим письмом" и "письмом как пишет лучший SDR":
+
+| Поле | Что даёт AI |
+|---|---|
+| **Core need** | Какую бизнес-проблему закрывает продукт для этого сегмента — AI выстраивает вокруг этого весь нарратив |
+| **Value proposition** | Почему именно мы и именно сейчас — главный hook первого письма |
+| **Key talking points** | 3–5 тезисов которые AI должен использовать — задаёт угол каждого шага |
+| **Avoid** | Что НЕ говорить: клише, конкуренты, болезненные темы — AI не включит это никогда |
+| **Social proof** | Кейс или результат для упоминания — AI встроит органично, не как рекламу |
+| **Tone of voice** | Формальный / дружеский / провокационный / peer-to-peer — определяет стиль всего сиквенса |
+
+### Шаг 5 / Personalization hook — как персонализируем каждое письмо
+
+Один сигнал который AI использует чтобы письмо выглядело написанным конкретно этому человеку:
+
+| Вариант | Откуда данные | Что даёт |
+|---|---|---|
+| **Custom Column** | Выбрать колонку из Settings → Columns | AI встраивает значение органично в текст |
+| **LinkedIn activity** | Последний пост контакта (из Requests → LinkedIn Activity) | AI ссылается на конкретную публикацию |
+| **Job Signal** | New in role / Recently joined | AI меняет угол: "поздравляю с новой ролью..." |
+| **Company news** | Результат Company AI Analysis | AI ссылается на конкретное событие компании |
+| **None** | — | Персонализация только через ICP-данные |
 
 ---
 
-### 2. ICP — кого искать
+## Блок 2 — Поиск компаний (Researcher)
 
-#### Компании
-| Поле | Связь |
-|---|---|
-| Industry | → Find Companies / Industry |
-| Exclude Industries | → Find Companies / Exclude Industries |
-| Location | → Find Companies / Locations |
-| Company size | → Find Companies / Company size |
-| Type | → Find Companies / Type |
-| Keywords | → Find Companies / Keywords |
-| Revenue range | → Find Companies / Revenue range |
-| Department headcount | → Find Companies / Department headcount |
+**До Strategy:** Researcher вручную заполняет все поля каждый раз — Industry, Location, Size, Keywords, Revenue. Риск ошибки, потеря времени, несоответствие стратегии.
 
-#### Контакты
-| Поле | Связь |
-|---|---|
-| Audience | → Find Contacts / Audience (First Priority) |
-| Secondary Audience | → Find Contacts / Secondary Priority |
-| Seniority / Level | → Find Contacts / Years in role |
-| Location | → Find Contacts / Locations |
-| Max contacts per company | → Find Contacts / Max per company |
-| Recently posted on LinkedIn | → Find Contacts / Recently posted |
-
----
-
-### 3. Messaging angle
-
-Это то чего нет в текущем скетче — структурированный контекст для AI:
-
-| Поле | Описание |
-|---|---|
-| **Core need** | Какую бизнес-проблему закрывает продукт для этого сегмента |
-| **Value proposition** | Почему именно сейчас и именно мы |
-| **Key talking points** | 3–5 тезисов которые AI должен использовать |
-| **Avoid** | Что НЕ говорить (конкуренты, болезненные темы, клише) |
-| **Social proof** | Какой кейс / результат упоминать |
-| **Tone of voice** | Формальный / дружеский / провокационный / peer-to-peer |
-
----
-
-### 4. Personalization hook
-
-Какой кастомный сигнал AI использует для гиперперсонализации каждого письма:
-
-| Вариант | Откуда берётся |
-|---|---|
-| Custom Column | Выбрать любую кастомную колонку из Settings → Columns — AI вставит значение в текст |
-| LinkedIn activity | Последний пост контакта (если есть LinkedIn activity) |
-| Job Signal | New in role / Recently joined — менять угол письма |
-| Company news | Из Company AI Analysis |
-| None | Без гиперперсонализации |
-
-Это замена "Custom Column Message" из скетча, но более гибко — не просто выбор колонки, а выбор типа сигнала.
-
----
-
-### 5. Sequence config
-
-Преднастройка структуры кампании (необязательно):
-
-| Поле | Описание |
-|---|---|
-| Channels | Email only / LinkedIn only / Email + LinkedIn |
-| Steps | Количество шагов (например, 3 Email + 1 LinkedIn) |
-| Delays | Интервалы между шагами (пример: 2 / 3 / 5 дней) |
-| Mode | AI mode / Template mode |
-| Tone of voice | (подтягивается из Messaging angle) |
-
----
-
-## Потоки по ролям
-
-### Researcher / Lead Research
-
-**Задача:** найти компании и контакты под конкретную стратегию.
+**После Strategy:**
 
 ```
-1. Leads → Find Companies
-   → кнопка "Use strategy"
-   → выбрать Playbook
-   → все поля заполняются автоматически из ICP
-   → проверить / скорректировать → запустить
-
-2. Leads → Find Contacts
-   → кнопка "Use strategy"
-   → тот же Playbook
-   → Audience, локации, параметры — всё заполнено
-   → запустить
+Leads → Find Companies
+→ кнопка "Use strategy"
+→ выбрать стратегию из списка
+→ все поля Company ICP заполнены автоматически
+→ Researcher проверяет, при необходимости корректирует
+→ Запустить поиск
 ```
 
-Researcher не вводит ничего вручную. Playbook = единый источник критериев.
+**Что меняется в Find Companies:**
+- Появляется кнопка **"Use strategy"** рядом с заголовком формы
+- После выбора стратегии все поля Company ICP подставляются
+- Поля остаются редактируемыми — Researcher может скорректировать для конкретного запуска
+- Найденные компании **тегируются** стратегией: `Strategy: CFO UK Construction`
+- В таблице Companies появляется колонка **Strategy** — видно откуда пришла компания
 
 ---
 
-### SDR
+## Блок 3 — Поиск контактов (Researcher)
 
-**Задача:** запустить кампанию.
+Аналогично Find Companies — тот же принцип:
 
 ```
-Campaign → Create
-  Step 1: выбрать Product + Strategy (Playbook)
-  Step 2: выбрать контакты (уже найденные Researcher по этой стратегии)
-  → Launch
-
-AI пишет sequence автоматически:
-  - берёт Product из Settings → Products (описание, конкуренты, возражения)
-  - берёт Messaging angle из Strategy (need, value prop, talking points, avoid)
-  - берёт Personalization hook (custom column / LinkedIn activity / job signal)
-  - генерирует уникальное письмо для каждого контакта
+Leads → Find Contacts
+→ кнопка "Use strategy"
+→ выбрать ту же стратегию
+→ Audience, локации, параметры — всё заполнено
+→ Запустить поиск
 ```
 
-SDR не трогает редактор последовательности если не хочет. Всё что нужно — Product + Strategy + контакты.
+**Также:** Find Contacts in Companies — при поиске контактов внутри уже найденных компаний стратегия подставляется автоматически если компании были найдены по этой стратегии.
+
+**Что меняется в Find Contacts:**
+- Кнопка **"Use strategy"** в форме
+- После выбора: Audience → подставляется, Locations, Max per company, Years in role, LinkedIn filter — всё из Contact ICP
+- Контакты тегируются: `Strategy: CFO UK Construction`
+- В таблице Contacts колонка **Strategy** показывает принадлежность
 
 ---
 
-## Где живёт Strategy
+## Блок 4 — Запуск кампании (SDR)
 
-**Не в Insights** — там знания о клиенте, а Strategy — это инструмент работы.
+**До Strategy:** SDR проходит 8 шагов вручную — заполняет описание кампании, настраивает сиквенс, подбирает tone of voice, думает что писать.
 
-**Варианты:**
-1. **Отдельный раздел в сайдбаре** — "Strategies" / "Playbooks" между Campaigns и Leads. Прямой доступ для всей команды.
-2. **Внутри Settings** — рядом с Audiences и Criteria Groups (оба тоже про "кого искать"). Логично но сайдбар Settings растёт.
-3. **Внутри Insights → Product** — остаётся где есть, но меняется структура. Минус: SDR ищет инструмент в базе знаний.
+**После Strategy:**
 
-**Рекомендация:** вариант 1 — отдельный раздел. Strategy — это операционный инструмент, а не документ.
+```
+Campaigns → Create
+→ Step 1: выбрать Strategy
+  (Product подставляется автоматически если один,
+   или выбирается вместе со стратегией)
+→ Step 2: контакты
+  — по умолчанию показываются контакты тегированные этой стратегией
+  — SDR может добавить другие
+→ AI строит сиквенс автоматически
+→ Step N: Preview — посмотреть что написал AI
+→ Launch
+```
+
+**Что меняется в Campaigns:**
+- Step 1 упрощается: только **Strategy** (+ Product если несколько)
+- Step 2 Contacts: фильтр по умолчанию = контакты этой стратегии
+- Step 3 Sequence: AI генерирует сиквенс сразу, без пустого редактора. SDR видит готовые письма и может отредактировать — но не обязан
+- Campaign Name автогенерируется по конвенции: `{Client} / {Goal} / {Segment} / {Date}`
 
 ---
 
-## Что меняется в существующих модулях
+## Блок 5 — Что строит AI и откуда берёт данные
 
-| Модуль | Изменение |
-|---|---|
-| **Find Companies** | Кнопка "Use strategy" → выбор Playbook → автозаполнение |
-| **Find Contacts** | То же самое |
-| **Campaign / Step 1** | Только Product + Strategy. Name генерируется автоматически по конвенции |
-| **Campaign / Step 3** | Sequence pre-configured из Strategy. SDR может редактировать, но не обязан |
-| **Insights / Strategy** | Текстовые страницы остаются как база знаний, но Playbook — отдельная сущность |
-| **Settings / Audiences** | Audiences становятся частью Playbook ICP, не отдельным разделом |
-| **Settings / Criteria Groups** | Criteria Groups тоже могут быть частью Playbook |
+При генерации каждого письма AI собирает контекст из трёх источников:
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                    AI CONTEXT                            │
+│                                                         │
+│  Product (из Insights)                                  │
+│  ├── Описание продукта                                  │
+│  ├── Конкуренты и отличия                               │
+│  ├── Типичные возражения и ответы                       │
+│  └── Pricing / Solution                                 │
+│                                                         │
+│  Strategy / Messaging                                   │
+│  ├── Goal + Details (почему пишем сейчас)               │
+│  ├── Core need (проблема этого сегмента)                │
+│  ├── Value proposition (наш ответ)                      │
+│  ├── Key talking points (что включить)                  │
+│  ├── Avoid (что исключить)                              │
+│  ├── Social proof (какой кейс)                          │
+│  └── Tone of voice (стиль)                              │
+│                                                         │
+│  Contact / Company (данные конкретного лида)            │
+│  ├── Personalization hook (custom column / LinkedIn /   │
+│  │   job signal / company news)                         │
+│  ├── Job title, company, location                       │
+│  └── AI Qualification result (если запускался)          │
+└─────────────────────────────────────────────────────────┘
+```
+
+Итог: каждое письмо уникально для конкретного контакта, но строго в рамках стратегии. AI не импровизирует — он следует messaging guidelines.
+
+---
+
+## Что меняется в каждом модуле
+
+### Strategies (новый модуль)
+- Таблица стратегий: Name, Product, Goal, Contacts found, Campaigns, Updated, Status
+- Создание через 5-шаговый wizard
+- Карточка стратегии: ICP summary + Messaging + список связанных кампаний и поисков
+
+### Leads / Find Companies
+- Кнопка **"Use strategy"** в форме поиска
+- Найденные компании получают тег стратегии
+- Колонка Strategy в таблице Companies
+
+### Leads / Find Contacts
+- Кнопка **"Use strategy"** в форме поиска
+- Контакты получают тег стратегии
+- Колонка Strategy в таблице Contacts
+- Quick Filter: "By strategy" — показать только контакты конкретной стратегии
+
+### Campaigns / Create
+- Step 1: только Strategy (+ Product если несколько)
+- Step 2: default filter = контакты этой стратегии
+- Step 3: AI генерирует готовый сиквенс, не пустой редактор
+- Name автогенерируется
+
+### Settings / Audiences
+- Audiences остаются — они используются внутри Contact ICP стратегии
+- Не исчезают, но больше не нужно идти в Settings чтобы понять ICP — всё в стратегии
+
+### Insights / Strategy (текстовые страницы)
+- Остаются как база знаний (Needs Solutions And Roles и др.)
+- Но больше не являются операционным инструментом — это справочник
 
 ---
 
@@ -189,9 +276,18 @@ SDR не трогает редактор последовательности е
 
 | Вопрос | Решение |
 |---|---|
-| Кто создаёт | Account Strategist — он задаёт ICP и messaging |
-| Кто использует | Researcher выполняет поиск по ICP; SDR создаёт кампании |
-| Где живёт | Отдельный раздел в сайдбаре проекта (наравне с Leads, Campaigns) |
-| Привязка к продукту | 1 продукт → автоматически, без вопроса; 2+ продукта → выбор в начале создания |
-| Версионирование | TBD — обсудить до реализации |
-| Авто-генерация | TBD — AI предлагает Playbook на основе Insights данных |
+| Кто создаёт | Account Strategist |
+| Кто использует | Researcher (поиск) + SDR (кампании) |
+| Где живёт | Отдельный раздел в навигации проекта |
+| Привязка к продукту | 1 продукт → авто; 2+ → выбор при создании |
+| Теги на лидах | Да — компании и контакты тегируются стратегией |
+| Автогенерация имени кампании | Да — по конвенции из стратегии |
+
+## Открытые вопросы
+
+| Вопрос | Почему важно решить до разработки |
+|---|---|
+| Версионирование стратегии | Если стратегия меняется — влияет ли на активные кампании? |
+| Можно ли запустить кампанию без стратегии? | Нужен ли hard constraint или рекомендация? |
+| Что видит Researcher в форме — locked поля или editable? | Определяет насколько стратегия "ограничивает" vs "рекомендует" |
+| Auto-generate стратегии из Insights? | AI предлагает ICP и messaging на основе заполненных Product/Client страниц |
