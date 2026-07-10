@@ -378,3 +378,204 @@ Started: 14:23 · Est. completion: 17:45
 | 5.2 | Основной вид: список PipelineRun'ов с метриками |
 | 5.3 | Детальная страница запуска: воронка шагов (найдено / прошло фильтрацию / обогащено) |
 | 5.4 | Advanced mode: доступ к старым ручным операциям для power users |
+
+---
+
+## Пример флоу и UI
+
+### Сценарий
+
+**Клиент:** Iwoca (UK lending)
+**Стратегия:** "CFO UK Construction 11-50"
+**Цель:** найти ~1000 контактов для кампании
+
+Account Strategist (Ben) уже создал стратегию и настроил пайплайн:
+- Step 1: Find Companies (LinkedIn, UK, Construction, 11-50)
+- Step 2: Company AI Analysis (Criteria Group: "Construction ICP") → только Qualified
+- Step 3: Find Contacts (Audience: CFO / Finance Director, max 2 per company)
+- Step 4: Phone numbers + LinkedIn Activity Score
+- SDR лимит: max 300 компаний за запуск
+
+---
+
+### Запуск 1 — SDR Adam утром
+
+Adam открывает стратегию и видит:
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│  ← Strategies                                                        │
+│                                                                      │
+│  CFO UK Construction 11-50                             [Edit]  [⋯]  │
+│  Extra Leads  ·  Business Loan  ·  Active                            │
+│                                                                      │
+│  [Overview]  [Research Pipeline]  [Campaigns (0)]                    │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                      │
+│  Pipeline                                  0 contacts found so far   │
+│  ──────────────────────────────────────────────────────────────────  │
+│  Step 1  Find Companies        UK · Construction · 11-50             │
+│    ↓                                                                 │
+│  Step 2  AI Analysis           Criteria: "Construction ICP"          │
+│    ↓     [GATE] notify researcher                                    │
+│  Step 3  Find Contacts         CFO / Finance Director · max 2        │
+│    ↓                                                                 │
+│  Step 4  Enrichments           ✓ Phone  ✓ LinkedIn Score             │
+│                                                                      │
+│  Max per run: 300 companies                                          │
+│                                                                      │
+│  [▶ Run Pipeline]                                                    │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+Adam нажимает **Run Pipeline**. Появляется модальное окно:
+
+```
+┌──────────────────────────────────────────────────────┐
+│  Run Research Pipeline                               │
+│  ────────────────────────────────────────────────── │
+│  Strategy: CFO UK Construction 11-50                 │
+│                                                      │
+│  How many companies to find?                         │
+│  ┌────────┐                                          │
+│  │  300   │   max 300 per run                        │
+│  └────────┘                                          │
+│                                                      │
+│  Steps:                                              │
+│  ✓ Find Companies  ✓ AI Analysis  ✓ Find Contacts   │
+│  ✓ Phone numbers   ✓ LinkedIn Score                  │
+│                                                      │
+│  [Cancel]                      [▶ Start]             │
+└──────────────────────────────────────────────────────┘
+```
+
+---
+
+### Пайплайн запущен
+
+Страница стратегии переключается в режим прогресса:
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│  Research Pipeline  ·  Run #1  ·  Started Jun 10, 09:00             │
+│  ──────────────────────────────────────────────────────────────────  │
+│                                                                      │
+│  ✅  Step 1  Find Companies      300 / 300  ████████████  Done       │
+│                                                                      │
+│  ⏳  Step 2  AI Analysis          134 / 300  ██████░░░░░  Running    │
+│              Qualified so far: 89                                    │
+│                                                                      │
+│  ○   Step 3  Find Contacts        —           Waiting                │
+│  ○   Step 4  Enrichments          —           Waiting                │
+│                                                                      │
+│  ────────────────────────────────────────────────────────────────── │
+│  [GATE] После AI Analysis — Researcher получает уведомление          │
+│         и проверяет качество перед шагом Find Contacts               │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+**Через 2 часа:** Ben получает Slack + Email:
+> "Pipeline paused at Gate — AI Analysis complete. 187 of 300 companies Qualified. Review and approve to continue."
+
+Ben смотрит список компаний, всё хорошо → нажимает **Approve**. Step 3 и 4 запускаются автоматически.
+
+**Через 4 часа:** Adam получает Slack + Email:
+> "Pipeline complete — 312 contacts ready for campaign."
+
+---
+
+### Запуск 2 — "Find more"
+
+312 контактов добавлены в кампанию. Adam хочет ещё. Возвращается в стратегию:
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│  Research Pipeline                                                   │
+│  ──────────────────────────────────────────────────────────────────  │
+│                                                                      │
+│  ✅  Last run Jun 10  ·  300 companies  →  187 qualified  →  312 ✉  │
+│                                                                      │
+│  Total found: 300 companies · 312 contacts                           │
+│                                                                      │
+│  [▶ Run Pipeline]    [+ Find more companies]                         │
+│                                                                      │
+│  Pipeline History                                                    │
+│  ──────────────────────────────────────────────────────────────────  │
+│  Run #1  Jun 10, 09:00  300 companies → 187 qualified → 312 contacts │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+Adam нажимает **+ Find more companies**:
+
+```
+┌──────────────────────────────────────────────────────┐
+│  Find more companies                                 │
+│  ────────────────────────────────────────────────── │
+│  Strategy: CFO UK Construction 11-50                 │
+│                                                      │
+│  Already found:  300 companies · 312 contacts        │
+│  Remaining cap:  700 companies (max total: 1000)     │
+│                                                      │
+│  How many more?                                      │
+│  ┌────────┐                                          │
+│  │  300   │   max 300 per run                        │
+│  └────────┘                                          │
+│                                                      │
+│  ✓ Skip 300 companies already found                  │
+│  ✓ Full pipeline: Analysis → Contacts → Enrich       │
+│                                                      │
+│  [Cancel]                   [▶ Find more]            │
+└──────────────────────────────────────────────────────┘
+```
+
+Система ищет следующие 300 компаний, пропуская уже найденные. Проходит через все шаги. Результат добавляется к существующему пулу.
+
+---
+
+### После 4 запусков — итоговый вид
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│  Research Pipeline                                                   │
+│  ──────────────────────────────────────────────────────────────────  │
+│                                                                      │
+│  Total found: 1100 companies · 1 041 contacts                        │
+│              826 qualified by AI                                     │
+│                                                                      │
+│  [▶ Run Pipeline]    [+ Find more companies]                         │
+│  Max total: 1000 companies  ·  900 used  ·  100 remaining            │
+│                                                                      │
+│  Pipeline History                                                    │
+│  ──────────────────────────────────────────────────────────────────  │
+│  Run #4  Jun 13  300 → 201 qualified → 334 contacts  ✅              │
+│  Run #3  Jun 12  300 → 198 qualified → 331 contacts  ✅              │
+│  Run #2  Jun 11  200 → 240 qualified →  64 contacts  ⚠ Gate rejected │
+│  Run #1  Jun 10  300 → 187 qualified → 312 contacts  ✅              │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+Run #2 показывает `⚠ Gate rejected` — Ben посмотрел компании, качество не понравилось, отклонил. Contacts не искались, деньги не потрачены зря.
+
+---
+
+### Contacts в Leads — что видит SDR
+
+В таблице Leads → Contacts появляется колонка Strategy и Quick Filter:
+
+```
+Leads → Contacts
+
+[Sort] [Filter] [View] [Quick Filters ▾]          [Find contacts] [Import]
+
+Quick Filters: [All]  [CFO UK Construction 11-50 ▾]  [High LinkedIn Score]
+
+┌──────────────────┬───────────────────────────┬────────┬─────────────────────┐
+│ Full name        │ Email                     │ Status │ Strategy            │
+├──────────────────┼───────────────────────────┼────────┼─────────────────────┤
+│ Laura Cansfield  │ laura@scruffs.com         │ Valid  │ CFO UK Construction │
+│ John Wistow      │ john@clivegraham.com      │ Valid  │ CFO UK Construction │
+│ Mark Ballard     │ bev@walkerpritchard.com   │ Valid  │ CFO UK Construction │
+└──────────────────┴───────────────────────────┴────────┴─────────────────────┘
+```
+
+SDR переходит в Campaign → Create → выбирает стратегию → в Step 2 все эти контакты уже отфильтрованы по стратегии.
