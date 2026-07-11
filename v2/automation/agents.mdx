@@ -3,24 +3,9 @@ title: "AI Agents"
 description: "Реестр внутренних агентов: зоны ответственности, автономия и контроль качества"
 ---
 
-```text
-┌───────────────────────────────────────────────────────────────────────────┐
-│  AGENT: SDR Agent                                    Status: ● Active     │
-│  ──────────────────────────────────────────────────────────────────────  │
-│  Role equivalent: SDR        Autonomy: L3 (autonomous in limits)          │
-│  Model: <llm> · Prompt v14 [history]    Budget: $180/mo per project       │
-│                                                                           │
-│  CAN DO AUTONOMOUSLY          │  NEEDS APPROVAL         │  NEVER          │
-│  · classify replies           │  · reply to Interested  │  · pricing      │
-│  · reply: OOO, Not intrst,    │  · launch campaign      │    commitments  │
-│    Unsubscribe (conf ≥ 85%)   │  · book meeting         │  · legal topics │
-│  · schedule follow-ups        │  · new thread outreach  │  · DNC override │
-│                                                                           │
-│  QUALITY (30d)                                                            │
-│  Approve rate 87% ▲ · Undo rate 1.2% ▼ · Classification acc 96%          │
-│  Auto-rule: undo rate > 5% for 7d → downgrade to L2 + alert Ops          │
-└───────────────────────────────────────────────────────────────────────────┘
-```
+<Frame caption="AI Agents — матрица автономии, метрики качества и project overrides">
+  <img src="/v2/images/agents.png" alt="AI Agents — матрица автономии, метрики качества и project overrides" />
+</Frame>
 
 Внутренние AI-агенты — постоянные исполнители ролей. У каждого: роль-эквивалент (какие действия доступны), уровень автономии, промпт (версионируемый), бюджет и метрики качества. Управление — [Admin → System → Agents](/v2/admin/system#agents); per-project настройки — [Settings → Team](/v2/workspace/settings/team#ai-agents-on-this-project).
 

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="linear">
+<head>
+<meta charset="UTF-8"><title>Settings · Channels</title>
+<link rel="stylesheet" href="ui-kit.css">
+<style>
+  .layout{flex:1;display:flex;flex-direction:column;background:var(--bg);min-width:0}
+  .tabs { display:flex; gap:2px; }
+  .tab { padding:6px 11px; font-size:12.5px; color:var(--text-2); border-radius:var(--radius-s); cursor:pointer; }
+  .tab.on { background:var(--accent-bg); color:var(--text-1); font-weight:600; }
+</style>
+</head>
+<body>
+<div id="app"><div class="layout">
+  <div class="page">
+    <div class="page-head">
+      <h1>Settings · Channels</h1>
+      <div class="tabs"><div class="tab on">Mailboxes · 3</div><div class="tab">LinkedIn · 2</div><div class="tab">Calendars · 1</div><div class="tab">Slack</div></div>
+      <div class="right"><button class="btn primary">＋ Add mailbox</button></div>
+    </div>
+
+    <div class="panel">
+      <table class="tbl">
+        <tr><th>Email</th><th>Provider</th><th>Health</th><th>Usage today</th><th>Warmup</th><th>Added</th><th></th></tr>
+        <tr>
+          <td style="font-weight:600">adam@iwocateam.com <div style="color:var(--text-3);font-weight:400;font-size:11.5px">Adam Reed</div></td>
+          <td style="color:var(--text-2)">Gmail</td>
+          <td><span class="health"><span class="dot ok"></span>92</span></td>
+          <td><div style="display:flex;align-items:center;gap:8px"><div class="bar warn" style="width:90px"><i style="width:90%"></i></div><span style="font-size:11.5px;color:var(--text-2)">18 / 20</span></div></td>
+          <td><span class="badge plain"><span class="dot ok"></span>done</span></td>
+          <td style="color:var(--text-3)">Nov 2025</td>
+          <td><button class="btn ghost">⋯</button></td>
+        </tr>
+        <tr>
+          <td style="font-weight:600">kate@iwocateam.com <div style="color:var(--text-3);font-weight:400;font-size:11.5px">Kate Miller</div></td>
+          <td style="color:var(--text-2)">Outlook</td>
+          <td><span class="health"><span class="dot ok"></span>88</span></td>
+          <td><div style="display:flex;align-items:center;gap:8px"><div class="bar" style="width:90px"><i style="width:60%"></i></div><span style="font-size:11.5px;color:var(--text-2)">12 / 20</span></div></td>
+          <td><span class="badge plain"><span class="dot ok"></span>done</span></td>
+          <td style="color:var(--text-3)">Nov 2025</td>
+          <td><button class="btn ghost">⋯</button></td>
+        </tr>
+        <tr>
+          <td style="font-weight:600">new@iwocasales.com <div style="color:var(--text-3);font-weight:400;font-size:11.5px">Adam Reed</div></td>
+          <td style="color:var(--text-2)">Gmail</td>
+          <td><span class="health"><span class="dot warn"></span>61</span></td>
+          <td><div style="display:flex;align-items:center;gap:8px"><div class="bar" style="width:90px"><i style="width:40%"></i></div><span style="font-size:11.5px;color:var(--text-2)">4 / 10</span></div></td>
+          <td><span class="badge plain"><span class="dot accent"></span>week 2 of 4</span></td>
+          <td style="color:var(--text-3)">Jul 1</td>
+          <td><button class="btn ghost">⋯</button></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="grid cols-2">
+      <div class="panel">
+        <div class="panel-head">Health = deliverability score</div>
+        <div class="row"><div class="grow s">Bounce rate · spam reports</div><span class="end" style="color:var(--text-1)">live from Inbox</span></div>
+        <div class="row"><div class="grow s">Blacklist checks</div><span class="end" style="color:var(--text-1)">daily · 0 hits</span></div>
+        <div class="row"><div class="grow s">Warmup progress · domain age</div><span class="end" style="color:var(--text-1)">auto schedule</span></div>
+        <div class="row"><span class="dot danger"></span><div class="grow s">Health below 50 → auto-pause in all campaigns + EDS alert</div></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">Slack notifications <span class="hint">· #iwoca-delivery</span><span class="right"><span class="dot ok"></span> connected</span></div>
+        <div class="row"><div class="grow s">Meeting booked / cancelled / no-show</div><span class="badge plain"><span class="dot ok"></span>on</span></div>
+        <div class="row"><div class="grow s">Pipeline gate / completed / failed</div><span class="badge plain"><span class="dot ok"></span>on</span></div>
+        <div class="row"><div class="grow s">Campaign paused — limits or health</div><span class="badge plain"><span class="dot ok"></span>on</span></div>
+        <div class="row"><div class="grow s">Client message in Portal</div><span class="badge plain"><span class="dot ok"></span>on</span></div>
+        <div class="row"><div class="grow s">Invoice overdue</div><span class="badge plain"><span class="dot muted"></span>off · finance channel</span></div>
+      </div>
+    </div>
+  </div>
+</div></div>
+<script>window.SHELL={area:'workspace',active:'settings',context:'Iwoca',crumbs:'Workspace / Settings / <b>Channels</b>',user:'JS'}</script>
+<script src="shell.js"></script>
+</body>
+</html>

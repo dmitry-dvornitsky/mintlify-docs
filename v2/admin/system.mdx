@@ -3,27 +3,9 @@ title: "System"
 description: "Роли и права, реестр действий, агенты, интеграции и Audit Log"
 ---
 
-```text
-┌───────────────────────────────────────────────────────────────────────────┐
-│  SYSTEM     [Permissions] [Action Registry] [Agents] [Integrations]       │
-│             [Automation Monitor] [Audit Log]                              │
-├───────────────────────────────────────────────────────────────────────────┤
-│  ACTION REGISTRY ────────────────────────── source of truth ──────────── │
-│  ┌──────────────────────┬──────────────────┬─────────┬────────────────┐  │
-│  │ Action               │ Roles            │ Gate    │ Limits         │  │
-│  ├──────────────────────┼──────────────────┼─────────┼────────────────┤  │
-│  │ pipeline.run         │ SDR,LR,AS,agent  │ if agent│ max_per_run    │  │
-│  │ campaign.launch      │ SDR,AS,agent     │ if agent│ mailbox limits │  │
-│  │ inbox.send_reply     │ SDR,AS,agent     │ by type │ autopilot conf │  │
-│  │ finance.send_to_wave │ Finance,C,agent  │ always  │ —              │  │
-│  └──────────────────────┴──────────────────┴─────────┴────────────────┘  │
-│                                                                           │
-│  AUDIT LOG ─────────────────────────────────────────────────────────────  │
-│  10:42 ✦ SDR Agent    inbox.send_reply     thread#4412  auto (conf 91%)  │
-│  10:38 👤 Ben (AS)    pipeline.approve_gate run#4       approved          │
-│  10:15 👤 Maria (AD)  kpi.update_goal      Iwoca July   18 → 20          │
-└───────────────────────────────────────────────────────────────────────────┘
-```
+<Frame caption="Admin · System — Action Registry, Audit Log и Automation Monitor">
+  <img src="/v2/images/admin-system.png" alt="Admin · System — Action Registry, Audit Log и Automation Monitor" />
+</Frame>
 
 System — системный уровень платформы: кто и что может делать, какие агенты существуют, что подключено и полный след всех действий. Права: Operations, C-level.
 

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="linear">
+<head>
+<meta charset="UTF-8"><title>Meetings</title>
+<link rel="stylesheet" href="ui-kit.css">
+<style>.layout{flex:1;display:flex;flex-direction:column;background:var(--bg);min-width:0}</style>
+</head>
+<body>
+<div id="app"><div class="layout">
+  <div class="page">
+    <div class="page-head">
+      <h1>Meetings</h1><span class="sub">July: 14 booked · 9 completed · KPI 14/20</span>
+      <div class="right">
+        <div class="chips"><div class="chip on">All</div><div class="chip">This week</div><div class="chip">Scheduled</div><div class="chip">Needs QA · 2</div></div>
+        <button class="btn primary">Book meeting</button>
+      </div>
+    </div>
+
+    <div class="grid cols-4">
+      <div class="panel metric"><div class="lbl">Completed · July</div><div class="num">9</div><div class="sub">counted in KPI</div></div>
+      <div class="panel metric"><div class="lbl">Scheduled ahead</div><div class="num">5</div><div class="sub">next — today 11:30</div></div>
+      <div class="panel metric"><div class="lbl">No-show rate</div><div class="num">7%</div><div class="sub"><span class="up">▼ 3 п.п.</span> after reminders</div></div>
+      <div class="panel metric"><div class="lbl">Avg ICP fit</div><div class="num">4.2</div><div class="sub">client QA · 8 rated</div></div>
+    </div>
+
+    <div class="panel">
+      <table class="tbl">
+        <tr><th>Date</th><th>Company</th><th>Contact</th><th>Channel</th><th>Status</th><th>Client confirm</th><th>QA</th><th></th></tr>
+        <tr>
+          <td style="font-weight:600">Today 11:30</td><td>Scruffs Ltd</td><td>Laura Cansfield · CFO</td><td style="color:var(--text-2)">Email</td>
+          <td><span class="badge plain"><span class="dot accent"></span>Scheduled</span></td>
+          <td><span class="badge plain"><span class="dot ok"></span>Confirmed</span></td>
+          <td style="color:var(--text-3)">—</td>
+          <td><button class="btn">Join</button></td>
+        </tr>
+        <tr>
+          <td style="font-weight:600">Jul 17 14:00</td><td>BuildRight UK</td><td>Alan Mercer · FD</td><td style="color:var(--text-2)">LinkedIn</td>
+          <td><span class="badge plain"><span class="dot accent"></span>Scheduled</span></td>
+          <td><span class="badge plain"><span class="dot warn"></span>Waiting</span></td>
+          <td style="color:var(--text-3)">—</td>
+          <td><button class="btn ghost">Reschedule</button></td>
+        </tr>
+        <tr>
+          <td style="font-weight:600">Jul 12 15:00</td><td>Clive Graham Group</td><td>John Wistow · FD</td><td style="color:var(--text-2)">Email</td>
+          <td><span class="badge plain"><span class="dot ok"></span>Completed</span></td>
+          <td><span class="badge plain"><span class="dot ok"></span>Confirmed</span></td>
+          <td><span class="health"><span class="dot ok"></span>4.5 · ICP 5</span></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td style="font-weight:600">Jul 11 10:00</td><td>Nexa Interiors</td><td>Emma Hartley · CFO</td><td style="color:var(--text-2)">Email</td>
+          <td><span class="badge plain"><span class="dot ok"></span>Completed</span></td>
+          <td><span class="badge plain"><span class="dot ok"></span>Confirmed</span></td>
+          <td><button class="btn">Rate now</button></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td style="font-weight:600">Jul 10 16:00</td><td>Walker &amp; Pritchard</td><td>Mark Ballard · CFO</td><td style="color:var(--text-2)">Email</td>
+          <td><span class="badge plain"><span class="dot danger"></span>No show</span></td>
+          <td><span class="badge plain"><span class="dot muted"></span>—</span></td>
+          <td style="color:var(--text-3)">—</td>
+          <td><span class="badge ai">✦ reschedule email sent</span></td>
+        </tr>
+        <tr>
+          <td style="font-weight:600">Jul 8 13:30</td><td>Kite Logistics</td><td>Dan Foster · COO</td><td style="color:var(--text-2)">Call</td>
+          <td><span class="badge plain"><span class="dot muted"></span>Cancelled</span></td>
+          <td><span class="badge plain"><span class="dot muted"></span>—</span></td>
+          <td style="color:var(--text-3)">—</td>
+          <td><span style="color:var(--text-3);font-size:11.5px">contact returned to campaign</span></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="panel ai-block">
+      <div class="panel-head"><span class="ai-label">✦ Weekly review · Friday</span><span class="right">auto-prepared for client call</span></div>
+      <div class="panel-body" style="font-size:12.5px;line-height:1.6;color:var(--text-2)">
+        Сводка готова: 3 встречи на неделе (2 Completed, 1 No show → перенос предложен), статусы подтверждены клиентом в Portal, расхождений нет. Средний ICP fit 4.2 — сегмент попадает в цель.
+      </div>
+    </div>
+  </div>
+</div></div>
+<script>window.SHELL={area:'workspace',active:'meetings',context:'Iwoca',crumbs:'Workspace / <b>Meetings</b>',user:'AR'}</script>
+<script src="shell.js"></script>
+</body>
+</html>

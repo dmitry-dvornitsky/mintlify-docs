@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="linear">
+<head>
+<meta charset="UTF-8"><title>Settings · Targeting</title>
+<link rel="stylesheet" href="ui-kit.css">
+<style>
+  .layout{flex:1;display:flex;flex-direction:column;background:var(--bg);min-width:0}
+  .tabs { display:flex; gap:2px; }
+  .tab { padding:6px 11px; font-size:12.5px; color:var(--text-2); border-radius:var(--radius-s); cursor:pointer; }
+  .tab.on { background:var(--accent-bg); color:var(--text-1); font-weight:600; }
+  .crit { display:flex; gap:10px; align-items:flex-start; padding:9px 16px; border-bottom:1px solid var(--border); font-size:12.5px; }
+  .crit:last-child{border-bottom:none}
+  .crit .mark { font-weight:700; width:16px; text-align:center; flex-shrink:0; }
+  .cols { display:grid; grid-template-columns:1.35fr 1fr; gap:14px; }
+</style>
+</head>
+<body>
+<div id="app"><div class="layout">
+  <div class="page">
+    <div class="page-head">
+      <h1>Settings · Targeting</h1>
+      <div class="tabs"><div class="tab">Audiences · 4</div><div class="tab on">Qualification · 2</div><div class="tab">Custom columns · 5</div><div class="tab">Do Not Contact</div><div class="tab">Lists · 3</div></div>
+      <div class="right"><button class="btn primary">＋ New criteria set</button></div>
+    </div>
+
+    <div class="cols">
+      <div class="panel">
+        <div class="panel-head">Criteria set: “Construction ICP v2”
+          <span class="right"><button class="btn"><span class="ai-label" style="font-size:11.5px">✦ Suggest criteria</span></button></span>
+        </div>
+        <div style="padding:10px 16px 4px;font-size:11px;letter-spacing:.06em;color:var(--text-3);font-weight:600">SHOULD · 2 / 3</div>
+        <div class="crit"><span class="mark" style="color:var(--ok)">✓</span><div>Company operates in construction, building trades or related contracting — visible from services, projects or case studies on the website</div></div>
+        <div class="crit"><span class="mark" style="color:var(--ok)">✓</span><div>Works with commercial clients (B2B) — not exclusively residential / consumer projects</div></div>
+        <div style="padding:12px 16px 4px;font-size:11px;letter-spacing:.06em;color:var(--text-3);font-weight:600">SHOULD NOT · 1 / 3</div>
+        <div class="crit"><span class="mark" style="color:var(--danger)">✕</span><div>Franchise or part of a large holding — parent company likely controls financing decisions</div></div>
+        <div class="row" style="border-top:1px solid var(--border)">
+          <button class="btn ghost">＋ Add criterion</button>
+          <span class="end">used by Strategy “CFO UK Construction” · 1,100 companies analyzed</span>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="panel">
+          <div class="panel-head">Accuracy feedback <span class="hint">· from Gates</span></div>
+          <div class="metric" style="padding-bottom:6px">
+            <div class="lbl">Gate-approved results</div>
+            <div class="num">91%</div>
+            <div style="margin:7px 0 4px" class="bar ok"><i style="width:91%"></i></div>
+            <div class="sub">по 4 последним запускам · критерии работают</div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">Audiences <span class="right"><a href="#">all →</a></span></div>
+          <div class="row"><div class="grow"><div class="t">Finance leaders — SMB</div><div class="s">CFO, Finance Director, VP Finance · excl. Assistant, Junior…</div></div><span class="end">2 strategies</span></div>
+          <div class="row"><div class="grow"><div class="t">C-Level Executives</div><div class="s">CEO, COO, MD · max headcount 200</div></div><span class="end">1 strategy</span></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">Do Not Contact <span class="hint">· auto-filled</span></div>
+          <div class="row"><div class="grow s">Companies (domains)</div><span class="end" style="color:var(--text-1);font-weight:600">214</span></div>
+          <div class="row"><div class="grow s">Contacts (emails)</div><span class="end" style="color:var(--text-1);font-weight:600">1,872</span></div>
+          <div class="row"><span class="dot ai"></span><div class="grow s">31 added this month by Autopilot — reply type DNC / Unsubscribe</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></div>
+<script>window.SHELL={area:'workspace',active:'settings',context:'Iwoca',crumbs:'Workspace / Settings / <b>Targeting</b>',user:'KM'}</script>
+<script src="shell.js"></script>
+</body>
+</html>

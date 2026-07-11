@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="linear">
+<head>
+<meta charset="UTF-8"><title>Settings</title>
+<link rel="stylesheet" href="ui-kit.css">
+<style>
+  .layout{flex:1;display:flex;flex-direction:column;background:var(--bg);min-width:0}
+  .scard { padding:16px; display:flex; flex-direction:column; gap:4px; cursor:pointer; }
+  .scard b { font-size:13px; }
+  .scard .d { color:var(--text-3); font-size:12px; line-height:1.5; }
+  .scard .items { color:var(--text-2); font-size:11.5px; margin-top:6px; }
+</style>
+</head>
+<body>
+<div id="app"><div class="layout">
+  <div class="page">
+    <div class="page-head"><h1>Settings</h1><span class="sub">Iwoca project</span></div>
+
+    <div class="grid cols-3">
+      <div class="panel scard">
+        <b>Client</b>
+        <div class="d">Кто клиент, что продаёт, план и деньги</div>
+        <div class="items">General · Products · KPI · Billing · Costs</div>
+      </div>
+      <div class="panel scard">
+        <b>Team</b>
+        <div class="d">Сотрудники, AI-агенты и клиентский доступ</div>
+        <div class="items">6 staff · 2 agents · 2 client users</div>
+      </div>
+      <div class="panel scard">
+        <b>Channels</b>
+        <div class="d">Каналы коммуникации проекта</div>
+        <div class="items">3 mailboxes · 2 LinkedIn · 1 calendar · Slack ✓</div>
+      </div>
+      <div class="panel scard">
+        <b>Targeting</b>
+        <div class="d">Справочники поиска и квалификации</div>
+        <div class="items">Audiences · Qualification · Columns · DNC · Lists</div>
+      </div>
+      <div class="panel scard">
+        <b>Automation</b>
+        <div class="d">Что AI делает без человека в этом проекте</div>
+        <div class="items">Autopilot rules · Gates &amp; limits · Notifications · Templates · Labels</div>
+      </div>
+      <div class="panel scard">
+        <b>Audit log</b>
+        <div class="d">Все действия людей и агентов по проекту</div>
+        <div class="items">1,204 records · 30 days</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">Automation — quick view <span class="right"><a href="#">configure</a></span></div>
+      <div class="row"><span class="dot ai"></span><div class="grow"><div class="t">Autopilot</div><div class="s">handles OOO · Not interested · Unsubscribe — confidence ≥ 85%</div></div><span class="badge plain"><span class="dot ok"></span>On</span></div>
+      <div class="row"><span class="dot accent"></span><div class="grow"><div class="t">Gates</div><div class="s">sequence launch · agent replies to Interested · invoices</div></div><span class="badge plain">3 required</span></div>
+      <div class="row"><span class="dot muted"></span><div class="grow"><div class="t">Notifications</div><div class="s">#iwoca-delivery — meetings, gates, pipeline events</div></div><span class="badge plain"><span class="dot ok"></span>Slack connected</span></div>
+    </div>
+  </div>
+</div></div>
+<script>window.SHELL={area:'workspace',active:'settings',context:'Iwoca',crumbs:'Workspace / <b>Settings</b>',user:'AR'}</script>
+<script src="shell.js"></script>
+</body>
+</html>

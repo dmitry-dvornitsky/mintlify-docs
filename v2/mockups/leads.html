@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="linear">
+<head>
+<meta charset="UTF-8"><title>Leads</title>
+<link rel="stylesheet" href="ui-kit.css">
+<style>
+  .layout { flex:1; display:flex; flex-direction:column; background:var(--bg); min-width:0; }
+  .tabs { display:flex; gap:2px; }
+  .tab { padding:6px 11px; font-size:12.5px; color:var(--text-2); border-radius:var(--radius-s); cursor:pointer; }
+  .tab.on { background:var(--accent-bg); color:var(--text-1); font-weight:600; }
+  .banner { display:flex; align-items:center; gap:10px; background:var(--accent-bg);
+    border:1px solid var(--border); border-radius:var(--radius); padding:9px 14px; font-size:12.5px; }
+  .bulk { position:absolute; left:50%; transform:translateX(-50%); bottom:18px;
+    background:var(--text-1); color:var(--surface); border-radius:10px; padding:9px 14px;
+    display:flex; gap:14px; align-items:center; font-size:12.5px; box-shadow:0 8px 24px rgba(0,0,0,.18); }
+  .bulk .b { cursor:pointer; opacity:.85; } .bulk .b:hover{opacity:1}
+</style>
+</head>
+<body>
+<div id="app"><div class="layout" style="position:relative">
+  <div class="page">
+    <div class="page-head">
+      <h1>Leads</h1>
+      <div class="tabs"><div class="tab">Companies · 1,100</div><div class="tab on">Contacts · 1,041</div></div>
+      <div class="right"><button class="btn">Import ▾</button><button class="btn">Advanced search</button></div>
+    </div>
+
+    <div class="banner">
+      <span class="dot accent"></span>
+      <b>Pipeline running:</b> CFO UK Construction — step 3 of 4 · 213 / 300 companies
+      <div class="bar" style="width:160px;margin-left:6px"><i style="width:71%"></i></div>
+      <a href="#" style="margin-left:auto;font-size:12px">View pipeline →</a>
+    </div>
+
+    <div style="display:flex;gap:6px;align-items:center">
+      <div class="chips">
+        <div class="chip">Sort</div><div class="chip">Filter</div><div class="chip">View</div>
+      </div>
+      <span style="color:var(--border-2)">|</span>
+      <div class="chips">
+        <div class="chip on">Strategy: CFO UK ✕</div><div class="chip">High LI Score</div><div class="chip">Email Valid</div><div class="chip">Not in campaign</div>
+      </div>
+      <span style="margin-left:auto;color:var(--text-3);font-size:12px">412 of 1,041 contacts</span>
+    </div>
+
+    <div class="panel">
+      <table class="tbl">
+        <tr><th style="width:30px"><input type="checkbox" checked></th><th>Full name</th><th>Job title</th><th>Company</th><th>Email</th><th>Status</th><th>LI Score</th><th>Job signal</th><th>Strategy</th></tr>
+        <tr style="background:var(--accent-bg)">
+          <td><input type="checkbox" checked></td>
+          <td style="font-weight:600">Laura Cansfield</td><td>CFO</td><td>Scruffs Ltd</td>
+          <td style="color:var(--text-2)">laura@scruffs.com</td>
+          <td><span class="badge plain"><span class="dot ok"></span>Valid</span></td>
+          <td><span class="health"><span class="dot ok"></span>84</span></td>
+          <td><span class="badge plain"><span class="dot ok"></span>New in role</span></td>
+          <td style="color:var(--text-2)">CFO UK Construction</td>
+        </tr>
+        <tr style="background:var(--accent-bg)">
+          <td><input type="checkbox" checked></td>
+          <td style="font-weight:600">John Wistow</td><td>Finance Director</td><td>Clive Graham Group</td>
+          <td style="color:var(--text-2)">john@clivegraham.com</td>
+          <td><span class="badge plain"><span class="dot ok"></span>Valid</span></td>
+          <td><span class="health"><span class="dot ok"></span>71</span></td>
+          <td><span class="badge plain"><span class="dot warn"></span>Recently joined</span></td>
+          <td style="color:var(--text-2)">CFO UK Construction</td>
+        </tr>
+        <tr style="background:var(--accent-bg)">
+          <td><input type="checkbox" checked></td>
+          <td style="font-weight:600">Mark Ballard</td><td>CFO</td><td>Walker &amp; Pritchard</td>
+          <td style="color:var(--text-2)">m.ballard@walkerpritchard.com</td>
+          <td><span class="badge plain"><span class="dot warn"></span>Catch all</span></td>
+          <td><span class="health"><span class="dot warn"></span>22</span></td>
+          <td style="color:var(--text-3)">—</td>
+          <td style="color:var(--text-2)">CFO UK Construction</td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td style="font-weight:600">Sarah Pemberton</td><td>Managing Director</td><td>BuildRight UK</td>
+          <td style="color:var(--text-2)">s.pemberton@buildright.co.uk</td>
+          <td><span class="badge plain"><span class="dot ok"></span>Valid</span></td>
+          <td><span class="health"><span class="dot ok"></span>67</span></td>
+          <td style="color:var(--text-3)">—</td>
+          <td style="color:var(--text-2)">CFO UK Construction</td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td style="font-weight:600">Alan Mercer</td><td>Finance Director</td><td>BuildRight UK</td>
+          <td style="color:var(--text-2)">a.mercer@buildright.co.uk</td>
+          <td><span class="badge plain"><span class="dot muted"></span>Processing</span></td>
+          <td><span class="health"><span class="dot muted"></span>—</span></td>
+          <td style="color:var(--text-3)">—</td>
+          <td style="color:var(--text-2)">CFO UK Construction</td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td style="font-weight:600">Emma Hartley</td><td>CFO</td><td>Nexa Interiors</td>
+          <td style="color:var(--text-2)">emma@nexainteriors.com</td>
+          <td><span class="badge plain"><span class="dot ok"></span>Valid</span></td>
+          <td><span class="health"><span class="dot ok"></span>78</span></td>
+          <td><span class="badge plain"><span class="dot ok"></span>New in role</span></td>
+          <td style="color:var(--text-2)">CFO UK Construction</td>
+        </tr>
+      </table>
+      <div class="row" style="border-top:1px solid var(--border);color:var(--text-3);font-size:11.5px">
+        <span>1,041 contacts</span><span class="end">Rows: 50 · Page 1 of 21 · ‹ ›</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bulk">
+    <b>3 selected</b>
+    <span class="b">Add to campaign</span><span class="b">Enrich ▾</span><span class="b">Add to list</span><span class="b">DNC</span><span class="b" style="opacity:.5">✕</span>
+  </div>
+</div></div>
+<script>window.SHELL={area:'workspace',active:'leads',context:'Iwoca',crumbs:'Workspace / <b>Leads</b>',user:'AR'}</script>
+<script src="shell.js"></script>
+</body>
+</html>

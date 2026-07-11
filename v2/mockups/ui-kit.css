@@ -79,7 +79,7 @@
 body {
   background:var(--bg); color:var(--text-1);
   font-size:13px; line-height:1.45;
-  width:1600px; height:1000px; overflow:hidden;
+  width:100vw; height:100vh; overflow:hidden;
   display:flex; flex-direction:column;
   -webkit-font-smoothing:antialiased;
 }

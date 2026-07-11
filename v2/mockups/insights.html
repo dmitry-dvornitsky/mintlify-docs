@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="linear">
+<head>
+<meta charset="UTF-8"><title>Insights</title>
+<link rel="stylesheet" href="ui-kit.css">
+<style>
+  .layout{flex:1;display:flex;min-width:0}
+  .tree { width:230px; background:var(--surface); border-right:1px solid var(--border); padding:16px 10px; flex-shrink:0; }
+  .tree h2 { font-size:13px; font-weight:600; padding:0 8px 10px; }
+  .titem { display:flex; align-items:center; gap:8px; padding:5.5px 9px; border-radius:var(--radius-s);
+    color:var(--text-2); font-size:12.5px; cursor:pointer; }
+  .titem.on { background:var(--accent-bg); color:var(--text-1); font-weight:550; }
+  .titem .st { margin-left:auto; }
+  .tgroup { font-size:10px; letter-spacing:.07em; text-transform:uppercase; color:var(--text-3);
+    font-weight:600; padding:12px 9px 4px; }
+  .doc { flex:1; display:flex; flex-direction:column; background:var(--bg); min-width:0; }
+  .doc-head { background:var(--surface); border-bottom:1px solid var(--border); padding:13px 26px;
+    display:flex; align-items:center; gap:10px; }
+  .doc-body { flex:1; overflow:hidden; padding:26px 40px; max-width:760px; }
+  .doc-body h1 { font-size:20px; font-weight:650; margin-bottom:4px; }
+  .doc-body .src { color:var(--text-3); font-size:11.5px; margin-bottom:18px; }
+  .doc-body h3 { font-size:14px; font-weight:600; margin:16px 0 6px; }
+  .doc-body p { font-size:13px; line-height:1.7; color:var(--text-2); margin-bottom:8px; }
+  .diffbar { display:flex; gap:10px; align-items:center; background:var(--ai-bg);
+    border:1px solid var(--border); border-radius:var(--radius); padding:10px 14px; margin-bottom:20px; font-size:12.5px; }
+  .aichat { width:300px; background:var(--surface); border-left:1px solid var(--border);
+    padding:16px; flex-shrink:0; display:flex; flex-direction:column; }
+  .aichat .msgs { flex:1; display:flex; flex-direction:column; gap:10px; }
+  .bubble { border:1px solid var(--border); border-radius:10px; padding:9px 12px; font-size:12px;
+    line-height:1.55; color:var(--text-2); }
+  .bubble.me { background:var(--accent-bg); border-color:transparent; color:var(--text-1); align-self:flex-end; }
+  .aichat .input { border:1px solid var(--border-2); border-radius:var(--radius); padding:9px 12px;
+    color:var(--text-3); font-size:12px; margin-top:12px; }
+</style>
+</head>
+<body>
+<div id="app"><div class="layout">
+
+  <div class="tree">
+    <h2>Insights</h2>
+    <div class="titem" style="font-weight:600;color:var(--text-1)">📌 ICP — Ideal Customer Profile<span class="st"><span class="dot ok"></span></span></div>
+    <div class="tgroup">Client</div>
+    <div class="titem">Overview<span class="st"><span class="dot ok"></span></span></div>
+    <div class="titem">Expectations<span class="st"><span class="dot ok"></span></span></div>
+    <div class="titem">Acquisition Channels<span class="st"><span class="dot muted"></span></span></div>
+    <div class="tgroup">Products · Business Loan</div>
+    <div class="titem">Overview<span class="st"><span class="dot ok"></span></span></div>
+    <div class="titem">Pricing<span class="st"><span class="dot ok"></span></span></div>
+    <div class="titem on">Objections<span class="st"><span class="dot ai"></span></span></div>
+    <div class="titem">Competitor Comparison<span class="st"><span class="dot muted"></span></span></div>
+    <div class="tgroup">Files</div>
+    <div class="titem">Transcripts · 6</div>
+    <div class="titem">Decks · 2</div>
+    <div class="titem">Docs · 4</div>
+  </div>
+
+  <div class="doc">
+    <div class="doc-head">
+      <span class="badge ai">✦ Draft (AI)</span>
+      <span style="color:var(--text-3);font-size:12px">updated Jul 14 by Strategist Agent · awaiting approval</span>
+      <div style="margin-left:auto;display:flex;gap:7px">
+        <button class="btn">History</button><button class="btn">Edit</button><button class="btn primary">Approve</button>
+      </div>
+    </div>
+    <div class="doc-body">
+      <h1>Objections — Business Loan</h1>
+      <div class="src">Source: kickoff-call-transcript.pdf · client-call-jul-12.mp3</div>
+
+      <div class="diffbar">
+        <span class="ai-label">✦</span> Agent добавил 2 возражения из звонка 12 июля — просмотрите изменения перед утверждением.
+        <a href="#" style="margin-left:auto">Show diff</a>
+      </div>
+
+      <h3>“Rates are too high”</h3>
+      <p>For firms under 50 employees the effective rate is offset by speed — funds within 24 hours versus 3 weeks at banks. Pay interest only on days the funds are used.</p>
+
+      <h3>“We already have a bank overdraft”</h3>
+      <p>Overdrafts get withdrawn at the worst moment; iwoca line is committed for the term. Position as a complement, not a replacement.</p>
+
+      <h3 style="background:var(--ai-bg);border-radius:4px;padding:2px 6px;margin-left:-6px">“Personal guarantee concerns” <span class="badge ai" style="margin-left:4px">✦ new</span></h3>
+      <p style="background:var(--ai-bg);border-radius:4px;padding:4px 6px;margin-left:-6px">Guarantee is capped and released after 12 months of clean repayment history. Mention only if asked directly — do not raise proactively.</p>
+    </div>
+  </div>
+
+  <div class="aichat">
+    <span class="ai-label" style="margin-bottom:10px">✦ AI chat</span>
+    <div class="msgs">
+      <div class="bubble me">Добавь возражение про personal guarantee из последнего звонка</div>
+      <div class="bubble">Добавил раздел “Personal guarantee concerns” из транскрипта client-call-jul-12: гарантия ограничена и снимается после 12 месяцев. Пометил как Draft (AI) — нужно ваше утверждение.</div>
+    </div>
+    <div class="input">Ask AI to update this page…</div>
+  </div>
+
+</div></div>
+<script>window.SHELL={area:'workspace',active:'insights',context:'Iwoca',crumbs:'Workspace / <b>Insights</b>',user:'BC'}</script>
+<script src="shell.js"></script>
+</body>
+</html>

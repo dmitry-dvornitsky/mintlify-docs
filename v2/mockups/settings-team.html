@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="linear">
+<head>
+<meta charset="UTF-8"><title>Settings · Team</title>
+<link rel="stylesheet" href="ui-kit.css">
+<style>.layout{flex:1;display:flex;flex-direction:column;background:var(--bg);min-width:0}</style>
+</head>
+<body>
+<div id="app"><div class="layout">
+  <div class="page">
+    <div class="page-head">
+      <h1>Settings · Team</h1><span class="sub">6 staff · 2 agents · 2 client users</span>
+      <div class="right"><div class="chips"><div class="chip on">All roles</div><div class="chip">SDR</div><div class="chip">AS</div></div><button class="btn">Invite</button><button class="btn primary">＋ Add member</button></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">Belkins staff</div>
+      <table class="tbl">
+        <tr><th>Name</th><th>Role</th><th>Email</th><th>Status</th><th>Workload</th><th></th></tr>
+        <tr><td style="font-weight:600"><span class="ini" style="display:inline-flex;margin-right:8px">BC</span>Ben Carter</td><td>Account Strategist</td><td style="color:var(--text-2)">ben@belkins.io</td><td><span class="badge plain"><span class="dot ok"></span>Active</span></td><td>4 projects</td><td><button class="btn ghost">⋯</button></td></tr>
+        <tr><td style="font-weight:600"><span class="ini" style="display:inline-flex;margin-right:8px">AR</span>Adam Reed</td><td>SDR</td><td style="color:var(--text-2)">adam@belkins.io</td><td><span class="badge plain"><span class="dot ok"></span>Active</span></td><td><span class="health"><span class="dot warn"></span>6 projects</span></td><td><button class="btn ghost">⋯</button></td></tr>
+        <tr><td style="font-weight:600"><span class="ini" style="display:inline-flex;margin-right:8px">KM</span>Kate Miller</td><td>Lead Researcher</td><td style="color:var(--text-2)">kate@belkins.io</td><td><span class="badge plain"><span class="dot ok"></span>Active</span></td><td>3 projects</td><td><button class="btn ghost">⋯</button></td></tr>
+        <tr><td style="font-weight:600"><span class="ini" style="display:inline-flex;margin-right:8px">MD</span>Maria Diaz</td><td>Account Director</td><td style="color:var(--text-2)">maria@belkins.io</td><td><span class="badge plain"><span class="dot ok"></span>Active</span></td><td>8 clients</td><td><button class="btn ghost">⋯</button></td></tr>
+        <tr><td style="font-weight:600"><span class="ini" style="display:inline-flex;margin-right:8px">JS</span>John Smith</td><td>EDS</td><td style="color:var(--text-2)">john.s@belkins.io</td><td><span class="badge plain"><span class="dot warn"></span>Pending · invited Jul 9</span></td><td>—</td><td><button class="btn">Resend</button></td></tr>
+      </table>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head"><span class="ai-label">✦ AI agents on this project</span><span class="right">global registry: Admin → System → Agents</span></div>
+      <div class="row"><span class="dot ai"></span><div class="grow"><div class="t">SDR Agent</div><div class="s">L3 autonomous in limits · handles OOO / Not interested / Unsubscribe · drafts the rest</div></div><span class="badge plain"><span class="dot ok"></span>approve rate 87%</span><button class="btn">Configure</button></div>
+      <div class="row"><span class="dot ai"></span><div class="grow"><div class="t">Research Agent</div><div class="s">L3 · runs pipelines within strategy limits · gates to Kate M.</div></div><span class="badge plain"><span class="dot ok"></span>gate pass 91%</span><button class="btn">Configure</button></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">Client access <span class="hint">· Client Portal</span><span class="right"><a href="#">what the client sees →</a></span><button class="btn" style="margin-left:10px">＋ Invite client</button></div>
+      <div class="row"><div class="ini">JD</div><div class="grow"><div class="t">james@iwoca.co.uk</div><div class="s">James Dean · Head of Growth</div></div><span class="badge plain">Client Admin</span><span class="badge plain"><span class="dot ok"></span>Active</span></div>
+      <div class="row"><div class="ini">SL</div><div class="grow"><div class="t">sarah@iwoca.co.uk</div><div class="s">Sarah Lin · Marketing</div></div><span class="badge plain">Client Viewer</span><span class="badge plain"><span class="dot warn"></span>Pending</span><button class="btn ghost">Resend</button></div>
+    </div>
+  </div>
+</div></div>
+<script>window.SHELL={area:'workspace',active:'settings',context:'Iwoca',crumbs:'Workspace / Settings / <b>Team</b>',user:'AR'}</script>
+<script src="shell.js"></script>
+</body>
+</html>

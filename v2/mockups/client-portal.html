@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="linear">
+<head>
+<meta charset="UTF-8"><title>Client Portal</title>
+<link rel="stylesheet" href="ui-kit.css">
+<style>
+  .ptop { height:54px; background:var(--surface); border-bottom:1px solid var(--border);
+    display:flex; align-items:center; padding:0 28px; gap:22px; flex-shrink:0; }
+  .ptabs { display:flex; gap:2px; }
+  .ptab { padding:7px 12px; font-size:12.5px; color:var(--text-2); border-radius:var(--radius-s); cursor:pointer; }
+  .ptab.on { background:var(--accent-bg); color:var(--text-1); font-weight:600; }
+  .pwrap { flex:1; overflow:hidden; background:var(--bg); display:flex; justify-content:center; }
+  .pcontent { width:1160px; padding:24px 0; display:flex; flex-direction:column; gap:14px; }
+  .cols { display:grid; grid-template-columns:1.4fr 1fr; gap:14px; }
+</style>
+</head>
+<body>
+<div class="ptop">
+  <div class="brand"><div class="mark" style="background:var(--accent)">I</div>Iwoca <span style="color:var(--text-3);font-weight:400;font-size:12px">· partner portal</span></div>
+  <div class="ptabs">
+    <div class="ptab on">Dashboard</div><div class="ptab">Meetings · 5</div><div class="ptab">Approvals · 2</div><div class="ptab">Reports</div><div class="ptab">Chat · 1</div>
+  </div>
+  <div class="spacer" style="flex:1"></div>
+  <span style="color:var(--text-3);font-size:11.5px">Powered by Belkins</span>
+  <div class="avatar">JD</div>
+</div>
+
+<div class="pwrap"><div class="pcontent">
+
+  <div class="grid cols-3">
+    <div class="panel metric"><div class="lbl">Meetings · July</div><div class="num">14 <span style="font-size:12px;color:var(--text-3);font-weight:450">/ 20</span></div><div style="margin:7px 0 4px" class="bar"><i style="width:70%"></i></div><div class="sub"><span class="dot ok"></span>on track</div></div>
+    <div class="panel metric"><div class="lbl">Replies this month</div><div class="num">312</div><div class="sub">98 positive</div></div>
+    <div class="panel metric"><div class="lbl">Companies reached</div><div class="num">3,884</div><div class="sub">of 4,120 in audience</div></div>
+  </div>
+
+  <div class="cols">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="panel">
+        <div class="panel-head">Upcoming meetings</div>
+        <div class="row">
+          <div class="ini">SC</div>
+          <div class="grow"><div class="t">Scruffs Ltd — Laura Cansfield, CFO</div><div class="s">Today 11:30 · Google Meet</div></div>
+          <span class="badge plain"><span class="dot ok"></span>Confirmed</span>
+        </div>
+        <div class="row">
+          <div class="ini">BR</div>
+          <div class="grow"><div class="t">BuildRight UK — Alan Mercer, Finance Director</div><div class="s">Jul 17, 14:00 · Google Meet</div></div>
+          <button class="btn primary">Confirm</button><button class="btn ghost">Reschedule</button>
+        </div>
+        <div class="row">
+          <div class="ini">NX</div>
+          <div class="grow"><div class="t">Nexa Interiors — Emma Hartley, CFO <span class="badge" style="margin-left:6px">completed Jul 11</span></div><div class="s">How was the lead quality?</div></div>
+          <button class="btn">Rate meeting</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">Weekly report <span class="hint">· Jul 8–14</span><span class="right">prepared by your Belkins team</span></div>
+        <div class="panel-body" style="font-size:12.5px;line-height:1.65;color:var(--text-2)">
+          На этой неделе 3 встречи (2 состоялись), reply rate вырос до 8.4%. Сегмент Construction отвечает лучше остальных — расширяем поиск на смежные индустрии. На следующей неделе запланированы 4 встречи.
+          <div style="margin-top:8px"><a href="#" style="font-size:12px">Read full report →</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="panel" style="border-color:#dcd6f2">
+        <div class="panel-head">Needs your approval <span class="hint">· 2</span></div>
+        <div class="row"><span class="dot accent"></span><div class="grow"><div class="t">New sequence — “Re-engage Q2”</div><div class="s">4 emails · review messaging before launch</div></div><button class="btn primary">View</button></div>
+        <div class="row"><span class="dot accent"></span><div class="grow"><div class="t">Target list — 187 companies</div><div class="s">Construction UK · qualified by AI</div></div><button class="btn">View</button></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">Chat with your team</div>
+        <div class="panel-body" style="display:flex;flex-direction:column;gap:9px">
+          <div style="border:1px solid var(--border);border-radius:10px;padding:8px 11px;font-size:12px;color:var(--text-2)"><b style="color:var(--text-1)">Ben (Belkins):</b> Прикрепил обновлённый список сегмента — гляньте перед четвергом.</div>
+          <div style="border:1px solid var(--border-2);border-radius:var(--radius);padding:8px 11px;font-size:12px;color:var(--text-3)">Write a message…</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">Funnel <span class="hint">· 30d</span></div>
+        <div class="row"><div class="grow s">Contacted</div><span class="end" style="color:var(--text-1);font-weight:600">3,884</span></div>
+        <div class="row"><div class="grow s">Replies</div><span class="end" style="color:var(--text-1);font-weight:600">312</span></div>
+        <div class="row"><div class="grow s">Positive</div><span class="end" style="color:var(--text-1);font-weight:600">98</span></div>
+        <div class="row"><div class="grow s">Meetings</div><span class="end" style="color:var(--text-1);font-weight:600">14</span></div>
+      </div>
+    </div>
+  </div>
+
+</div></div>
+</body>
+</html>

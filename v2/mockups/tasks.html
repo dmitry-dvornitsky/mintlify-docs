@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="linear">
+<head>
+<meta charset="UTF-8"><title>Tasks</title>
+<link rel="stylesheet" href="ui-kit.css">
+<style>
+  .layout{flex:1;display:flex;flex-direction:column;background:var(--bg);min-width:0}
+  .group { font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--text-3);
+    font-weight:600; padding:4px 2px; display:flex; gap:6px; align-items:center; }
+</style>
+</head>
+<body>
+<div id="app"><div class="layout">
+  <div class="page">
+    <div class="page-head">
+      <h1>Tasks</h1><span class="sub">Iwoca · 10 open</span>
+      <div class="right">
+        <div class="chips"><div class="chip on">All</div><div class="chip">Mine</div><div class="chip">Gates · 2</div><div class="chip">From agents ✦</div></div>
+        <button class="btn primary">＋ Add task</button>
+      </div>
+    </div>
+
+    <div class="group" style="color:var(--danger)">Overdue · 2</div>
+    <div class="panel">
+      <div class="row"><span class="dot danger"></span><div class="grow"><div class="t">Follow-up in thread — Laura Cansfield</div><div class="s">Follow-up · related: thread #4412 · auto-closes on reply</div></div><span class="badge plain">Adam R.</span><span class="end">due Jul 14 · 1d over</span></div>
+      <div class="row"><span class="dot danger"></span><div class="grow"><div class="t">Call script review — Walker &amp; Pritchard</div><div class="s">Call task · from campaign step 5</div></div><span class="badge plain">Adam R.</span><span class="end">due Jul 14</span></div>
+    </div>
+
+    <div class="group">Today · 3</div>
+    <div class="panel">
+      <div class="row"><span class="dot accent"></span><div class="grow"><div class="t">Gate: approve pipeline run #5 <span class="badge" style="margin-left:6px">blocks pipeline</span></div><div class="s">Gate approval · created by Research Agent ✦ · 187 companies qualified</div></div><span class="badge plain">Kate M.</span><button class="btn primary">Review</button></div>
+      <div class="row"><span class="dot accent"></span><div class="grow"><div class="t">Gate: approve sequence — “Re-engage Q2”</div><div class="s">Gate approval · created by SDR Agent ✦ · waiting 3h</div></div><span class="badge plain">Ben C.</span><button class="btn">Review</button></div>
+      <div class="row"><span class="dot muted"></span><div class="grow"><div class="t">QA review — meeting with Clive Graham Group</div><div class="s">QA review · created after Completed meeting</div></div><span class="badge plain">Ben C.</span><span class="end">17:00</span></div>
+    </div>
+
+    <div class="group">Upcoming · 3</div>
+    <div class="panel">
+      <div class="row"><span class="dot muted"></span><div class="grow"><div class="t">Renewal prep — Iwoca <span class="badge ai" style="margin-left:6px">✦ AI brief attached</span></div><div class="s">Renewal prep · workflow: 60 days before contract end</div></div><span class="badge plain">Maria D.</span><span class="end">Jul 20</span></div>
+      <div class="row"><span class="dot muted"></span><div class="grow"><div class="t">Follow-up in new thread — Dan Foster</div><div class="s">Follow-up · Contact later → resurfaced by Autopilot</div></div><span class="badge plain">Adam R.</span><span class="end">Jul 22</span></div>
+      <div class="row"><span class="dot muted"></span><div class="grow"><div class="t">Refresh ICP doc after client call</div><div class="s">Task · manual</div></div><span class="badge plain">Ben C.</span><span class="end">Jul 24</span></div>
+    </div>
+
+    <div class="group">Done · 12 <a href="#" style="font-weight:400;text-transform:none;letter-spacing:0">show</a></div>
+    <div class="panel" style="opacity:.55">
+      <div class="row"><span class="dot ok"></span><div class="grow"><div class="t" style="text-decoration:line-through">Confirm meeting agenda — Scruffs</div><div class="s">Task · completed 09:40</div></div><span class="badge plain">Adam R.</span></div>
+    </div>
+  </div>
+</div></div>
+<script>window.SHELL={area:'workspace',active:'tasks',context:'Iwoca',crumbs:'Workspace / <b>Tasks</b>',user:'AR'}</script>
+<script src="shell.js"></script>
+</body>
+</html>
