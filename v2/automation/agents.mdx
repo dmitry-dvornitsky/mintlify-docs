@@ -1,0 +1,92 @@
+---
+title: "AI Agents"
+description: "Реестр внутренних агентов: зоны ответственности, автономия и контроль качества"
+---
+
+```text
+┌───────────────────────────────────────────────────────────────────────────┐
+│  AGENT: SDR Agent                                    Status: ● Active     │
+│  ──────────────────────────────────────────────────────────────────────  │
+│  Role equivalent: SDR        Autonomy: L3 (autonomous in limits)          │
+│  Model: <llm> · Prompt v14 [history]    Budget: $180/mo per project       │
+│                                                                           │
+│  CAN DO AUTONOMOUSLY          │  NEEDS APPROVAL         │  NEVER          │
+│  · classify replies           │  · reply to Interested  │  · pricing      │
+│  · reply: OOO, Not intrst,    │  · launch campaign      │    commitments  │
+│    Unsubscribe (conf ≥ 85%)   │  · book meeting         │  · legal topics │
+│  · schedule follow-ups        │  · new thread outreach  │  · DNC override │
+│                                                                           │
+│  QUALITY (30d)                                                            │
+│  Approve rate 87% ▲ · Undo rate 1.2% ▼ · Classification acc 96%          │
+│  Auto-rule: undo rate > 5% for 7d → downgrade to L2 + alert Ops          │
+└───────────────────────────────────────────────────────────────────────────┘
+```
+
+Внутренние AI-агенты — постоянные исполнители ролей. У каждого: роль-эквивалент (какие действия доступны), уровень автономии, промпт (версионируемый), бюджет и метрики качества. Управление — [Admin → System → Agents](/v2/admin/system#agents); per-project настройки — [Settings → Team](/v2/workspace/settings/team#ai-agents-on-this-project).
+
+## Реестр агентов
+
+### Research Agent
+
+Автоматизация поиска лидов.
+
+| Что делает | Автономия по умолчанию |
+|---|---|
+| Выполняет шаги Research Pipeline (поиск, квалификация, обогащение) | L3 — в лимитах стратегии |
+| Запускает «Find more», когда кампании не хватает контактов | L2 — approve LR/AS |
+| Мониторит качество: доля Qualified падает → сигнал AS «сегмент истощён» | L4 — только сигналы |
+
+### SDR Agent
+
+Работа с перепиской (движок Autopilot/Copilot в [Inbox](/v2/workspace/inbox)).
+
+| Что делает | Автономия |
+|---|---|
+| Классификация ответов, типовые ответы (OOO, Not interested, Unsubscribe) | L3 — при confidence ≥ порога |
+| Черновики содержательных ответов из Insights | L1 — черновик |
+| Follow-up'ы по расписанию | L2/L3 — по настройке |
+| Предложение слотов и бронирование встреч | L2 — approve |
+
+### Strategist Agent
+
+Знания и стратегия.
+
+| Что делает | Автономия |
+|---|---|
+| Извлекает знания из файлов → Draft (AI) страницы Insights | L2 — approve AS |
+| Черновики стратегий (ICP, Messaging) из Insights | L1 |
+| Weekly-отчёты клиентам и AI Weekly Summary проекта | L2 — approve AS |
+| Рекомендации по итогам кампаний («hook X работает лучше») | L4 — только рекомендации |
+
+### Finance Agent
+
+| Что делает | Автономия |
+|---|---|
+| Генерация инвойсов по подпискам | L3 |
+| Отправка в Wave, напоминания об оплате | L2 — approve Finance |
+| Сверка Wave ↔ платформа, флаг расхождений | L4 — только флаги |
+
+### QA Agent
+
+| Что делает | Автономия |
+|---|---|
+| Еженедельная выборка и оценка тредов по рубрике | L4 |
+| Паттерн-анализ: «ICP fit падает по стратегии X» | L4 — сигналы в Quality |
+
+### Ops Agent
+
+| Что делает | Автономия |
+|---|---|
+| AI Weekly Brief для C-level | L4 |
+| Мониторинг порогов (health, маржа, capacity) → алерты и задачи | L4 (создание задач), L2 (изменение настроек) |
+
+## Управление автономией
+
+- **Матрица «действие × режим»** у каждого агента: autonomous / approval / never (см. мокап)
+- **Auto-downgrade:** метрики качества ниже порога N дней → уровень понижается автоматически, алерт Operations
+- **Заслуженная автономия:** повышение уровня — ручное решение Operations на основе статистики approve rate
+- **Kill switch** — мгновенная пауза агента или всей автоматики
+
+## Стоимость
+
+LLM-расходы каждого агента пишутся в Cost Records: видны в Costs проекта, в [Admin → Finance](/v2/admin/finance) (окупаемость автоматизации) и в бюджетных лимитах агента.

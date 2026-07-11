@@ -1,0 +1,78 @@
+---
+title: "Settings · Channels"
+description: "Mailboxes, LinkedIn, Calendars, Slack — каналы коммуникации проекта"
+---
+
+```text
+┌───────────────────────────────────────────────────────────────────────────┐
+│  SETTINGS · CHANNELS      [Mailboxes] [LinkedIn] [Calendars] [Slack]      │
+├───────────────────────────────────────────────────────────────────────────┤
+│  MAILBOXES                                             [+ Add mailbox]    │
+│  ┌────────────────────┬─────────┬────────┬─────────────┬──────────────┐   │
+│  │ Email              │ Provider│ Health │ Usage today │ Warmup       │   │
+│  ├────────────────────┼─────────┼────────┼─────────────┼──────────────┤   │
+│  │ adam@iwocateam.com │ Gmail   │ ● 92   │ 18/20 ▮▮▮▮▮░│ done         │   │
+│  │ kate@iwocateam.com │ Outlook │ ● 88   │ 12/20 ▮▮▮▮░░│ done         │   │
+│  │ new@iwocasales.com │ Gmail   │ ◐ 61   │  4/10 ▮▮░░░░│ week 2/4     │   │
+│  └────────────────────┴─────────┴────────┴─────────────┴──────────────┘   │
+│                                                                           │
+│  HEALTH = deliverability score: bounce rate · spam reports · domain age  │
+│  · blacklist checks · warmup progress.  Health < 50 → auto-pause + алерт │
+└───────────────────────────────────────────────────────────────────────────┘
+```
+
+Каналы, через которые проект общается с внешним миром. Здоровье каналов — зона EDS; платформа мониторит его автоматически.
+
+## Mailboxes
+
+Email-ящики для отправки и приёма.
+
+| Колонка | Описание |
+|---|---|
+| Email, Sender name | Адрес и имя отправителя |
+| Provider | Gmail / Outlook / SMTP |
+| **Health** | Deliverability-скор 0–100: bounce rate, spam-репорты, попадание в blacklist'ы, возраст домена, статус прогрева |
+| Usage | Отправлено сегодня / дневной лимит (прогресс-бар; жёлтый — умеренно, красный — у лимита) |
+| Warmup | Статус прогрева нового ящика |
+| Added | Дата подключения |
+
+**Подключение:** Google OAuth, Microsoft OAuth, SMTP/IMAP.
+
+**Автоматика:**
+- Новый ящик проходит **автоматический прогрев** — лимит растёт по графику (EDS видит прогресс)
+- Health ниже порога → ящик ставится на паузу во всех кампаниях + алерт EDS
+- Лимиты считаются глобально по ящику (все кампании), кампания видит свою долю
+
+## LinkedIn accounts
+
+Аккаунты для LinkedIn-шагов, подключение через Unipile.
+
+**Колонки:** Account, Owner, Status (Active / Reconnect needed / Restricted), Daily invites used/limit, Daily messages used/limit, Added.
+
+Лимиты по действиям LinkedIn (инвайты, сообщения) контролируются платформой — защита аккаунтов от блокировок. Restricted-аккаунт автоматически исключается из кампаний с алертом.
+
+## Calendars
+
+Календари для бронирования встреч (нужен минимум один для [Meetings](/v2/workspace/meetings)).
+
+| Тип | Подключение |
+|---|---|
+| Google Calendar | OAuth |
+| Microsoft Calendar | OAuth |
+| Calendly | API key |
+
+Подключённые календари питают **Propose slots** в Inbox — living-слоты с учётом занятости.
+
+## Slack
+
+Канал проекта для уведомлений. Матрица «событие → канал»:
+
+| Событие | По умолчанию |
+|---|---|
+| Meeting booked / cancelled / no-show | ✅ |
+| Pipeline gate reached / completed / failed | ✅ |
+| Campaign paused (limits, health) | ✅ |
+| Client message in Portal | ✅ |
+| Invoice overdue | ➖ (канал финансов) |
+
+Каждое событие можно включить/выключить per-project.

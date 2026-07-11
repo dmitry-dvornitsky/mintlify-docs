@@ -1,0 +1,61 @@
+---
+title: "Tasks"
+description: "Задачи проекта — от людей, системы и AI-агентов"
+---
+
+```text
+┌───────────────────────────────────────────────────────────────────────────┐
+│  TASKS                                       [Sort] [Filter]  [Add task]  │
+│                                                                           │
+│  ▼ OVERDUE (2)                                                            │
+│    ⚠ Follow-up in thread — L.Cansfield        SDR Adam      due Jul 14   │
+│    ⚠ Review pipeline gate — Run #4            LR Kate       due Jul 14   │
+│  ▼ TODAY (3)                                                              │
+│    ☐ Call script review — Walker & Co         SDR Adam      12:00        │
+│    ☐ Approve sequence — "Re-engage" campaign  AS Ben        15:00  [Gate]│
+│    ☐ QA meeting — Clive Graham                AS Ben        17:00        │
+│  ▼ UPCOMING (5)                                                           │
+│    ☐ Renewal prep — Iwoca (AI brief attached) AD Maria      Jul 20  ✦    │
+│  ▼ DONE (12)                                  [show]                      │
+│                                                                           │
+│  ✦ — создано агентом/системой · [Gate] — блокирует процесс               │
+└───────────────────────────────────────────────────────────────────────────┘
+```
+
+Tasks — единый список работ по проекту. В v2 большинство задач создаёт **система и агенты**, а не люди: задача — это способ платформы позвать человека в нужный момент.
+
+## Секции
+
+**Overdue / Today / Upcoming / Done** — секция Today даёт чёткий приоритет дня (в v1 всё сливалось в «Scheduled»).
+
+## Колонки
+
+Title, Type, Assigned to, Source (Human / System / ✦ Agent), Related to (лид / тред / кампания / стратегия), Due, Status.
+
+## Типы задач
+
+| Тип | Создаётся | Закрывается |
+|---|---|---|
+| **Task** | Вручную | Вручную |
+| **Follow-up in thread** | Вручную или Copilot | Автоматически при отправке письма в тред |
+| **Follow-up in new thread** | Вручную или Copilot | Автоматически при письме в новый тред |
+| **Gate approval** | Системой (пайплайн, кампания, инвойс, действие агента) | Approve / Reject в модалке задачи |
+| **Call task** | Шагом Call в сиквенсе кампании | После логирования звонка |
+| **QA review** | После Completed-встречи | После выставления оценки |
+| **Renewal prep** | Workflow за 60 дней до конца контракта | Вручную (AD) |
+
+<Info>Реестр типов расширяемый: workflow может создать задачу любого типа с шаблоном чек-листа — см. [Automation → Workflows](/v2/automation/workflows).</Info>
+
+## Создание задачи
+
+**Add task**: Type, Assign to (по умолчанию — я), Title, Related to (поиск по лидам/тредам/кампаниям), Due date + time + timezone, Description.
+
+## Поведение
+
+- Задачи с Related to открывают контекст в один клик (тред, Gate-модалку, карточку лида)
+- Задачи всех проектов пользователя агрегируются в [My Day](/v2/workspace/my-day)
+- Просроченный Gate эскалируется: напоминание исполнителю → через N часов алерт AS/Operations
+
+## MCP
+
+`tasks.list`, `tasks.create`, `tasks.complete`, `tasks.assign`. Агенты создают задачи людям — например, Research Agent ставит LR задачу проверить Gate.

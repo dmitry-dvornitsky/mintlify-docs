@@ -1,0 +1,58 @@
+---
+title: "Settings"
+description: "Настройки проекта — клиент, команда, каналы, таргетинг и автоматика"
+---
+
+```text
+┌───────────────────────────────────────────────────────────────────────────┐
+│  PROJECT SETTINGS                                                         │
+│                                                                           │
+│  ┌─ CLIENT ─────────────┐ ┌─ TEAM ───────────────┐ ┌─ CHANNELS ────────┐ │
+│  │ General              │ │ Belkins staff        │ │ Mailboxes         │ │
+│  │ Products             │ │ Client access        │ │ LinkedIn accounts │ │
+│  │ KPI                  │ │                      │ │ Calendars         │ │
+│  │ Billing              │ │                      │ │ Slack             │ │
+│  │ Costs                │ │                      │ │                   │ │
+│  └──────────────────────┘ └──────────────────────┘ └───────────────────┘ │
+│  ┌─ TARGETING ──────────┐ ┌─ AUTOMATION ─────────┐ ┌─ AUDIT ───────────┐ │
+│  │ Audiences            │ │ Autopilot rules      │ │ Project audit log │ │
+│  │ Qualification        │ │ Gates & limits       │ │ (люди и агенты)   │ │
+│  │ Custom columns       │ │ Notifications        │ │                   │ │
+│  │ Do Not Contact       │ │ Templates & Labels   │ │                   │ │
+│  │ Lists                │ │                      │ │                   │ │
+│  └──────────────────────┘ └──────────────────────┘ └───────────────────┘ │
+└───────────────────────────────────────────────────────────────────────────┘
+```
+
+Настройки уровня проекта. Организованы в пять групп; глобальные настройки организации (каталог сервисов, роли, агенты) живут в [Admin → System](/v2/admin/system).
+
+<CardGroup cols={2}>
+  <Card title="Client" icon="building" href="/v2/workspace/settings/client">
+    General, Products, KPI, Billing, Costs — кто клиент, что продаёт, план и деньги
+  </Card>
+  <Card title="Team" icon="users" href="/v2/workspace/settings/team">
+    Сотрудники проекта и клиентский доступ — одна страница, две секции
+  </Card>
+  <Card title="Channels" icon="tower-broadcast" href="/v2/workspace/settings/channels">
+    Mailboxes, LinkedIn, Calendars, Slack — каналы коммуникации
+  </Card>
+  <Card title="Targeting" icon="crosshairs" href="/v2/workspace/settings/targeting">
+    Audiences, Qualification Criteria, Custom Columns, DNC, Lists
+  </Card>
+</CardGroup>
+
+## Automation (per-project)
+
+Настройки поведения AI в рамках проекта — что разрешено без человека:
+
+| Настройка | Описание |
+|---|---|
+| **Autopilot rules** | Какие типы ответов Inbox закрывает сам, порог уверенности, стоп-темы |
+| **Gates & limits** | Обязательные аппрувы (сиквенс перед запуском, действия агентов), лимиты пайплайнов и бюджеты |
+| **Notifications** | Куда идут алерты: Slack-канал, email, in-app; матрица событие × получатель |
+| **Message Templates** | Шаблоны для Email и LinkedIn |
+| **Labels** | Двухуровневые метки тредов (Group → Label) |
+
+## Audit Log
+
+Хронология всех действий в проекте — людей и агентов: кто, что, когда, с какими параметрами. Фильтры по актору, типу действия, дате. Экспорт. Это проектный срез глобального Audit Log из [Admin → System](/v2/admin/system#audit-log).

@@ -1,0 +1,71 @@
+---
+title: "Meetings"
+description: "Встречи — главный KPI. Бронирование, статусы, QA и автоматика вокруг"
+---
+
+```text
+┌───────────────────────────────────────────────────────────────────────────┐
+│  MEETINGS                                July: 14 booked · 9 completed    │
+│  [Sort] [Filter] [Quick: Status ▾ | This week | Channel ▾]  [Book meeting]│
+│  ┌──────────┬────────────────┬──────────┬─────────┬────────┬──────────┐   │
+│  │ Date     │ Company        │ Contact  │ Channel │ Status │ QA       │   │
+│  ├──────────┼────────────────┼──────────┼─────────┼────────┼──────────┤   │
+│  │ Jul 15   │ Scruffs Ltd    │ L.Cansf. │ Email   │Schedul.│ —        │   │
+│  │ Jul 12   │ Clive Graham   │ J.Wistow │ LinkedIn│Complet.│ ★ 4.5 ICP│   │
+│  │ Jul 10   │ Walker & Co    │ M.Ballard│ Email   │No Show │ resched? │   │
+│  └──────────┴────────────────┴──────────┴─────────┴────────┴──────────┘   │
+│                                                                           │
+│  BOOKING FLOW (из Inbox):                                                 │
+│  lead: "давайте созвон" ──► [📅 Propose slots] ──► лид кликает слот      │
+│      ──► invite обеим сторонам ──► client confirm (Portal)                │
+│      ──► reminders T-24h, T-1h ──► post-meeting: status + QA + KPI        │
+└───────────────────────────────────────────────────────────────────────────┘
+```
+
+Meetings — все встречи, назначенные клиенту. Completed-встречи — главный KPI delivery-команды, они автоматически засчитываются в [Settings → KPI](/v2/workspace/settings/client#kpi).
+
+## Способы бронирования
+
+| Способ | Как работает |
+|---|---|
+| **Propose slots** (основной) | SDR (или Copilot) вставляет в ответ living-слоты из подключённого календаря. Лид кликает — встреча создаётся, инвайты уходят обеим сторонам |
+| **Book meeting** (ручной) | Кнопка в Meetings или Overlay: Calendar → Time slot → Company (из Leads) → Contact → Channel (Email / LinkedIn / Call) |
+| **MCP** | `meetings.propose_slots`, `meetings.book` — агент бронирует после согласия лида (Gate по умолчанию) |
+
+Требование: минимум один календарь в [Settings → Channels](/v2/workspace/settings/channels) (Google / Microsoft / Calendly).
+
+## Статусы
+
+| Статус | Описание | Автоматика |
+|---|---|---|
+| **Scheduled** | Запланирована | Напоминания T-24h и T-1h лиду и клиенту |
+| **Completed** | Состоялась | Засчитана в KPI; создаётся задача QA-оценки |
+| **Cancelled** | Отменена | Контакт возвращается в кампанию (по настройке Meeting automation) |
+| **No Show** | Лид не пришёл | Workflow: авто-письмо с предложением перенести + задача SDR |
+| **Rescheduled** | Перенесена | Цепочка сохраняется — история переносов видна |
+
+## QA встреч
+
+После Completed-встречи Account Strategist (или клиент в Portal) оценивает качество лида:
+
+| Поле | Описание |
+|---|---|
+| **ICP fit** | 1–5 — соответствие целевому профилю |
+| **Meeting quality** | 1–5 — качество разговора |
+| **Комментарий** | Свободный текст |
+
+Оценки агрегируются в [Admin → Quality](/v2/admin/quality) и влияют на Health Score клиента. Низкий ICP fit по серии встреч — сигнал пересмотреть стратегию.
+
+## Недельный review
+
+Еженедельный звонок с клиентом поддержан автоматически: к звонку платформа готовит AI-сводку (встречи недели, статусы, ответы, план), команда проставляет статусы прямо на дашборде. Клиент подтверждает встречи и статусы в [Client Portal](/v2/workspace/client-portal) — расхождения (клиент считает встречу No Show, команда — Completed) подсвечиваются.
+
+## Уведомления
+
+- Slack-алерт в канал проекта при бронировании (настройка в Settings → Channels)
+- Напоминания лиду и клиенту (email)
+- Алерт AD при отмене или No Show встречи «дорогого» лида (Appointment из C-level сегмента)
+
+## MCP
+
+`meetings.list`, `meetings.get`, `meetings.propose_slots`, `meetings.book`, `meetings.update_status`, `meetings.reschedule`.

@@ -1,0 +1,103 @@
+---
+title: "Архитектура платформы"
+description: "Четыре поверхности над единым слоем данных и действий"
+---
+
+```text
+┌───────────────────────────────────────────────────────────────────────────┐
+│                            ПОВЕРХНОСТИ                                    │
+│  ┌────────────┐  ┌────────────┐  ┌────────────┐  ┌─────────────────────┐ │
+│  │ WORKSPACE  │  │   ADMIN    │  │   CLIENT   │  │   MCP SERVER / API  │ │
+│  │  (команда) │  │(менеджмент)│  │   PORTAL   │  │  (внешние агенты)   │ │
+│  └─────┬──────┘  └─────┬──────┘  └─────┬──────┘  └──────────┬──────────┘ │
+│        └───────────────┴───────┬───────┴────────────────────┘            │
+│                                ▼                                          │
+│  ┌───────────────────────────────────────────────────────────────────┐   │
+│  │  ACTION LAYER — единый слой действий                              │   │
+│  │  permissions · validation · limits · gates · audit                │   │
+│  └───────────────────────────────┬───────────────────────────────────┘   │
+│                                  ▼                                        │
+│  ┌───────────────────────────────────────────────────────────────────┐   │
+│  │  AUTOMATION ENGINE                                                │   │
+│  │  AI Agents · Workflows · Research Pipeline · Schedulers           │   │
+│  └───────────────────────────────┬───────────────────────────────────┘   │
+│                                  ▼                                        │
+│  ┌───────────────────────────────────────────────────────────────────┐   │
+│  │  DATA CORE          │  EVENT BUS       │  INTEGRATIONS            │   │
+│  │  Clients, Leads,    │  каждое событие  │  Gmail/Outlook, Unipile, │   │
+│  │  Campaigns, Threads,│  платформы       │  Calendars, Slack, Wave, │   │
+│  │  Meetings, Finance, │  (для workflows  │  Apollo, Generect,       │   │
+│  │  Knowledge, Audit   │  и webhooks)     │  LLM-провайдеры          │   │
+│  └───────────────────────────────────────────────────────────────────┘   │
+└───────────────────────────────────────────────────────────────────────────┘
+```
+
+## Поверхности
+
+| Поверхность | Аудитория | Что даёт |
+|---|---|---|
+| **Workspace** | Delivery-команда | Проекты, стратегии, лиды, кампании, Inbox, встречи, знания |
+| **Admin** | Менеджмент, C-level | Портфель клиентов, команда, финансы, качество, системные настройки |
+| **Client Portal** | Клиенты Belkins | Дашборд, встречи, аппрувы материалов, чат с командой |
+| **MCP / API** | AI-агенты и интеграции | Тот же набор действий, что и в UI |
+
+Все четыре поверхности — тонкие клиенты над **Action Layer**. Это гарантия, что агент через MCP не может сделать больше (или меньше), чем человек с той же ролью через UI.
+
+## Action Layer
+
+Каждое действие платформы описано декларативно:
+
+```text
+action: campaign.launch
+  scope:       project
+  roles:       SDR, AS, Admin, agent:sdr-agent
+  gate:        required if actor is agent
+  limits:      mailbox daily limits, domain throttle
+  audit:       full payload + result
+  emits:       campaign.launched
+```
+
+| Свойство | Что определяет |
+|---|---|
+| **scope** | Уровень действия: project / client / organization |
+| **roles** | Какие роли (людей и агентов) могут вызывать |
+| **gate** | Требуется ли approve человека — всегда, никогда или по условию |
+| **limits** | Количественные ограничения (лимиты отправки, бюджеты, cap'ы) |
+| **audit** | Что записывается в Audit Log |
+| **emits** | Событие в Event Bus после выполнения |
+
+## Event Bus
+
+Каждое значимое событие публикуется в шину: `lead.found`, `reply.received`, `reply.classified`, `meeting.booked`, `meeting.completed`, `invoice.overdue`, `pipeline.gate_reached`, `client.health_dropped` и т.д.
+
+События потребляют:
+- **Workflows** — автоматизации ([Automation → Workflows](/v2/automation/workflows))
+- **Notifications** — Slack / Email / in-app
+- **Admin-дашборды** — метрики в реальном времени
+- **Webhooks** — внешние системы
+
+## Data Core
+
+| Домен | Сущности |
+|---|---|
+| CRM | Client, Project, Company, Contact, List |
+| Go-to-market | Strategy, Research Pipeline Run, Audience, Qualification Criteria |
+| Outreach | Campaign, Sequence, Thread, Message, Mailbox, LinkedIn Account |
+| Delivery | Meeting, Task, KPI |
+| Знания | Insight Page, Product, File, Call Transcript |
+| Финансы | Service, Subscription, Invoice, Cost Record |
+| Платформа | User, Role, Agent, Workflow, Gate, Audit Record |
+
+## Интеграции
+
+| Интеграция | Назначение |
+|---|---|
+| Gmail / Outlook (OAuth), SMTP | Отправка и приём email |
+| Unipile | LinkedIn-аккаунты |
+| Google / Microsoft Calendar, Calendly | Слоты и бронирование встреч |
+| Slack | Уведомления команде и алерты Gates |
+| Wave | Инвойсинг (синхронизация двусторонняя) |
+| Apollo, Generect, Hunter, QuickEmail | Обогащение данных и валидация email |
+| LLM-провайдеры | Генерация текстов, классификация, анализ сайтов, скоринг |
+
+Все расходы интеграций пишутся в Cost Records — они видны в [Settings → Costs](/v2/workspace/settings/client) проекта и агрегируются в [Admin → Finance](/v2/admin/finance).

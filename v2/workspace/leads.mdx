@@ -1,0 +1,101 @@
+---
+title: "Leads"
+description: "База компаний и контактов проекта — наполняется пайплайнами, управляется людьми"
+---
+
+```text
+┌───────────────────────────────────────────────────────────────────────────┐
+│  LEADS                                    [Companies]  [Contacts]         │
+│  ▶ Pipeline running: CFO UK — step 3/4 · 213/300          [View]          │
+├───────────────────────────────────────────────────────────────────────────┤
+│  [Sort] [Filter] [View] [Quick: Strategy ▾ | Qualified | High LI Score]   │
+│                                    [Import ▾] [Advanced search] [⋯ Bulk]  │
+│  ┌─────────────────┬──────────────────────┬────────┬─────────┬─────────┐  │
+│  │ Full name       │ Email                │ Status │ LI Score│ Strategy│  │
+│  ├─────────────────┼──────────────────────┼────────┼─────────┼─────────┤  │
+│  │ Laura Cansfield │ laura@scruffs.com    │ Valid  │ ● 84    │ CFO UK  │  │
+│  │ John Wistow     │ john@clivegraham.com │ Valid  │ ● 71    │ CFO UK  │  │
+│  │ Mark Ballard    │ bev@walker.com       │ Catch  │ ○ 22    │ CFO UK  │  │
+│  └─────────────────┴──────────────────────┴────────┴─────────┴─────────┘  │
+│  ☑ 3 selected   [Add to campaign] [Enrich ▾] [Add to list] [DNC]         │
+├───────────────────────────────────────────────────────────────────────────┤
+│  Click row → COMPANY / CONTACT OVERLAY                                    │
+│  ┌──────────────────────────────────────────────┬─────────────────────┐   │
+│  │ [Overview][Activity][Emails][LinkedIn][Calls]│ Details             │   │
+│  │ [Tasks][Meetings][Notes]                     │ AI Qualification ✅ │   │
+│  │  AI summary · Outreach stats · Open tasks    │ Job Signal 🟢 New   │   │
+│  └──────────────────────────────────────────────┴─────────────────────┘   │
+└───────────────────────────────────────────────────────────────────────────┘
+```
+
+Leads — база компаний и контактов проекта. Два таба: **Companies** и **Contacts**. Главное отличие от v1: база **наполняется автоматически** пайплайнами из [Strategy Hub](/v2/workspace/strategy-hub); ручной поиск остался как advanced-режим.
+
+## Как лиды попадают в базу
+
+| Способ | Кто использует |
+|---|---|
+| **Research Pipeline** (основной) | Запуск из стратегии — компании и контакты приходят тегированными |
+| **Import** — CSV / LinkedIn URLs | Списки из внешних источников (конференции, клиентские базы) |
+| **Advanced search** | Ручные Find Companies / Find Contacts с полной формой критериев — для нестандартных сегментов (LR) |
+| **MCP** | `leads.import`, `leads.search` — агенты добавляют лидов программно |
+
+### Import
+
+Флоу из трёх шагов (упрощён относительно v1):
+
+1. **Данные** — CSV или список LinkedIn URL
+2. **Настройки** — Name, Lead Type (Warm / Cold), Apply DNC, Skip existing
+3. **Валидация** — Valid / Invalid с Export; enrichment запускается после импорта отдельным действием или чекбоксом «Run enrichments after import»
+
+## Companies
+
+**Колонки:** Company, Domain, Industry, Size, Location, AI Qualification, Strategy, Contacts found, Added
+
+| Колонка | Описание |
+|---|---|
+| **AI Qualification** | ✅ Qualified / ❌ Not qualified / ⏳ Not analyzed — результат AI-анализа сайта по Criteria Set |
+| **Strategy** | Тег стратегии-источника |
+
+**Bulk actions:** Run AI Qualification, Find contacts, Add to list, Add to DNC, Export.
+
+## Contacts
+
+**Колонки:** Full name, Job title, Company, Email, Email status, LinkedIn Score, Job signal, Strategy, Added
+
+| Колонка | Описание |
+|---|---|
+| **Email status** | Valid / Catch All / Invalid / Processing — от валидатора |
+| **LinkedIn Score** | 0–100, «живость» аккаунта. Tooltip показывает дату анализа |
+| **Job signal** | 🟢 New in role (меньше года) / 🟡 Recently joined (1–2 г.) — приоритет для outreach прямо в таблице |
+
+**Bulk actions:** Add to campaign, Enrich (телефоны / LinkedIn Score / кастомные колонки / валидация — с выбором чекбоксами), Add to list, Add to DNC, Export.
+
+**Quick Filters:** Strategy, High LinkedIn Score, Qualified companies, Email Valid, Not in campaign.
+
+## Company & Contact Overlay
+
+Клик на компанию или контакт в любом месте платформы открывает полноэкранный оверлей — единая карточка лида.
+
+**Header:** `[Add task] [Book meeting] [Log call] [Email] [LinkedIn] [⋯]`
+
+| Таб | Содержимое |
+|---|---|
+| **Overview** | Мини-дашборд: AI-сводка «кто это и что происходит», AI Qualification, Job Signal, Outreach stats, контакты компании (по LinkedIn Score), открытые задачи, последняя активность, кастомные колонки |
+| **Activity** | Хронология всех действий, сгруппированная по датам (Today / This week / Earlier), фильтры по типу и пользователю. Действия агентов помечены значком ✦ |
+| **Contacts** *(Company)* | Контакты компании. Add contact: по LinkedIn URL (Generect), по email (Apollo → Generect), вручную |
+| **Emails / LinkedIn** | Треды по каналу; reply-форма идентична [Inbox](/v2/workspace/inbox), с Reply / Reply all под каждым сообщением |
+| **Calls** | Логи звонков |
+| **Tasks / Meetings** | Модули Tasks и Meetings, отфильтрованные по лиду |
+| **Notes** | Заметки команды; отдельные комментарии возможны на уровне треда |
+
+**Details-панель** (справа, всегда видна): поля Company (Name, Website, LinkedIn, Industry, Location, Employees, ESP, Lists) и Contact (Name, Job Title, Job started on, LinkedIn, Email, Phone, Location) + значения кастомных колонок.
+
+## DNC и гигиена базы
+
+- Компании и контакты из [Do Not Contact](/v2/workspace/settings/targeting#do-not-contact) фильтруются на входе (пайплайн, импорт, advanced search) — чекбокс включён по умолчанию
+- Ответ с типом DNC / Unsubscribe **автоматически** добавляет контакт (или домен) в DNC-список — workflow, включён по умолчанию
+- Дубликаты определяются по домену/email/LinkedIn URL при любом способе добавления; конфликт решается merge-инструментом в Overlay (⋯ → Merge)
+
+## MCP
+
+`companies.list`, `contacts.list`, `contacts.get`, `leads.import`, `leads.enrich`, `leads.add_to_dnc`, `contacts.add_to_campaign`. Полный реестр — [Automation → MCP](/v2/automation/mcp).

@@ -1,0 +1,87 @@
+---
+title: "MCP Server"
+description: "Интерфейс для внешних AI-агентов — работа с клиентами Belkins через Model Context Protocol"
+---
+
+```text
+┌───────────────────────────────────────────────────────────────────────────┐
+│  ВНЕШНИЙ АГЕНТ (Claude / кастомный)                                       │
+│      │  "Проверь статус Iwoca и подготовь ответы на новые реплаи"        │
+│      ▼                                                                    │
+│  MCP SERVER  mcp.belkins.home                                             │
+│  ┌─────────────────────────────────────────────────────────────────┐     │
+│  │ TOOLS (по scoped-токену)      RESOURCES                         │     │
+│  │  projects.* leads.*            insights://iwoca/pricing          │     │
+│  │  pipeline.* campaigns.*        thread://4412                     │     │
+│  │  inbox.*    meetings.*         strategy://cfo-uk                 │     │
+│  │  finance.*  admin.*            report://iwoca/2026-W28           │     │
+│  └───────────────────────┬─────────────────────────────────────────┘     │
+│                          ▼                                                │
+│  ACTION LAYER — как для людей: roles · gates · limits · audit            │
+│                          ▼                                                │
+│  inbox.send_reply(Interested) → GATE → задача SDR "approve reply" ✓      │
+└───────────────────────────────────────────────────────────────────────────┘
+```
+
+MCP-сервер — внешний интерфейс платформы по [Model Context Protocol](https://modelcontextprotocol.io). Через него AI-агент (Claude, кастомный агент, будущий «виртуальный SDR» целиком) работает с клиентами Belkins: читает контекст, ищет лидов, ведёт переписку, бронирует встречи. Это возможно потому, что весь v2 построен над единым Action Layer — MCP лишь публикует его наружу.
+
+## Аутентификация и права
+
+- **Scoped-токены** выпускаются в [Admin → System → Integrations](/v2/admin/system#integrations): набор действий × список проектов × срок жизни
+- Токен связан с **агентской ролью** — те же права, гейты и лимиты, что у внутреннего агента этой роли
+- Все вызовы — в Audit Log с пометкой внешнего агента
+
+## Tools
+
+Инструменты сгруппированы по модулям (полный реестр генерируется из Action Registry — документация всегда синхронна с платформой):
+
+| Группа | Ключевые tools |
+|---|---|
+| **Projects** | `projects.list`, `projects.get_dashboard`, `projects.get_status` |
+| **Strategy** | `strategy.list`, `strategy.get`, `strategy.draft`, `pipeline.run`, `pipeline.status`, `pipeline.find_more`, `pipeline.approve_gate` |
+| **Leads** | `companies.list`, `contacts.list`, `contacts.get`, `leads.import`, `leads.enrich`, `leads.add_to_dnc` |
+| **Campaigns** | `campaigns.list`, `campaigns.create_from_strategy`, `campaigns.update_sequence`, `campaigns.launch`†, `campaigns.pause`, `campaigns.stats` |
+| **Inbox** | `inbox.list_threads`, `inbox.get_thread`, `inbox.classify`, `inbox.draft_reply`, `inbox.send_reply`†, `inbox.propose_slots`, `inbox.close_thread` |
+| **Meetings** | `meetings.list`, `meetings.book`†, `meetings.update_status`, `meetings.reschedule`† |
+| **Tasks** | `tasks.list`, `tasks.create`, `tasks.complete` |
+| **Insights** | `insights.search`, `insights.get_page`, `insights.create_page`, `insights.upload_file` |
+| **Portal** | `portal.publish_report`†, `portal.request_approval`, `portal.send_message`† |
+| **Finance** | `finance.invoices`, `finance.create_invoice`, `finance.send_to_wave`† |
+| **Admin** | `admin.metrics`, `admin.alerts`, `clients.health`, `team.capacity` |
+
+† — gate-действия: для агентов по умолчанию требуют approve человека (создаётся задача Gate approval).
+
+## Resources
+
+Read-only контекст по URI-схемам: `insights://{project}/{page}`, `strategy://{id}`, `thread://{id}`, `report://{project}/{week}`, `client://{id}/health`. Ресурсы позволяют агенту собрать контекст без вызова tools.
+
+## Пример сессии: агент ведёт клиента
+
+```text
+Агент: projects.get_status(project="iwoca")
+  → stage: Delivery · KPI 14/20 on track · 4 replies need attention
+
+Агент: inbox.list_threads(project="iwoca", queue="needs_reply")
+  → [#4412 Interested — L.Cansfield, #4415 Talking — J.Wistow, …]
+
+Агент: inbox.get_thread(#4412) + insights.search("pricing objections")
+  → контекст: вопрос о ставках + Approved-страница Pricing
+
+Агент: inbox.draft_reply(#4412, …) → inbox.send_reply(#4412)
+  → GATE: тип Interested требует approve → задача SDR Adam
+
+Adam (My Day): проверяет черновик → Approve → письмо ушло
+Audit Log: ✦ external-agent → inbox.send_reply #4412 (gated, approved by Adam)
+```
+
+## Гарантии безопасности
+
+1. **Никакого превышения роли** — MCP не имеет «сервисного» полного доступа; токен = роль
+2. **Gates неотключаемы токеном** — политика гейтов задаётся только в Action Registry
+3. **Rate limits и бюджеты** на токен
+4. **Отзыв в один клик** + kill switch всей автоматики
+5. **Полный audit** с payload'ами — каждый вызов восстановим
+
+## REST API
+
+Для не-MCP интеграций тот же Action Layer доступен как REST API (OpenAPI-спека генерируется из Action Registry) + webhooks на события Event Bus.

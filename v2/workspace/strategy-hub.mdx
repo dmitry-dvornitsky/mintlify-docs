@@ -1,0 +1,131 @@
+---
+title: "Strategy Hub"
+description: "Стратегия — операционный центр проекта: ICP, месседжинг, Research Pipeline и кампании в одном месте"
+---
+
+```text
+┌───────────────────────────────────────────────────────────────────────────┐
+│  STRATEGY: CFO UK Construction 11-50            Active · Business Loan    │
+│  [Overview]  [Research Pipeline]  [Campaigns (2)]  [History]              │
+├───────────────────────────────────────────────────────────────────────────┤
+│  ┌─ RESEARCH PIPELINE ────────────────────────────────────────────────┐   │
+│  │  Step 1  Find Companies      UK · Construction · 11-50             │   │
+│  │    ↓                                                                │   │
+│  │  Step 2  AI Qualification    Criteria: "Construction ICP"          │   │
+│  │    ↓     [GATE] notify researcher                                   │   │
+│  │  Step 3  Find Contacts       CFO / Finance Director · max 2        │   │
+│  │    ↓                                                                │   │
+│  │  Step 4  Enrichments         ✓ Phone ✓ LinkedIn Score ✓ Validate   │   │
+│  │                                                                     │   │
+│  │  Total: 1,100 companies · 1,041 contacts · 826 qualified            │   │
+│  │  Cap: 900 / 1,000 used                                              │   │
+│  │  [▶ Run Pipeline]   [+ Find more companies]                         │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│  ┌─ MESSAGING ─────────────────────┐  ┌─ RESULTS ───────────────────┐    │
+│  │ Core need · Value prop ·        │  │ Campaigns: 2 · Reply 8.4%   │    │
+│  │ Talking points · Avoid ·        │  │ Meetings: 9                 │    │
+│  │ Social proof · Tone             │  │ Cost per meeting: $118      │    │
+│  └─────────────────────────────────┘  └─────────────────────────────┘    │
+└───────────────────────────────────────────────────────────────────────────┘
+```
+
+Strategy — playbook для одного сегмента и центральная сущность go-to-market. Создаётся Account Strategist'ом один раз, дальше её используют все: пайплайн ищет лидов по её ICP, AI пишет сиквенсы по её месседжингу, кампании и результаты привязаны к ней.
+
+<Note>Запустить кампанию или пайплайн без стратегии нельзя — Strategy обязательна.</Note>
+
+## Таблица стратегий
+
+**Колонки:** Name, Product, Goal, Contacts found, Meetings, Cost/meeting, Status, Updated
+
+**Actions:** Create Strategy (мастер или **✦ Draft with AI** — черновик из Insights)
+
+## Создание стратегии
+
+Мастер из 5 шагов. Если в проекте один продукт — он привязывается автоматически.
+
+### Step 1 — Goal
+
+| Goal | Описание |
+|---|---|
+| **Extra Leads** | Стандартный outreach — новые контакты |
+| **Re-engagement** | Возврат к лидам с прошлым контактом |
+| **Event / Trigger** | Реакция на событие: funding, смена роли, найм |
+| **Referral** | Тёплые рекомендации через связи |
+
+**Details** — почему этот сегмент и почему сейчас; AI использует при генерации писем.
+
+### Step 2 — Company ICP
+
+Industry (+exclude), Location, Company size, Type, Keywords (+exclude), Revenue range, Department headcount. Эти поля питают Step 1 пайплайна.
+
+### Step 3 — Contact ICP
+
+Audience (первичная и вторичная — из [Settings → Targeting](/v2/workspace/settings/targeting)), Location, Max per company, Years in role, Recently posted on LinkedIn.
+
+### Step 4 — Messaging
+
+| Поле | Описание |
+|---|---|
+| **Core need** | Какую бизнес-проблему закрывает продукт для сегмента |
+| **Value proposition** | Почему мы и почему сейчас |
+| **Key talking points** | 3–5 тезисов для писем |
+| **Avoid** | Что не говорить |
+| **Social proof** | Кейс или результат |
+| **Tone of voice** | Формальный / дружеский / peer-to-peer и т.д. |
+
+### Step 5 — Personalization hook
+
+Сигнал для гиперперсонализации: Custom Column / LinkedIn activity / Job Signal / Company news / None.
+
+<Tip>**✦ Draft with AI**: Strategist Agent собирает черновик всех пяти шагов из Insights (ICP-документ, продукты, возражения, транскрипты). AS правит и утверждает вместо заполнения с нуля.</Tip>
+
+## Research Pipeline
+
+Автоматизированный поиск лидов — вместо шести ручных операций v1. Конфигурируется один раз внутри стратегии, запускается в два клика.
+
+### Шаги
+
+| Шаг | Что делает | Настройки |
+|---|---|---|
+| **1. Find Companies** | Поиск по Company ICP (LinkedIn) или импорт CSV/URLs | Target count, Apply DNC, Skip existing, Small first |
+| **2. AI Qualification** *(опц.)* | AI обходит сайты и оценивает соответствие критериям | Criteria Set, Pass only Qualified |
+| **3. Find Contacts** | Поиск ЛПР в прошедших компаниях по Contact ICP | Audience, Max per company, Apply DNC |
+| **4. Enrichments** *(опц.)* | Параллельно: телефоны (Apollo), LinkedIn Score, кастомные колонки (AI), валидация email | Чекбоксы по каждому |
+
+### Gates
+
+Между шагами можно поставить **Gate** — пайплайн останавливается и ждёт approve человека (LR или AS). Уведомление приходит в Slack, Email и My Day. Reject останавливает пайплайн — деньги на следующие шаги не тратятся.
+
+### Лимиты
+
+| Лимит | Кто задаёт |
+|---|---|
+| Max companies per run | AS — ограничивает разовый запуск SDR/агента |
+| Max total companies | AS — потолок по стратегии |
+| Budget per run ($) | AS — потолок стоимости обогащений |
+
+### Find more
+
+Кнопка **+ Find more companies** повторяет пайплайн для следующей порции с включённым Skip existing — дублей нет, результаты добавляются к пулу. Механизм заменяет «Searches внутри Request» из v1.
+
+### Мониторинг
+
+Во время выполнения страница стратегии показывает живой прогресс по шагам (см. мокап), а в Leads висит баннер. По завершении — уведомление «Pipeline complete — N contacts ready».
+
+## Таб Campaigns
+
+Все кампании, запущенные по этой стратегии, с метриками: Contacted, Reply rate, Positive, Meetings. Сравнение кампаний внутри одного сегмента отвечает на вопрос «работает ли месседжинг».
+
+## Таб History
+
+История запусков пайплайна: Run #, дата, воронка (найдено → квалифицировано → контакты → обогащено), стоимость, кто запустил (человек или агент), результат Gate.
+
+## Использование стратегии
+
+- **Пайплайн** — ищет лидов по ICP, тегирует их стратегией
+- **Кампания** — на Step 1 выбирается Strategy: контакты фильтруются по тегу, AI генерирует сиквенс из Messaging + Personalization + Insights
+- **Аналитика** — Cost per meeting и Reply rate считаются в разрезе стратегий: видно какой сегмент окупается
+
+## MCP
+
+Действия стратегии доступны агентам: `strategy.list`, `strategy.get`, `strategy.draft`, `pipeline.run`, `pipeline.find_more`, `pipeline.status`, `pipeline.approve_gate` (только роли с правом Gate). Подробнее — [Automation → MCP](/v2/automation/mcp).

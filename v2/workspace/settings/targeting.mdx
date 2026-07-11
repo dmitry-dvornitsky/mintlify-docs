@@ -1,0 +1,73 @@
+---
+title: "Settings · Targeting"
+description: "Audiences, Qualification Criteria, Custom Columns, DNC и Lists — конфигурация таргетинга"
+---
+
+```text
+┌───────────────────────────────────────────────────────────────────────────┐
+│  SETTINGS · TARGETING                                                     │
+│  [Audiences] [Qualification] [Custom columns] [Do Not Contact] [Lists]    │
+├───────────────────────────────────────────────────────────────────────────┤
+│  QUALIFICATION CRITERIA SET: "Construction ICP v2"        [✦ Suggest]     │
+│  ┌──────────────────────────────────────────────────────────────────┐    │
+│  │ SHOULD (2/3)                                                     │    │
+│  │  ✓ Company operates in construction / building trades            │    │
+│  │  ✓ Works with commercial clients (not only B2C)                  │    │
+│  │ SHOULD NOT (1/3)                                                 │    │
+│  │  ✗ Franchise or part of large holding                            │    │
+│  └──────────────────────────────────────────────────────────────────┘    │
+│  Used by: Strategy "CFO UK Construction" · 1,100 companies analyzed       │
+│  Accuracy feedback: 91% gate-approved                                     │
+└───────────────────────────────────────────────────────────────────────────┘
+```
+
+Справочники таргетинга проекта. Всё здесь — переиспользуемые объекты, на которые ссылаются стратегии и пайплайны. Из форм стратегии эти объекты можно создавать inline — не нужно заранее идти в Settings.
+
+## Audiences
+
+Именованные наборы должностей для поиска контактов.
+
+| Поле | Описание |
+|---|---|
+| Name * | Например, «C-Level Executives» |
+| Description * | Кто эти люди — AI использует для квалификации нестандартных тайтлов. **✦ Improve with AI** |
+| Job Titles * | Должности тегами |
+| Exclude Job Titles | Предзаполнено: Assistant, Associate, Junior, Intern, Student, Trainee |
+
+Используются в Contact ICP стратегии (First / Secondary Priority) и advanced-поиске.
+
+## Qualification Criteria
+
+Наборы критериев для AI-анализа сайтов компаний (переименовано из «Criteria Groups»).
+
+- До 3 **Should** + до 3 **Should not** критериев свободным текстом
+- **✦ Suggest criteria** — AI предлагает критерии из ICP-документа в Insights
+- **Accuracy feedback** — доля результатов, подтверждённых людьми на Gates: видно, работает ли набор критериев
+
+Привязываются к Strategy (Step 2 пайплайна) или запускаются вручную из Leads → Bulk.
+
+## Custom Columns
+
+Кастомные поля компаний и контактов с AI-обогащением. Табы: Contacts / Companies.
+
+| Поле | Описание |
+|---|---|
+| Name * | «Tech Stack», «Funding Stage»… |
+| Type * | Text, Long text, Number, Date, Boolean, Single / Multiple choice |
+| Description | Что хранится |
+| AI enrichment instructions | Что искать и где: «Find the main programming languages based on their website and job postings» |
+
+Обогащение запускается: шагом Enrichments пайплайна, из Leads → Bulk (**с выбором конкретных колонок чекбоксами**), через MCP. Заполненные колонки видны в таблицах Leads и Overlay → Overview; можно использовать как Personalization hook стратегии.
+
+## Do Not Contact
+
+Глобальные исключения проекта. Табы: Companies (домены) / Contacts (email).
+
+- **+ Add** вручную или **Import CSV**
+- Применяются при каждом поиске/импорте (чекбокс Apply DNC, включён по умолчанию)
+- **Автопополнение:** ответ с типом DNC или Unsubscribe добавляет контакт (и опционально домен) автоматически — workflow включён по умолчанию
+- Колонка Source: Manual / Import / Auto (reply)
+
+## Lists
+
+Именованные списки: лист содержит только компании или только контакты. Создаются здесь или на лету из Overlay (Details → Lists → +) и Bulk-действий. Используются как фильтр в Leads и при наборе кампании.

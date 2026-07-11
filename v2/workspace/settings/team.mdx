@@ -1,0 +1,58 @@
+---
+title: "Settings · Team"
+description: "Команда проекта и клиентский доступ — одна страница, две секции"
+---
+
+```text
+┌───────────────────────────────────────────────────────────────────────────┐
+│  SETTINGS · TEAM                                                          │
+│                                                                           │
+│  BELKINS STAFF                    [Quick: Role ▾]  [+ Add member] [Invite]│
+│  ┌──────────────────┬──────────────────────┬───────────┬──────────────┐   │
+│  │ Name             │ Role                 │ Status    │ Workload     │   │
+│  ├──────────────────┼──────────────────────┼───────────┼──────────────┤   │
+│  │ 👤 Ben Carter    │ Account Strategist   │ Active    │ 4 projects   │   │
+│  │ 👤 Adam Reed     │ SDR                  │ Active    │ 6 projects ⚠ │   │
+│  │ 👤 Kate Miller   │ Lead Researcher      │ Active    │ 3 projects   │   │
+│  │ 👤 John Smith    │ EDS                  │ Pending ↺ │ invited Jul 9│   │
+│  └──────────────────┴──────────────────────┴───────────┴──────────────┘   │
+│                                                                           │
+│  AI AGENTS ON THIS PROJECT                                                │
+│  ✦ SDR Agent        L3 · handles OOO/Not-interested       [Configure]    │
+│  ✦ Research Agent   L3 · runs pipelines in limits         [Configure]    │
+│                                                                           │
+│  CLIENT ACCESS                                          [+ Invite client] │
+│  john@iwoca.com     Client Admin     Active                               │
+│  sarah@iwoca.com    Client Viewer    Pending ↺ resend                     │
+└───────────────────────────────────────────────────────────────────────────┘
+```
+
+Управление доступом к проекту. Три секции на одной странице (вместо шести табов v1): сотрудники Belkins, AI-агенты и клиентский доступ — три принципиально разных типа участников.
+
+## Belkins staff
+
+Одна таблица со всеми сотрудниками проекта.
+
+**Колонки:** Avatar + Name, Role, Email, Status (Active / Pending с датой инвайта и Resend), Workload (на скольких проектах человек — ⚠ при перегрузе, данные из [Admin → Team](/v2/admin/team-performance)).
+
+**Actions:**
+- **+ Add member** — выбрать существующего пользователя системы + роль на проекте
+- **Invite** — email-приглашение новому человеку (появится со статусом Pending прямо в таблице)
+
+**Quick Filters:** по роли. Роли и их права описаны в [Обзор → Роли](/v2/overview/roles).
+
+## AI agents on this project
+
+Какие агенты активны на проекте, их уровень автономии и зона ответственности. Configure ведёт в настройки агента с проектным override (например, на этом проекте SDR Agent работает в L2 — всё через approve). Глобальный реестр агентов — [Automation → Agents](/v2/automation/agents).
+
+## Client access
+
+Отдельная секция с другим визуальным весом — клиент не смешивается со стаффом.
+
+| Поле | Описание |
+|---|---|
+| Email | Пользователь клиентской стороны |
+| Role | Client Admin / Client Viewer |
+| Status | Active / Pending (+ Resend) |
+
+**+ Invite client** — приглашение в [Client Portal](/v2/workspace/client-portal). Ссылка «Что видит клиент →» открывает описание портала.

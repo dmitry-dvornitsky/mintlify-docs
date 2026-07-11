@@ -1,0 +1,102 @@
+---
+title: "Projects"
+description: "Портфель проектов и дашборд проекта — рабочее пространство по одному клиенту"
+---
+
+```text
+┌───────────────────────────────────────────────────────────────────────────┐
+│  PROJECT: Iwoca                     Stage: Delivery · Health ● 82         │
+│  [Dashboard] [Strategy] [Leads] [Campaigns] [Inbox] [Meetings] [Tasks]    │
+│  [Insights] [Settings]                                                    │
+├───────────────────────────────────────────────────────────────────────────┤
+│  ┌─ KPI July ──────────┐ ┌─ FUNNEL (30d) ─────────────────────────────┐  │
+│  │ Meetings   14 / 20  │ │ Contacts 4,120 → Contacted 3,884 (94%)     │  │
+│  │ ██████████░░  70%   │ │ → Replies 312 (8.0%) → Positive 98         │  │
+│  │ Pace: on track ●    │ │ → Meetings 14 (14.3% of positive)          │  │
+│  └─────────────────────┘ └────────────────────────────────────────────┘  │
+│  ┌─ CHANNELS ──────────────────────────┐ ┌─ NEEDS ATTENTION ──────────┐  │
+│  │ Email    3,240 sent · 6.9% reply    │ │ ● Gate: pipeline run #4    │  │
+│  │ LinkedIn 644 conn · 41% acc · 12.1% │ │ ● 2 mailboxes near limit   │  │
+│  └─────────────────────────────────────┘ │ ● 3 replies > 2h old       │  │
+│  ┌─ ACTIVE WORK ───────────────────────┐ └────────────────────────────┘  │
+│  │ ▶ Pipeline: CFO UK — step 3/4       │ ┌─ AI WEEKLY SUMMARY ──────┐   │
+│  │ ▶ Campaign: Extra Leads — running   │ │ "Reply rate вырос на 1.2 │   │
+│  │ ▶ Campaign: Re-engage — paused      │ │  п.п. после смены hook…" │   │
+│  └─────────────────────────────────────┘ └──────────────────────────┘   │
+└───────────────────────────────────────────────────────────────────────────┘
+```
+
+Каждый Project соответствует одному клиенту Belkins. Внутри проекта — вся работа по клиенту: стратегии, лиды, кампании, переписка, встречи, знания и настройки.
+
+## Список проектов
+
+**Колонки:** Project, Stage, Health, KPI progress (mini-bar), Active campaigns, Team, Last activity
+
+| Элемент | Описание |
+|---|---|
+| **Stage** | Этап жизненного цикла: Onboarding / Research / Outreach / Delivery / Renewal / Churned — см. [Client Lifecycle](/v2/overview/client-lifecycle) |
+| **Health** | Health Score 0–100 — тот же, что в [Admin → Clients](/v2/admin/clients) |
+| **Quick Filters** | My projects / Stage / Health / Account Strategist |
+
+По умолчанию пользователь видит **свои проекты**; полный список доступен по фильтру (для Sales — read-only).
+
+## Дашборд проекта
+
+Один и тот же дашборд видят команда и — в упрощённом виде — клиент в [Client Portal](/v2/workspace/client-portal).
+
+### Блоки
+
+| Блок | Что показывает |
+|---|---|
+| **KPI** | Встречи за месяц против плана из [Settings → KPI](/v2/workspace/settings/client#kpi) + прогноз темпа (on track / behind / ahead) |
+| **Funnel** | Сквозная воронка за период: Contacts → Contacted → Replies → Positive → Meetings. Клик по ступени открывает список лидов на ней |
+| **Channels** | Email и LinkedIn рядом: отправлено, reply rate, acceptance rate, встречи по каналу |
+| **Active work** | Живые процессы: запущенные пайплайны (с прогрессом), активные кампании, ближайшие встречи |
+| **Needs attention** | Гейты, ящики у лимита, старые неотвеченные ответы, просроченные задачи проекта |
+| **AI Weekly Summary** | Автоматическая сводка недели: что изменилось, почему, что рекомендуется. Используется и как черновик отчёта клиенту |
+| **Project info** | Карточка клиента из Settings → General: команда, timeline, регион, бюджет |
+
+### Табы дашборда
+
+| Таб | Содержимое |
+|---|---|
+| **Overview** | Блоки выше |
+| **Performance** | Гибкий аналитический график: Metric × Group by × Split by × Date range |
+| **Campaigns** | Таблица кампаний проекта с агрегатами (Contacted, Reply Rate, Reply Types donut, Meetings) |
+| **Report** | Архив еженедельных AI-отчётов, отправленных клиенту, с возможностью редактирования перед отправкой |
+
+## Модули проекта
+
+<CardGroup cols={3}>
+  <Card title="Strategy Hub" icon="chess" href="/v2/workspace/strategy-hub">
+    Стратегии + Research Pipeline — центр go-to-market
+  </Card>
+  <Card title="Leads" icon="users" href="/v2/workspace/leads">
+    База компаний и контактов
+  </Card>
+  <Card title="Campaigns" icon="paper-plane" href="/v2/workspace/campaigns">
+    Мультиканальные последовательности
+  </Card>
+  <Card title="Inbox" icon="inbox" href="/v2/workspace/inbox">
+    Переписка + AI Copilot / Autopilot
+  </Card>
+  <Card title="Meetings" icon="calendar" href="/v2/workspace/meetings">
+    Встречи — главный KPI
+  </Card>
+  <Card title="Tasks" icon="circle-check" href="/v2/workspace/tasks">
+    Задачи людей и агентов
+  </Card>
+  <Card title="Insights" icon="lightbulb" href="/v2/workspace/insights">
+    База знаний клиента
+  </Card>
+  <Card title="Client Portal" icon="handshake" href="/v2/workspace/client-portal">
+    Что видит клиент
+  </Card>
+  <Card title="Settings" icon="gear" href="/v2/workspace/settings">
+    Настройки проекта
+  </Card>
+</CardGroup>
+
+<Note>
+Модуль **Requests** из v1 удалён: история операций живёт в Pipeline History внутри каждой стратегии, а ручные операции (advanced mode) — в Leads. Плоский Audit Log проекта доступен в Settings.
+</Note>

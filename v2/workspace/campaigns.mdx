@@ -1,0 +1,126 @@
+---
+title: "Campaigns"
+description: "Мультиканальные outreach-кампании: AI собирает, человек утверждает, платформа отправляет"
+---
+
+```text
+┌───────────────────────────────────────────────────────────────────────────┐
+│  CREATE CAMPAIGN — 4 шага (вместо 8 в v1)                                 │
+│                                                                           │
+│  ① Strategy ──► ② Review sequence ──► ③ Channels ──► ④ Launch review     │
+│     выбрал         AI уже сгенерил       ящики/акк.      сводка + Start   │
+│     стратегию      правишь при желании   подсказаны                       │
+│                                                                           │
+│  CAMPAIGN PAGE: Extra Leads / CFO UK             ● Running · day 12       │
+│  [Dashboard] [Contacts] [Sequence] [Channels] [Analytics] [Settings]      │
+│  ┌─ SUMMARY ────────────────────────────────────────────────────────┐    │
+│  │ Contacts 412 · Meetings 6 · Reply 8.4% · Positive 31 · Day 12    │    │
+│  └──────────────────────────────────────────────────────────────────┘    │
+│  ┌─ SEQUENCE FUNNEL ────────────┐  ┌─ MAILBOX HEALTH ──────────────┐     │
+│  │ S1 ████████ 412              │  │ adam@iwoca    18/20  ▮▮▮▮▮░   │     │
+│  │ S2 ██████   307              │  │ kate@iwoca    12/20  ▮▮▮▮░░   │     │
+│  │ S3 ████     198              │  │ Scheduled tomorrow: 74 emails │     │
+│  └──────────────────────────────┘  └───────────────────────────────┘     │
+│  ┌─ RECENT REPLIES ─────────────────────────────────────────────────┐    │
+│  │ ● Interested — L.Cansfield · 12m ago            [Open in Inbox]  │    │
+│  │ ● Appointment — J.Wistow · 1h ago               [Open in Inbox]  │    │
+│  └──────────────────────────────────────────────────────────────────┘    │
+└───────────────────────────────────────────────────────────────────────────┘
+```
+
+Campaigns — запуск и управление outreach-последовательностями по Email, LinkedIn и звонкам. Потому что Strategy уже содержит ICP, месседжинг и personalization hook, мастер создания сокращён с восьми шагов до четырёх.
+
+## Таблица кампаний
+
+**Колонки:** Campaign, Status, Strategy, Mode, Contacts, Reply rate, Meetings, Created
+
+| Статус | Описание |
+|---|---|
+| **Draft** | Создана, не запущена |
+| **Pending approval** | Ждёт утверждения сиквенса (Gate) |
+| **Running** | Отправляет |
+| **Paused** | Приостановлена (вручную или автоматикой) |
+| **Completed** | Все шаги завершены |
+
+**Naming-конвенция:** `{Клиент} / {Goal} / {Сегмент} / {Дата}` — подставляется автоматически из стратегии, редактируется.
+
+## Создание кампании
+
+### Step 1 — Strategy
+
+Выбор **Strategy** (обязательно) — продукт, ICP, месседжинг и контакты подтягиваются из неё. Поле Name автозаполняется по конвенции. Опционально — уточнение цели кампании текстом (AI учитывает при генерации).
+
+### Step 2 — Review sequence
+
+AI-сиквенс **уже сгенерирован** к моменту открытия шага — из Messaging, Personalization hook и Insights. SDR просматривает и правит при желании.
+
+**Режимы письма (Mode):**
+
+| Режим | Поведение |
+|---|---|
+| **✦ Personalized (по умолчанию)** | AI пишет уникальное письмо для каждого контакта. Редактор задаёт структуру и ограничения |
+| **My template** | SDR пишет шаблон сам: Variables `{{FirstName}}`, Spintax `{a|b|c}`, A/B-варианты. AI заполняет только переменные |
+
+*(режимы заменяют «Template mode» из v1 — термин един во всём продукте: тогл в редакторе, бейдж Mode в таблице)*
+
+**Типы действий шага:** Send email · LinkedIn connection (± note) · LinkedIn message · Call task (создаёт задачу SDR со скриптом).
+
+**Панель контекста** — что AI использует: Product, Strategy, Insights-страницы; ручное управление через Select context. Счётчик токенов.
+
+### Step 3 — Channels
+
+Ящики и LinkedIn-аккаунты **подсказываются автоматически**: свободная ёмкость, здоровье, привязка к SDR. Таблица с Usage-барами (жёлтый — умеренная загрузка, красный — у лимита). Если LinkedIn-шагов нет — секция скрыта.
+
+### Step 4 — Launch review
+
+Сводка: контакты (с разбивкой по атрибутам), шаги с задержками, каналы с лимитами, расписание (окна отправки по дням, timezone, timeline попадания шагов в даты), прогноз длительности и стоимости.
+
+**Preview** — рендер последовательности для конкретного контакта + **AI Description**: какой угол выбрал AI, что использовал, что намеренно не включил. **Send test** — тест себе.
+
+Кнопка **Launch**. Если кампанию создал агент — включается Gate: утверждает SDR или AS.
+
+## Страница кампании
+
+### Dashboard
+
+| Блок | Что показывает |
+|---|---|
+| **Summary bar** | Contacts, Meetings booked (выделено), Reply rate, Positive, Days running |
+| **Channel performance** | Email и LinkedIn рядом: Contacted %, Reply rate, ключевые числа |
+| **Sequence funnel** | Контакты на каждом шаге — где drop-off |
+| **Reply Types** | Donut: Appointment / Interested / Talking / Contact later / Forwarded / Not interested / Unsubscribe / DNC / Ghosted / Automation / Unknown |
+| **Mailbox health** | Загрузка каждого ящика + **Scheduled tomorrow: N** — прогноз на завтра |
+| **Recent replies** | Последние ответы с типом и переходом в Inbox |
+
+### Contacts
+
+Колонки: Full name, Email, Status, Channels, Step, Last touch, Reply type. Bulk: pause / remove / move to another campaign.
+
+### Sequence
+
+Редактор как на Step 2, с live-валидацией переменных (неизвестная переменная — ошибка с перечнем допустимых) и предпросмотром. Изменения применяются к ещё не отправленным шагам.
+
+### Channels
+
+Управление ящиками и LinkedIn-аккаунтами кампании: добавить, убрать, лимиты. **Override auto-limits** — на уровне кампании, применяется ко всем ящикам; конфликт с ручным лимитом ящика подсвечивается.
+
+### Analytics
+
+Табы Email / LinkedIn / Audience:
+
+- **Email:** Contacts Metrics (Contacted, Sent, Meetings, Bounces, Reply rate, Positive/Negative), Reply Types, Reply Rate Heatmap (шаг × день недели), метрики по шагам, Mailbox Capacity, Performance-график (Metric × Group by × Split by)
+- **LinkedIn:** Connects sent / accepted / pending / expired, acceptance rate, replies, meetings
+- **Audience:** состав аудитории — Email status/provider/spam-protection, Gender, Audience, Department, Level, Industry, Company size, Locations
+
+### Settings
+
+| Секция | Настройки |
+|---|---|
+| **Schedule** | Timezone, окна отправки по дням, Include weekends |
+| **Sending limits** | Daily limit per recipient domain (субдомены = один домен), Override auto-limits |
+| **Meeting automation** | Когда встреча забронирована: действие (Pause / Stop / Nothing) × scope (контакт / вся компания) × срок (навсегда / N дней). Гибче, чем один чекбокс v1 |
+| **Reply handling** | Что делает Autopilot с ответами этой кампании — ссылки на настройки [Inbox](/v2/workspace/inbox#autopilot) |
+
+## MCP
+
+`campaigns.list`, `campaigns.get`, `campaigns.create_from_strategy`, `campaigns.update_sequence`, `campaigns.launch` (Gate для агентов), `campaigns.pause`, `campaigns.stats`.

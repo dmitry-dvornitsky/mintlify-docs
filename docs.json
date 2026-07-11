@@ -9,126 +9,180 @@
   },
   "favicon": "/favicon.svg",
   "navigation": {
-    "pages": [
+    "tabs": [
       {
-        "group": "Обзор",
-        "pages": [
-          "overview/what-is-belkins-home"
-        ]
-      },
-      {
-        "group": "Пользователи",
-        "pages": [
-          "users/delivery-team"
-        ]
-      },
-      {
-        "group": "Домен",
-        "pages": []
-      },
-      {
-        "group": "Архитектура",
-        "pages": []
-      },
-      {
-        "group": "Решения (ADR)",
-        "pages": []
-      },
-      {
-        "group": "Модули",
-        "pages": [
-          "features/projects-overview",
-          "features/strategies",
-          "features/leads",
-          "features/campaigns",
-          "features/requests",
-          "features/inbox",
-          "features/tasks",
-          "features/meetings",
-          "features/insights",
+        "tab": "V1 — Текущий продукт",
+        "groups": [
           {
-            "group": "Settings",
+            "group": "Обзор",
             "pages": [
-              "features/settings/index",
+              "overview/what-is-belkins-home"
+            ]
+          },
+          {
+            "group": "Пользователи",
+            "pages": [
+              "users/delivery-team"
+            ]
+          },
+          {
+            "group": "Модули",
+            "pages": [
+              "features/projects-overview",
+              "features/strategies",
+              "features/leads",
+              "features/campaigns",
+              "features/requests",
+              "features/inbox",
+              "features/tasks",
+              "features/meetings",
+              "features/insights",
               {
-                "group": "Клиент",
+                "group": "Settings",
                 "pages": [
-                  "features/settings/general",
-                  "features/settings/products",
-                  "features/settings/kpi",
-                  "features/settings/billing"
-                ]
-              },
-              {
-                "group": "Команда",
-                "pages": [
-                  "features/settings/team",
-                  "features/settings/usage"
-                ]
-              },
-              {
-                "group": "Аккаунты",
-                "pages": [
-                  "features/settings/mailboxes",
-                  "features/settings/linkedin-accounts",
-                  "features/settings/calendars",
-                  "features/settings/slack"
-                ]
-              },
-              {
-                "group": "Лиды",
-                "pages": [
-                  "features/settings/audiences",
-                  "features/settings/criteria-groups",
-                  "features/settings/columns",
-                  "features/settings/do-not-contact",
-                  "features/settings/lists"
-                ]
-              },
-              {
-                "group": "Inbox",
-                "pages": [
-                  "features/settings/message-templates",
-                  "features/settings/labels"
+                  "features/settings/index",
+                  {
+                    "group": "Клиент",
+                    "pages": [
+                      "features/settings/general",
+                      "features/settings/products",
+                      "features/settings/kpi",
+                      "features/settings/billing"
+                    ]
+                  },
+                  {
+                    "group": "Команда",
+                    "pages": [
+                      "features/settings/team",
+                      "features/settings/usage"
+                    ]
+                  },
+                  {
+                    "group": "Аккаунты",
+                    "pages": [
+                      "features/settings/mailboxes",
+                      "features/settings/linkedin-accounts",
+                      "features/settings/calendars",
+                      "features/settings/slack"
+                    ]
+                  },
+                  {
+                    "group": "Лиды",
+                    "pages": [
+                      "features/settings/audiences",
+                      "features/settings/criteria-groups",
+                      "features/settings/columns",
+                      "features/settings/do-not-contact",
+                      "features/settings/lists"
+                    ]
+                  },
+                  {
+                    "group": "Inbox",
+                    "pages": [
+                      "features/settings/message-templates",
+                      "features/settings/labels"
+                    ]
+                  }
                 ]
               }
+            ]
+          },
+          {
+            "group": "Компоненты",
+            "pages": [
+              "features/table",
+              {
+                "group": "Company & Contact Overlay",
+                "pages": [
+                  "components/company-contact-overlay/index",
+                  "components/company-contact-overlay/overview",
+                  "components/company-contact-overlay/emails"
+                ]
+              },
+              "components/ai-editor"
+            ]
+          },
+          {
+            "group": "Roadmap & Идеи",
+            "pages": [
+              "roadmap/index",
+              "roadmap/personal-dashboard",
+              "roadmap/must-have-features"
+            ]
+          },
+          {
+            "group": "Редизайн & Предложения",
+            "pages": [
+              "redesigns/strategy-redesign",
+              "redesigns/leads-pipeline",
+              "redesigns/campaigns-overview",
+              "redesigns/leads-find-companies",
+              "redesigns/leads-find-contacts",
+              "redesigns/settings-usage",
+              "redesigns/settings-team"
             ]
           }
         ]
       },
       {
-        "group": "Компоненты",
-        "pages": [
-          "features/table",
+        "tab": "V2 — Целевой продукт",
+        "groups": [
           {
-            "group": "Company & Contact Overlay",
+            "group": "Обзор",
             "pages": [
-              "components/company-contact-overlay/index",
-              "components/company-contact-overlay/overview",
-              "components/company-contact-overlay/emails"
+              "v2/index",
+              "v2/overview/vision",
+              "v2/overview/platform-architecture",
+              "v2/overview/roles",
+              "v2/overview/client-lifecycle"
             ]
           },
-          "components/ai-editor"
-        ]
-      },
-      {
-        "group": "Roadmap & Идеи",
-        "pages": [
-          "roadmap/index",
-          "roadmap/personal-dashboard",
-          "roadmap/must-have-features"
-        ]
-      },
-      {
-        "group": "Редизайн & Предложения",
-        "pages": [
-          "redesigns/strategy-redesign",
-          "redesigns/leads-pipeline",
-          "redesigns/campaigns-overview",
-          "redesigns/leads-find-companies",
-          "redesigns/leads-find-contacts",
-          "redesigns/settings-usage",
-          "redesigns/settings-team"
+          {
+            "group": "Workspace",
+            "pages": [
+              "v2/workspace/my-day",
+              "v2/workspace/projects",
+              "v2/workspace/strategy-hub",
+              "v2/workspace/leads",
+              "v2/workspace/campaigns",
+              "v2/workspace/inbox",
+              "v2/workspace/meetings",
+              "v2/workspace/tasks",
+              "v2/workspace/insights",
+              "v2/workspace/client-portal",
+              {
+                "group": "Settings",
+                "pages": [
+                  "v2/workspace/settings/index",
+                  "v2/workspace/settings/client",
+                  "v2/workspace/settings/team",
+                  "v2/workspace/settings/channels",
+                  "v2/workspace/settings/targeting"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Admin",
+            "pages": [
+              "v2/admin/index",
+              "v2/admin/command-center",
+              "v2/admin/clients",
+              "v2/admin/team-performance",
+              "v2/admin/finance",
+              "v2/admin/quality",
+              "v2/admin/system"
+            ]
+          },
+          {
+            "group": "Automation & MCP",
+            "pages": [
+              "v2/automation/index",
+              "v2/automation/agents",
+              "v2/automation/workflows",
+              "v2/automation/mcp"
+            ]
+          }
         ]
       }
     ]

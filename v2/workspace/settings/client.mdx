@@ -1,0 +1,93 @@
+---
+title: "Settings · Client"
+description: "General, Products, KPI, Billing и Costs — клиент, план и деньги проекта"
+---
+
+```text
+┌───────────────────────────────────────────────────────────────────────────┐
+│  SETTINGS · CLIENT          [General] [Products] [KPI] [Billing] [Costs]  │
+├───────────────────────────────────────────────────────────────────────────┤
+│  KPI ──────────────────────────────────  Billing ────────────────────────│
+│  │ Month │ Goal │ Result │  %   │        │ Subscriptions:                 │
+│  │ Jul   │  20  │   14   │ 70%  │        │  Lead Gen (Recurring) $6,000/m│
+│  │ Jun   │  20  │   21   │105%  │        │  Setup fee (One-time) $2,000  │
+│  │ May   │  15  │   17   │113%  │        │ Invoices:                      │
+│  └───────┴──────┴────────┴──────┘        │  #0034 Paid · #0035 Overdue ⚠ │
+│                                                                           │
+│  Costs ───────────────────────────────────────────────────────────────── │
+│  Total spent (July): $1,240 · Avg daily $40 · Projected: $1,780          │
+│  Breakdown: OpenAI 46% · Generect 31% · Apollo 12% · Other 11%           │
+│  Margin (July): revenue $6,000 − costs $1,240 = 79% gross                 │
+└───────────────────────────────────────────────────────────────────────────┘
+```
+
+Пять табов о клиенте: кто он (General), что продаёт (Products), какой план (KPI), какие деньги (Billing) и во что обходится доставка (Costs).
+
+## General
+
+**Компания:** Name, Slug, Size, Industry, Country / State, **Timezone** (важно для окон отправки), Website, Storage Link, **Contact Person** (главный стейкхолдер).
+
+**Контракт:** Customer Since / To, Contract Pilot (мес.), Contract Recurring (мес.), Contract Specifics.
+
+**Стадия** жизненного цикла (Onboarding → … → Renewal) отображается здесь и меняется автоматически по событиям (первая кампания запущена → Outreach и т.д.), с возможностью ручного переопределения.
+
+## Products
+
+Форма вместо таблицы (типичный случай — один продукт): Name, Description, Competitor websites. Кнопка **+ Add another product** для нескольких. Каждый продукт создаёт вкладку в [Insights → Products](/v2/workspace/insights).
+
+## KPI
+
+План по встречам на месяц. **Add KPI:** Month, Year, Goal.
+
+| Колонка | Описание |
+|---|---|
+| Goal | План встреч |
+| Result | Авто: Completed-встречи из [Meetings](/v2/workspace/meetings) |
+| % | Result / Goal |
+| Pace | Прогноз темпа: on track / behind / ahead — считается по дню месяца |
+| Updated by | Кто менял Goal (история изменений — по клику) |
+
+Удаление записей недоступно намеренно — история сохраняется. Правка Goal: AD, AS, менеджмент. KPI-выполнение — вход в Health Score клиента.
+
+## Billing
+
+Финансы проекта. Права: AD, Finance, C-level.
+
+### Billing Information
+
+Legal name, Location, Email для инвойсов, контактное лицо, Wave customer (привязка), Customer NET (days).
+
+### Subscriptions
+
+Подключённые сервисы из глобального каталога ([Admin → Finance → Service Catalog](/v2/admin/finance#service-catalog)); цена подставляется из каталога, редактируется.
+
+| Тип | Поля |
+|---|---|
+| **Recurring** | Price / month, Currency, Billing cycle, Contract length, Start date (End — авто), Notes |
+| **One-time** | Price, Currency, Invoice date, Notes |
+
+Обе формы поддерживают **Setup fee** (разовый сбор к первому инвойсу) и **Discount** (Amount / Percent × длительность: первый инвойс / N месяцев / весь срок). Справа — **Preview** всех будущих инвойсов в реальном времени.
+
+### Invoices
+
+| Колонка | Описание |
+|---|---|
+| Invoice, Status, Total, Paid | Draft / Created / Sent / Paid / Overdue |
+| Issue Date / Due | Due = Issue + NET |
+| Source | Subscription (создан платформой) / Synced (из Wave) |
+
+**Автоматика:** Recurring-подписки генерируют инвойсы сами; отправка в Wave — по Gate (Finance approve) или автоматически при включённом Autopilot-биллинге. Overdue-инвойс → алерт Finance и AD, попадает в Health Score.
+
+## Costs
+
+Расходы на внешние инструменты и AI по проекту (переименовано из «Usage»).
+
+| Блок | Содержимое |
+|---|---|
+| **Summary** | Total spent за период (по умолчанию текущий месяц, период подписан), Avg daily spend, Projected monthly cost |
+| **Daily chart** | Bar-chart по дням, группировка Tool / Feature |
+| **Breakdown** | Tool / Feature, Share, Cost, % (Credits убраны — несравнимая единица) |
+| **Margin** | Выручка проекта (из Billing) − Costs = валовая маржа. Дублируется в [Admin → Finance](/v2/admin/finance) |
+| **Transaction Log** | Агрегированный по умолчанию (Feature × день × вызовы × стоимость), raw — по раскрытию или Export |
+
+Инструменты: OpenAI/LLM, Generect, Apollo, Hunter, QuickEmail, RapidAPI, GSuite и др.

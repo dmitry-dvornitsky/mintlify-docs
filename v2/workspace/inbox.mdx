@@ -1,0 +1,102 @@
+---
+title: "Inbox"
+description: "Единая переписка Email + LinkedIn с AI Copilot и Autopilot"
+---
+
+```text
+┌───────────────────────────────────────────────────────────────────────────┐
+│ INBOX                                                                     │
+│ ┌──────────┐ ┌──────────────────────────────┐ ┌───────────────────────┐  │
+│ │ Needs    │ │ THREAD: Laura Cansfield       │ │ DETAILS               │  │
+│ │  reply 4 │ │ Scruffs · ● Interested        │ │ Scruffs Ltd · 45 emp  │  │
+│ │ Waiting 9│ │ ─────────────────────────────│ │ CFO · New in role 🟢  │  │
+│ │ Handled  │ │ > "Sounds relevant, can you   │ │ LI Score 84           │  │
+│ │  by AI 31│ │ send more details on rates?"  │ │ Campaign: CFO UK      │  │
+│ │ Scheduled│ │                               │ │ ─────────────────────│  │
+│ │ Drafts   │ │ ┌─ ✦ AI DRAFT ─────────────┐ │ │ AI CONTEXT            │  │
+│ │ Sent     │ │ │ Hi Laura, happy to — for  │ │ │ "Laura asked about   │  │
+│ │ All mail │ │ │ firms your size the rate… │ │ │  rates → uses page   │  │
+│ │ ──────── │ │ │ Confidence: 87%           │ │ │  Pricing from        │  │
+│ │ Bounces  │ │ │ [Send] [Edit] [Rewrite ▾] │ │ │  Insights"           │  │
+│ │ Archive  │ │ └───────────────────────────┘ │ │                       │  │
+│ └──────────┘ │ [Reply][Reply all][Task][📅] │ └───────────────────────┘  │
+│              └──────────────────────────────┘                            │
+│  AUTOPILOT: 31 replies handled tonight — 18 OOO · 9 Not int. · 4 Unsub   │
+└───────────────────────────────────────────────────────────────────────────┘
+```
+
+Inbox — рабочее место SDR для переписки. Email и LinkedIn приведены к единому формату тредов. Ключевое отличие v2: **AI обрабатывает переписку по умолчанию** — SDR работает с очередью «Needs reply», а не со всем потоком.
+
+## Три уровня обработки ответа
+
+| Уровень | Что происходит | Какие ответы |
+|---|---|---|
+| **Autopilot** | AI классифицирует и закрывает тред сам: помечает тип, обновляет статус, добавляет в DNC, ставит follow-up на «Contact later» | Automation (OOO), Not interested, Unsubscribe, DNC |
+| **Copilot** | AI готовит черновик ответа с контекстом (Insights, стратегия, история треда) и оценкой уверенности — SDR правит и отправляет | Interested, Talking, Contact later, Forwarded, вопросы |
+| **Human first** | AI не пишет черновик, только собирает контекст — тред сразу к SDR | Appointment, эскалации, VIP-треды, юридические темы |
+
+Правила настраиваются per-project в [Settings](/v2/workspace/settings): какие типы отдаются Autopilot, порог уверенности (по умолчанию 85%), список стоп-тем. Всё, что сделал Autopilot, попадает в раздел **Handled by AI** — SDR может проверить и отменить.
+
+## Сайдбар
+
+| Раздел | Что показывает |
+|---|---|
+| **Needs reply** | Треды, ждущие человека — основная очередь SDR, отсортирована по приоритету (Appointment/Interested сверху, старые выше) |
+| **Waiting** | Отправили — ждём ответа лида. Авто-follow-up виден здесь |
+| **Handled by AI** | Что закрыл Autopilot — лог с возможностью Undo |
+| **Scheduled** | Запланированные отправки (отмена / смена времени) |
+| **Drafts** | Черновики (автосохранение) |
+| **Sent** | Отправленное |
+| **All mail** | Все треды включая закрытые |
+| **Bounces** *(EDS)* | Hard / Soft баунсы — мониторинг здоровья ящиков |
+| **Archive** *(EDS)* | Скрытые треды (мусор) — не видны даже в All mail |
+
+Служебные разделы скрываются по роли — SDR их не видит.
+
+## Таблица тредов
+
+**Колонки:** Contact, Company, Channel, Subject / Preview, Type, Labels, From, Date. Клик на контакт открывает [Overlay](/v2/workspace/leads#company--contact-overlay), клик на тред — переписку.
+
+**Quick Filters:** Channel, Type, Labels, Status, Campaign, Handled by (Human / AI).
+
+## Тред
+
+Сообщения хронологически; длинные треды сворачиваются. Справа — панель **Details** (компания, контакт, кампания, LinkedIn Score, Job Signal) и **AI Context** — объяснение, почему AI предложил такой черновик.
+
+### Типы ответов
+
+AI классифицирует каждый входящий ответ (SDR может переопределить): Appointment, Interested, Talking, Contact later, Forwarded, Not interested, Unsubscribe, DNC, Ghosted, Automation, Unknown. Те же типы — в аналитике кампаний.
+
+### Статусы треда
+
+**Open** / **Closed** (с причиной). Closed не показывается в очередях, доступен в All mail. Archive — для мусора, скрыт полностью.
+
+### Ответ
+
+Форма внизу треда. **Reply / Reply to all** под каждым сообщением — поле To заполняется автоматически.
+
+| Инструмент | Описание |
+|---|---|
+| **✦ AI draft** | Черновик Copilot уже в форме, если тред в очереди Needs reply. Кнопки Rewrite (короче / формальнее / другой угол) |
+| **Templates** | Шаблоны из Settings, работают в обоих каналах |
+| **Форматирование, Attach** | Стандартный редактор |
+| **Create task** | Задача Follow-up с автопривязкой к треду |
+| **Send / Schedule** | Отправить сейчас или в указанное время |
+| **📅 Propose slots** | Вставить living-слоты из календаря — лид кликает и бронирует, встреча создаётся в [Meetings](/v2/workspace/meetings) |
+
+### Авто-follow-up
+
+Если лид не ответил на отправленное сообщение за N дней (настройка), Copilot готовит follow-up и ставит его в очередь на approve (или отправляет сам — при включённом Autopilot-follow-up). Заменяет ручные задачи «напомнить».
+
+## Bounces
+
+| Тип | Реакция платформы |
+|---|---|
+| **Hard bounce** | Контакт помечается Invalid, исключается из кампаний автоматически |
+| **Soft bounce** | Повтор через интервал; при повторении — алерт EDS |
+
+Рост bounce rate выше порога — автоматическая пауза ящика и алерт EDS (workflow по умолчанию).
+
+## MCP
+
+`inbox.list_threads`, `inbox.get_thread`, `inbox.classify`, `inbox.draft_reply`, `inbox.send_reply` (Gate/лимиты по типам), `inbox.close_thread`, `inbox.propose_slots`.

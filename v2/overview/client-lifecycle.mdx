@@ -1,0 +1,79 @@
+---
+title: "Жизненный цикл клиента"
+description: "Сквозной поток: от подписания контракта до продления — и кто (или что) выполняет каждый шаг"
+---
+
+```text
+┌───────────────────────────────────────────────────────────────────────────┐
+│                     ЖИЗНЕННЫЙ ЦИКЛ КЛИЕНТА В v2                           │
+│                                                                           │
+│  ONBOARDING      RESEARCH        OUTREACH       DELIVERY      RENEWAL     │
+│  ┌─────────┐    ┌─────────┐    ┌─────────┐    ┌─────────┐   ┌─────────┐  │
+│  │Kickoff  │    │Pipeline │    │Campaign │    │Meetings │   │Health   │  │
+│  │Insights │───►│Find→AI──│───►│AI seq → │───►│booked → │──►│Score →  │  │
+│  │Strategy │    │→Contacts│    │launch   │    │QA → KPI │   │Renewal /│  │
+│  │Channels │    │→Enrich  │    │→replies │    │         │   │Upsell   │  │
+│  └─────────┘    └─────────┘    └─────────┘    └─────────┘   └─────────┘  │
+│   AS + AI        AI [Gate:LR]   AI [Gate:SDR]  SDR + AI      AD + AI      │
+│   5 дней          часы           дни            непрерывно    по циклу    │
+│                                                                           │
+│  Каждый этап виден: команде — в Workspace, менеджменту — в Admin,         │
+│  клиенту — в Client Portal, агентам — через MCP                          │
+└───────────────────────────────────────────────────────────────────────────┘
+```
+
+Страница описывает целевой сквозной процесс. Каждый шаг ссылается на модуль, где он выполняется.
+
+## Этап 1 — Onboarding (цель: ≤ 5 дней)
+
+| # | Шаг | Кто | Где |
+|---|---|---|---|
+| 1 | Создание клиента и проекта, контракт и подписки | AD / Finance | [Admin → Clients](/v2/admin/clients), [Settings → Client](/v2/workspace/settings/client) |
+| 2 | Загрузка материалов клиента (деки, ICP, транскрипты kickoff-звонка) | AS | [Insights](/v2/workspace/insights) |
+| 3 | **AI-заполнение базы знаний** — из загруженных файлов агент генерирует Client Overview, Products, Objections, черновики страниц | Strategist Agent | Insights |
+| 4 | Создание Strategy: цель, ICP, Messaging, Personalization, Research Pipeline | AS + AI-черновик | [Strategy Hub](/v2/workspace/strategy-hub) |
+| 5 | Подключение каналов: ящики, LinkedIn, календари, Slack | EDS | [Settings → Channels](/v2/workspace/settings/channels) |
+| 6 | Приглашение клиента в Client Portal | AD | [Settings → Team](/v2/workspace/settings/team) |
+
+<Note>Прогресс онбординга отображается чек-листом на дашборде проекта и в Admin → Clients (стадия Onboarding). Просроченный онбординг — алерт Operations Manager.</Note>
+
+## Этап 2 — Research (часы вместо дней)
+
+Researcher или SDR запускает [Research Pipeline](/v2/workspace/strategy-hub#research-pipeline) из стратегии:
+
+1. **Find Companies** — поиск по ICP (авто)
+2. **AI Qualification** — анализ сайтов по критериям (авто) → **Gate: LR проверяет качество**
+3. **Find Contacts** — поиск ЛПР в квалифицированных компаниях (авто)
+4. **Enrichment** — телефоны, LinkedIn Score, кастомные колонки, валидация email (параллельно, авто)
+
+Результат: контакты с тегом стратегии, готовые к кампании.
+
+## Этап 3 — Outreach
+
+1. SDR (или SDR Agent) создаёт кампанию: выбирает Strategy — контакты и AI-сиквенс подтягиваются автоматически → [Campaigns](/v2/workspace/campaigns)
+2. **Gate: SDR/AS утверждает сиквенс** перед запуском
+3. Платформа отправляет по расписанию, соблюдая лимиты ящиков и доменов
+4. Ответы попадают в [Inbox](/v2/workspace/inbox): AI классифицирует, Autopilot закрывает типовые, Copilot готовит черновики для остальных
+
+## Этап 4 — Delivery
+
+1. Заинтересованный лид → AI-scheduler предлагает слоты → встреча бронируется → [Meetings](/v2/workspace/meetings)
+2. Клиент подтверждает встречу в [Client Portal](/v2/workspace/client-portal)
+3. После встречи: статус (Completed / No Show / Cancelled), QA-оценка качества лида
+4. Completed-встречи автоматически засчитываются в KPI; недельный отчёт клиенту генерируется AI
+
+## Этап 5 — Renewal / Upsell
+
+1. **Health Score** клиента считается непрерывно: KPI-выполнение, reply rate, активность клиента в портале, платёжная дисциплина → [Admin → Clients](/v2/admin/clients)
+2. За 60 дней до конца контракта — workflow создаёт Renewal-задачу AD с AI-сводкой: результаты, риски, аргументы
+3. Падение Health Score → алерт AD и Operations (churn-риск)
+4. Сигналы апсейла (KPI перевыполняется, клиент просит больше сегментов) → задача AD
+
+## Сквозная видимость
+
+| Поверхность | Что видит |
+|---|---|
+| Workspace | Операционный статус проекта — этап, пайплайны, кампании, встречи |
+| Admin | Все клиенты по стадиям, узкие места, деньги, риски |
+| Client Portal | Прогресс по своему проекту, встречи, материалы на аппрув |
+| MCP | Агент запрашивает статус клиента и выполняет следующий шаг процесса |

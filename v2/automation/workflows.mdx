@@ -1,0 +1,61 @@
+---
+title: "Workflows"
+description: "Детерминированные автоматизации: событие → условие → действие"
+---
+
+```text
+┌───────────────────────────────────────────────────────────────────────────┐
+│  WORKFLOW: No-show recovery                            ● Enabled          │
+│  ──────────────────────────────────────────────────────────────────────  │
+│                                                                           │
+│  TRIGGER              CONDITION                ACTIONS                    │
+│  ┌────────────────┐   ┌────────────────────┐   ┌─────────────────────┐   │
+│  │ meeting.status │──►│ status == No Show  │──►│ 1. send reschedule  │   │
+│  │   _changed     │   │ && first_noshow    │   │    email (template) │   │
+│  └────────────────┘   └────────────────────┘   │ 2. create task SDR  │   │
+│                                                │ 3. notify Slack     │   │
+│                                                └─────────────────────┘   │
+│  RUNS (7d): 12 · errors 0                                [Run log]        │
+│                                                                           │
+│  LIBRARY: DNC auto-add · Invoice overdue chain · Renewal-60d ·            │
+│  Mailbox health pause · Gate escalation · Client health alert · …         │
+└───────────────────────────────────────────────────────────────────────────┘
+```
+
+Workflows — автоматизации без LLM-решений: **событие → условие → действие**. Там, где поведение должно быть детерминированным (деньги, комплаенс, эскалации), workflow надёжнее агента. Агенты и workflows комбинируются: workflow может вызвать агента как действие («сгенерируй напоминание»), агент порождает события, на которые реагируют workflows.
+
+## Устройство
+
+| Часть | Описание |
+|---|---|
+| **Trigger** | Событие из Event Bus (`reply.received`, `meeting.status_changed`, `invoice.overdue`, `client.health_dropped`, …) или расписание (cron) |
+| **Condition** | Фильтры по полям события и связанным объектам |
+| **Actions** | Последовательность действий из Action Registry: отправить, создать задачу, изменить статус, уведомить, вызвать агента, вызвать webhook |
+| **Scope** | Организация / все проекты / конкретный проект |
+
+Действия workflow проходят тот же Action Layer: права (у workflow есть service-роль), лимиты и audit применяются как обычно.
+
+## Библиотека по умолчанию
+
+| Workflow | Триггер → действие |
+|---|---|
+| **DNC auto-add** | Ответ типа DNC/Unsubscribe → контакт в DNC-список, стоп в кампаниях |
+| **Meeting booked** | Встреча создана → Slack-алерт, пауза лидов компании (по настройке кампании), инвайты |
+| **No-show recovery** | No Show → письмо с переносом + задача SDR |
+| **Mailbox health pause** | Health ящика < порога → пауза во всех кампаниях + алерт EDS |
+| **Gate escalation** | Gate висит > N часов → напоминание, затем эскалация AS/Ops |
+| **Invoice overdue chain** | Overdue → напоминание (day 3) → алерт AD (day 7) → задача Finance (day 14) |
+| **Renewal-60d** | 60 дней до конца контракта → Stage: Renewal, задача AD, AI-сводка |
+| **Client health alert** | Health через порог вниз → алерт AD + Operations |
+| **Stale reply** | Positive-ответ без реакции > 2 ч → пуш SDR, > 6 ч → эскалация |
+| **Onboarding overdue** | Стадия Onboarding > 7 дней → алерт Operations |
+
+Каждый можно выключить, склонировать и изменить per-project.
+
+## Конструктор
+
+Визуальный редактор (trigger → conditions → actions) + версия «как код» (YAML) для сложных случаев. Тестовый запуск на историческом событии. Run log с результатом каждого шага; ошибки — алерт владельцу workflow.
+
+## MCP
+
+`workflows.list`, `workflows.get_runs`, `workflows.enable` / `disable`. События платформы доступны наружу и через **webhooks** (настройка в Admin → System → Integrations).
