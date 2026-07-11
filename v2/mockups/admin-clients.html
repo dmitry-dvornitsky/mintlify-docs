@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="linear">
+<head>
+<meta charset="UTF-8"><title>Admin — Clients</title>
+<link rel="stylesheet" href="ui-kit.css">
+<style>
+  .layout { flex:1; display:flex; flex-direction:column; background:var(--bg); min-width:0; }
+  .cols { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+</style>
+</head>
+<body>
+<div id="app"><div class="layout">
+  <div class="page">
+    <div class="page-head">
+      <h1>Clients</h1><span class="sub">31 active · $184,000 MRR</span>
+      <div class="right">
+        <div class="chips"><div class="chip on">All</div><div class="chip">At risk · 3</div><div class="chip">Renewal ≤ 90d</div><div class="chip">Onboarding</div></div>
+        <button class="btn primary">＋ New client</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <table class="tbl">
+        <tr><th>Client</th><th>Health</th><th>Stage</th><th>KPI pace</th><th>MRR</th><th>Renewal</th><th>Team</th></tr>
+        <tr>
+          <td style="font-weight:600">Iwoca <span style="color:var(--text-3);font-weight:400">· lending</span></td>
+          <td><span class="health"><span class="dot ok"></span>82</span></td>
+          <td>Delivery</td>
+          <td><span class="badge plain"><span class="dot ok"></span>on track</span></td>
+          <td style="font-variant-numeric:tabular-nums">$12,000</td><td>Nov 2026</td>
+          <td style="color:var(--text-3)">Ben · Adam · Kate</td>
+        </tr>
+        <tr style="background:var(--accent-bg)">
+          <td style="font-weight:600">Acme Corp <span style="color:var(--text-3);font-weight:400">· logistics</span></td>
+          <td><span class="health"><span class="dot danger"></span>34</span></td>
+          <td>Delivery</td>
+          <td><span class="badge plain"><span class="dot danger"></span>behind</span></td>
+          <td style="font-variant-numeric:tabular-nums">$6,000</td><td style="color:var(--danger);font-weight:600">Aug 2026 · 21d</td>
+          <td style="color:var(--text-3)">Maria · John</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600">TechFlow <span style="color:var(--text-3);font-weight:400">· SaaS</span></td>
+          <td><span class="health"><span class="dot ok"></span>77</span></td>
+          <td>Delivery</td>
+          <td><span class="badge plain"><span class="dot ok"></span>on track</span></td>
+          <td style="font-variant-numeric:tabular-nums">$9,000</td><td>Sep 2026</td>
+          <td style="color:var(--text-3)">Ben · Adam</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600">BuildCo <span style="color:var(--text-3);font-weight:400">· construction</span></td>
+          <td><span class="health"><span class="dot ok"></span>68</span></td>
+          <td>Onboarding <span style="color:var(--text-3)">· day 3/5</span></td>
+          <td><span class="badge plain"><span class="dot muted"></span>—</span></td>
+          <td style="font-variant-numeric:tabular-nums">$4,000</td><td>—</td>
+          <td style="color:var(--text-3)">Maria · Kate</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="cols">
+      <div class="panel" style="border-color:#eadfdf">
+        <div class="panel-head"><span class="dot danger"></span>Acme Corp — health breakdown <span class="right">34 / 100 · ▼ 18 за месяц</span></div>
+        <div class="hbar"><span class="lbl">Delivery · 40%</span><div class="track"><i style="width:30%;background:var(--danger)"></i></div><span class="val">−30 · KPI 55% ×2 mo</span></div>
+        <div class="hbar"><span class="lbl">Engagement · 25%</span><div class="track"><i style="width:40%;background:var(--warn)"></i></div><span class="val">−15 · portal idle 3w</span></div>
+        <div class="hbar"><span class="lbl">Financial · 20%</span><div class="track"><i style="width:35%;background:var(--warn)"></i></div><span class="val">−15 · overdue 12d</span></div>
+        <div class="hbar" style="padding-bottom:12px"><span class="lbl">Relationship · 15%</span><div class="track"><i style="width:70%;background:var(--ok)"></i></div><span class="val">−6 · pilot ended ok</span></div>
+      </div>
+
+      <div class="panel ai-block">
+        <div class="panel-head"><span class="ai-label">✦ Save brief — Acme Corp</span><span class="right">generated today</span></div>
+        <div class="panel-body" style="font-size:12.5px;line-height:1.65;color:var(--text-2)">
+          Диагноз: сегмент logistics-UK исчерпан (qualification rate 31%), reply rate падает 6 недель. Рекомендации: (1) расширить ICP на warehousing и freight-tech, (2) предложить credit за недопоставку июня, (3) звонок AD до четверга — renewal через 21 день.
+          <div style="margin-top:10px;display:flex;gap:7px">
+            <button class="btn primary">Create save plan</button>
+            <button class="btn">Assign to Maria (AD)</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></div>
+<script>window.SHELL={area:'admin',active:'clients',context:'',crumbs:'Admin / <b>Clients</b>',user:'DM'}</script>
+<script src="shell.js"></script>
+</body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="linear">
+<head>
+<meta charset="UTF-8">
+<title>Belkins Home 2.0 — Inbox (minimal)</title>
+<link rel="stylesheet" href="ui-kit.css">
+<script>
+  const t = new URLSearchParams(location.search).get('theme');
+  if (t) document.documentElement.dataset.theme = t;
+</script>
+<style>
+  /* --- страничная раскладка Inbox (компоненты — из ui-kit.css) --- */
+  .list { width:370px; border-right:1px solid var(--border); background:var(--surface);
+    display:flex; flex-direction:column; flex-shrink:0; }
+  .list-head { padding:14px 16px 10px; border-bottom:1px solid var(--border); }
+  .list-head .row1 { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+  .list-head h3 { font-size:13.5px; font-weight:600; }
+  .list-head .tools { color:var(--text-3); display:flex; gap:12px; font-size:12px; }
+
+  .thread { padding:12px 16px; border-bottom:1px solid var(--border); cursor:pointer; position:relative; }
+  .thread.sel { background:var(--accent-bg); }
+  .th-top { display:flex; align-items:center; gap:9px; }
+  .th-name { font-weight:600; font-size:13px; }
+  .th-co { color:var(--text-3); font-size:11.5px; }
+  .th-time { margin-left:auto; color:var(--text-3); font-size:11px; }
+  .th-prev { color:var(--text-2); font-size:12px; white-space:nowrap; overflow:hidden;
+    text-overflow:ellipsis; margin:4px 0 7px; padding-left:35px; }
+  .th-tags { display:flex; gap:6px; padding-left:35px; align-items:center; }
+  .unread { width:6px; height:6px; border-radius:50%; background:var(--accent);
+    position:absolute; right:16px; top:46px; }
+
+  .view { flex:1; display:flex; flex-direction:column; min-width:0; background:var(--bg); }
+  .view-head { background:var(--surface); border-bottom:1px solid var(--border);
+    padding:13px 22px; display:flex; align-items:center; gap:12px; }
+  .view-head .subj { font-size:14.5px; font-weight:600; }
+  .view-head .meta { color:var(--text-3); font-size:11.5px; margin-top:2px; }
+  .view-head .actions { margin-left:auto; display:flex; gap:7px; }
+
+  .msgs { flex:1; overflow:hidden; padding:20px 22px; display:flex; flex-direction:column; gap:14px; }
+  .collapse { align-self:center; color:var(--text-3); font-size:11.5px; }
+  .msg { background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius); padding:13px 16px; max-width:76%; }
+  .msg.out { align-self:flex-end; background:var(--accent-bg); border-color:transparent; }
+  .msg .from { display:flex; gap:8px; align-items:baseline; margin-bottom:6px; }
+  .msg .from b { font-size:12px; font-weight:600; }
+  .msg .from span { color:var(--text-3); font-size:11px; }
+  .msg p { font-size:12.5px; line-height:1.6; color:var(--text-2); }
+  .msg.out p { color:var(--text-1); }
+  .msg .re-actions { margin-top:9px; display:flex; gap:14px; font-size:11.5px;
+    color:var(--text-2); font-weight:500; }
+
+  .draft { margin:0 22px 18px; }
+  .draft-head { padding:9px 15px; display:flex; align-items:center; gap:9px;
+    font-size:12px; color:var(--text-3); border-bottom:1px solid var(--border); }
+  .draft-head .conf { margin-left:auto; color:var(--text-2); font-size:11px; }
+  .draft-body { padding:13px 15px; }
+  .draft-body p { font-size:12.5px; line-height:1.65; color:var(--text-1); margin-bottom:8px; }
+  .draft-foot { border-top:1px solid var(--border); padding:9px 15px; display:flex;
+    gap:7px; align-items:center; }
+  .draft-foot .hint { color:var(--text-3); font-size:11px; margin-left:auto; }
+  .toolbar-mini { display:flex; gap:12px; color:var(--text-3); font-size:12px; margin-right:auto; }
+
+  .details { width:290px; background:var(--surface); border-left:1px solid var(--border);
+    padding:18px 16px; flex-shrink:0; overflow:hidden; }
+  .d-head { display:flex; gap:10px; align-items:center; margin-bottom:12px; }
+  .d-head .n { font-weight:600; font-size:13.5px; }
+  .d-head .r { color:var(--text-2); font-size:11.5px; }
+  .badges { display:flex; gap:5px; flex-wrap:wrap; margin-bottom:6px; }
+
+  .autopilot { margin-top:auto; border-top:1px solid var(--border); padding:12px 9px 0; }
+  .autopilot .d { color:var(--text-3); font-size:11px; line-height:1.5; margin:3px 0 4px; }
+  .autopilot a { font-size:11px; font-weight:500; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand"><div class="mark">B</div>Belkins Home</div>
+  <div class="context-pill">Iwoca <span class="chev">▾</span></div>
+  <div class="crumbs">Workspace / <b>Inbox</b></div>
+  <div class="spacer"></div>
+  <div class="search">
+    <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+    Search… <span class="kbd">⌘K</span>
+  </div>
+  <div class="avatar">AR</div>
+</div>
+
+<div class="shell">
+
+  <div class="modnav">
+    <div class="mod" title="My Day"><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 21V9"/></svg></div>
+    <div class="mod" title="Strategy"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/></svg></div>
+    <div class="mod" title="Leads"><svg class="icon" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5M16 4.5a3.5 3.5 0 010 7M21.5 20c-.5-2.4-1.8-4-3.7-4.9"/></svg></div>
+    <div class="mod" title="Campaigns"><svg class="icon" viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
+    <div class="mod active" title="Inbox"><svg class="icon" viewBox="0 0 24 24"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5 4h14l3 8v7a1 1 0 01-1 1H3a1 1 0 01-1-1v-7l3-8z"/></svg></div>
+    <div class="mod" title="Meetings"><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 11h18"/></svg></div>
+    <div class="mod" title="Tasks"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 5-5.5"/></svg></div>
+    <div class="mod" title="Insights"><svg class="icon" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 014 10.5c-.8.7-1 1.5-1 2.5h-6c0-1-.2-1.8-1-2.5A6 6 0 0112 3z"/></svg></div>
+    <div class="mod" title="Settings"><svg class="icon" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/><circle cx="9" cy="7" r="2" fill="var(--surface)"/><circle cx="15" cy="12" r="2" fill="var(--surface)"/><circle cx="7" cy="17" r="2" fill="var(--surface)"/></svg></div>
+  </div>
+
+  <div class="sidebar">
+    <h2>Inbox</h2>
+    <div class="snav">
+      <div class="sitem active"><span class="dot accent"></span>Needs reply<span class="cnt">4</span></div>
+      <div class="sitem"><span class="dot muted"></span>Waiting<span class="cnt">9</span></div>
+      <div class="sitem"><span class="dot ai"></span>Handled by AI<span class="cnt">31</span></div>
+      <div class="sitem"><span class="dot muted"></span>Scheduled<span class="cnt">3</span></div>
+      <div class="sitem"><span class="dot muted"></span>Drafts<span class="cnt">2</span></div>
+      <div class="sitem"><span class="dot muted"></span>Sent</div>
+      <div class="sitem"><span class="dot muted"></span>All mail</div>
+    </div>
+    <div class="sdivider"><em>EDS</em></div>
+    <div class="snav">
+      <div class="sitem"><span class="dot warn"></span>Bounces<span class="cnt">2</span></div>
+      <div class="sitem"><span class="dot muted"></span>Archive</div>
+    </div>
+    <div class="autopilot">
+      <span class="ai-label">Autopilot · tonight</span>
+      <div class="d">31 replies handled — 18 OOO, 9 Not interested, 4 Unsubscribe</div>
+      <a href="#">Review log →</a>
+    </div>
+  </div>
+
+  <div class="list">
+    <div class="list-head">
+      <div class="row1"><h3>Needs reply · 4</h3><div class="tools">Sort · Filter</div></div>
+      <div class="chips">
+        <div class="chip on">All</div><div class="chip">Email</div><div class="chip">LinkedIn</div><div class="chip">Interested</div><div class="chip">Has draft</div>
+      </div>
+    </div>
+
+    <div class="thread sel">
+      <div class="th-top"><div class="ini">LC</div><div><div class="th-name">Laura Cansfield</div><div class="th-co">Scruffs Ltd</div></div><div class="th-time">12m</div></div>
+      <div class="th-prev">Sounds relevant, actually. Can you send more details on rates for a firm our size?</div>
+      <div class="th-tags">
+        <span class="badge plain"><span class="dot ok"></span>Interested</span>
+        <span class="badge plain" style="color:var(--text-3)">Email</span>
+        <span class="badge ai">✦ Draft ready</span>
+      </div>
+      <div class="unread"></div>
+    </div>
+
+    <div class="thread">
+      <div class="th-top"><div class="ini">JW</div><div><div class="th-name">John Wistow</div><div class="th-co">Clive Graham Group</div></div><div class="th-time">1h</div></div>
+      <div class="th-prev">Ok let's do a call. Thursday afternoon works for me, ideally after 2pm…</div>
+      <div class="th-tags">
+        <span class="badge plain"><span class="dot accent"></span>Appointment</span>
+        <span class="badge plain" style="color:var(--text-3)">Email</span>
+        <span class="badge ai">✦ Slots ready</span>
+      </div>
+      <div class="unread"></div>
+    </div>
+
+    <div class="thread">
+      <div class="th-top"><div class="ini">MB</div><div><div class="th-name">Mark Ballard</div><div class="th-co">Walker &amp; Pritchard</div></div><div class="th-time">2h</div></div>
+      <div class="th-prev">Who else have you worked with in construction? We got burned by a lender before…</div>
+      <div class="th-tags">
+        <span class="badge plain"><span class="dot warn"></span>Talking</span>
+        <span class="badge plain" style="color:var(--text-3)">LinkedIn</span>
+        <span class="badge ai">✦ Draft ready</span>
+      </div>
+    </div>
+
+    <div class="thread">
+      <div class="th-top"><div class="ini">SP</div><div><div class="th-name">Sarah Pemberton</div><div class="th-co">BuildRight UK</div></div><div class="th-time">4h</div></div>
+      <div class="th-prev">Thanks — I'm not the right person, you want our FD, Alan Mercer. I can intro…</div>
+      <div class="th-tags">
+        <span class="badge plain"><span class="dot muted"></span>Forwarded</span>
+        <span class="badge plain" style="color:var(--text-3)">Email</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="view">
+    <div class="view-head">
+      <div>
+        <div class="subj">Re: Working capital without the 3-week wait</div>
+        <div class="meta">Extra Leads / CFO UK Construction · adam@iwocateam.com · #4412</div>
+      </div>
+      <div class="actions">
+        <button class="btn ghost">Close</button>
+        <button class="btn">Task</button>
+        <button class="btn primary">Propose slots</button>
+      </div>
+    </div>
+
+    <div class="msgs">
+      <div class="collapse">Show 2 earlier messages</div>
+
+      <div class="msg out">
+        <div class="from"><b>Adam Reed</b><span>Jul 14, 09:02</span></div>
+        <p>Hi Laura — noticed Scruffs has been scaling site crews this spring. When payroll grows faster than invoices clear, a flexible credit line usually beats a bank loan on speed. Worth a quick look?</p>
+      </div>
+
+      <div class="msg">
+        <div class="from"><b>Laura Cansfield</b><span>laura@scruffs.com · Today, 10:31</span></div>
+        <p>Sounds relevant, actually. Cash flow gets tight every time we take on a bigger commercial job.</p>
+        <p style="margin-top:6px">Can you send more details on rates for a firm our size?</p>
+        <div class="re-actions"><span>Reply</span><span>Reply all</span></div>
+      </div>
+    </div>
+
+    <div class="draft ai-block">
+      <div class="draft-head">
+        <span class="ai-label">✦ AI draft</span>
+        <span>from Insights → Pricing</span>
+        <span class="conf">Confidence 87%</span>
+      </div>
+      <div class="draft-body">
+        <p>Happy to, Laura. For firms in the 11–50 range, iwoca typically offers £10k–£350k with rates from 1.7%/mo — and you only pay interest on the days you actually use the funds. No arrangement fee, decision usually within 24 hours.</p>
+        <p>If useful, I can set up a 20-minute call with our lending team to run the numbers for Scruffs specifically. Would Thursday or Friday work?</p>
+      </div>
+      <div class="draft-foot">
+        <div class="toolbar-mini"><span>B</span><span>I</span><span>Rewrite ▾</span></div>
+        <button class="btn">Edit</button>
+        <button class="btn primary">Send draft</button>
+        <div class="hint">Interested → requires your approval</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="details">
+    <div class="d-head">
+      <div class="ini" style="width:36px;height:36px;font-size:12px">LC</div>
+      <div><div class="n">Laura Cansfield</div><div class="r">CFO · Scruffs Ltd</div></div>
+    </div>
+    <div class="badges">
+      <span class="badge"><span class="dot ok"></span>New in role</span>
+      <span class="badge">LI 84</span>
+      <span class="badge"><span class="dot ok"></span>Qualified</span>
+    </div>
+
+    <div class="sect">
+      <h4>AI context</h4>
+      <div class="ai-note"><b>✦ Why this draft</b>Laura asked about rates → pulled figures from approved Insights page “Pricing”. Offered a call because reply type is Interested and calendar has free slots Thu–Fri.</div>
+    </div>
+
+    <div class="sect">
+      <h4>Company</h4>
+      <div class="kv"><span class="k">Website</span><span class="v link">scruffs.com</span></div>
+      <div class="kv"><span class="k">Industry</span><span class="v">Construction</span></div>
+      <div class="kv"><span class="k">Employees</span><span class="v">45</span></div>
+      <div class="kv"><span class="k">Location</span><span class="v">Leeds, UK</span></div>
+      <div class="kv"><span class="k">Strategy</span><span class="v link">CFO UK Construction</span></div>
+    </div>
+
+    <div class="sect">
+      <h4>Contact</h4>
+      <div class="kv"><span class="k">Email</span><span class="v">laura@scruffs.com</span></div>
+      <div class="kv"><span class="k">Job started</span><span class="v">Mar 2026</span></div>
+      <div class="kv"><span class="k">LinkedIn</span><span class="v link">/in/lcansfield</span></div>
+    </div>
+
+    <div class="sect">
+      <h4>Outreach</h4>
+      <div class="stats">
+        <div class="stat"><div class="num">3</div><div class="lbl">Emails</div></div>
+        <div class="stat"><div class="num">1</div><div class="lbl">LinkedIn</div></div>
+        <div class="stat"><div class="num">0</div><div class="lbl">Calls</div></div>
+        <div class="stat"><div class="num">0</div><div class="lbl">Meetings</div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

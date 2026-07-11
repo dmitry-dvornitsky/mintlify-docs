@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="linear">
+<head>
+<meta charset="UTF-8"><title>Strategy Hub</title>
+<link rel="stylesheet" href="ui-kit.css">
+<style>
+  .layout { flex:1; display:flex; flex-direction:column; background:var(--bg); }
+  .strat-head { background:var(--surface); border-bottom:1px solid var(--border); padding:16px 26px 0; }
+  .strat-head .top { display:flex; align-items:center; gap:10px; }
+  .strat-head h1 { font-size:16px; font-weight:650; }
+  .strat-head .meta { color:var(--text-3); font-size:12px; margin:4px 0 12px; }
+  .tabs { display:flex; gap:2px; }
+  .tab { padding:8px 12px; font-size:12.5px; color:var(--text-2); border-bottom:2px solid transparent; cursor:pointer; }
+  .tab.on { color:var(--text-1); font-weight:600; border-bottom-color:var(--accent); }
+  .cols { display:grid; grid-template-columns:1.6fr 1fr; gap:14px; }
+</style>
+</head>
+<body>
+<div id="app"><div class="layout">
+
+  <div class="strat-head">
+    <div class="top">
+      <a href="#" style="color:var(--text-3);font-size:12px">← Strategies</a>
+      <h1>CFO UK Construction 11-50</h1>
+      <span class="badge plain"><span class="dot ok"></span>Active</span>
+      <div style="margin-left:auto;display:flex;gap:7px">
+        <button class="btn">Edit</button>
+        <button class="btn">＋ Find more</button>
+        <button class="btn primary">▶ Run Pipeline</button>
+      </div>
+    </div>
+    <div class="meta">Extra Leads · Business Loan · created by Ben Carter · updated Jul 10</div>
+    <div class="tabs">
+      <div class="tab">Overview</div><div class="tab on">Research Pipeline</div><div class="tab">Campaigns · 2</div><div class="tab">History</div>
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="grid cols-4">
+      <div class="panel metric"><div class="lbl">Companies found</div><div class="num">1,100</div><div class="sub">cap 900 / 1,000 used</div></div>
+      <div class="panel metric"><div class="lbl">Qualified by AI</div><div class="num">826</div><div class="sub"><span class="up">75%</span> pass rate</div></div>
+      <div class="panel metric"><div class="lbl">Contacts ready</div><div class="num">1,041</div><div class="sub">enriched · validated</div></div>
+      <div class="panel metric"><div class="lbl">Cost per meeting</div><div class="num">$118</div><div class="sub"><span class="up">▼ $22</span> vs June</div></div>
+    </div>
+
+    <div class="cols">
+      <div class="panel">
+        <div class="panel-head">Pipeline <span class="hint">· Run #5 — running</span><span class="right">started 09:14 · est. 12:40</span></div>
+
+        <div class="pstep done">
+          <div class="pnum">✓</div>
+          <div class="grow"><div class="pt">Find Companies</div><div class="pd">LinkedIn · UK · Construction · 11–50 · Private &nbsp;·&nbsp; DNC ✓ &nbsp; Skip existing ✓</div></div>
+          <span class="end" style="font-variant-numeric:tabular-nums;color:var(--text-2)">300 / 300</span>
+        </div>
+
+        <div class="pstep run">
+          <div class="pnum">2</div>
+          <div class="grow">
+            <div class="pt">AI Qualification</div>
+            <div class="pd">Criteria: “Construction ICP v2” · pass only Qualified</div>
+            <div style="margin-top:7px;max-width:340px" class="bar"><i style="width:44%"></i></div>
+            <div class="pd" style="margin-top:4px">134 / 300 analyzed · 89 qualified so far</div>
+          </div>
+          <span class="badge plain" style="color:var(--accent)"><span class="dot accent"></span>Running</span>
+        </div>
+
+        <div class="pstep">
+          <div class="pnum">G</div>
+          <div class="grow"><div class="pt" style="color:var(--text-2)">Gate — researcher review</div><div class="pd">Kate Miller will be notified · Slack + My Day</div></div>
+        </div>
+
+        <div class="pstep">
+          <div class="pnum">3</div>
+          <div class="grow"><div class="pt" style="color:var(--text-2)">Find Contacts</div><div class="pd">CFO / Finance Director · max 2 per company</div></div>
+          <span class="end">waiting</span>
+        </div>
+
+        <div class="pstep">
+          <div class="pnum">4</div>
+          <div class="grow"><div class="pt" style="color:var(--text-2)">Enrichments</div><div class="pd">Phone · LinkedIn Score · Email validation — parallel</div></div>
+          <span class="end">waiting</span>
+        </div>
+
+        <div class="row" style="border-top:1px solid var(--border);border-bottom:none">
+          <span class="s">Limits: 300 companies / run · budget $40 / run</span>
+          <span class="end">set by Ben Carter (AS)</span>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="panel">
+          <div class="panel-head">Messaging <span class="right"><a href="#">edit</a></span></div>
+          <div class="row"><div class="grow s">Core need</div><span class="end" style="color:var(--text-1)">cash-flow gaps on big jobs</span></div>
+          <div class="row"><div class="grow s">Value prop</div><span class="end" style="color:var(--text-1)">funds in 24h vs 3 weeks</span></div>
+          <div class="row"><div class="grow s">Tone</div><span class="end" style="color:var(--text-1)">peer-to-peer, concrete</span></div>
+          <div class="row"><div class="grow s">Personalization</div><span class="end" style="color:var(--text-1)">Job Signal · new in role</span></div>
+          <div class="row"><div class="grow s">Social proof</div><span class="end" style="color:var(--text-1)">Scaffolding case, +40% jobs</span></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">Pipeline history</div>
+          <div class="row"><span class="dot accent"></span><div class="grow"><div class="t">Run #5 · today</div><div class="s">running — step 2 of 4</div></div></div>
+          <div class="row"><span class="dot ok"></span><div class="grow"><div class="t">Run #4 · Jun 13</div><div class="s">300 → 201 qualified → 334 contacts</div></div><span class="end">$38</span></div>
+          <div class="row"><span class="dot ok"></span><div class="grow"><div class="t">Run #3 · Jun 12</div><div class="s">300 → 198 qualified → 331 contacts</div></div><span class="end">$41</span></div>
+          <div class="row"><span class="dot danger"></span><div class="grow"><div class="t">Run #2 · Jun 11</div><div class="s">gate rejected by Kate — segment too broad</div></div><span class="end">$12</span></div>
+        </div>
+
+        <div class="panel ai-block">
+          <div class="panel-head"><span class="ai-label">✦ Strategist Agent</span></div>
+          <div class="panel-body ai-note" style="margin:0 12px 12px">
+            Qualification rate падает с 67% до 60% за три запуска — сегмент истощается. Рекомендую расширить ICP на adjacent-индустрии: Civil Engineering, Building Materials.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></div>
+<script>window.SHELL={area:'workspace',active:'strategy',context:'Iwoca',crumbs:'Workspace / Strategies / <b>CFO UK Construction</b>',user:'AR'}</script>
+<script src="shell.js"></script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="linear">
+<head>
+<meta charset="UTF-8"><title>My Day</title>
+<link rel="stylesheet" href="ui-kit.css">
+<style>
+  .layout { flex:1; display:flex; flex-direction:column; background:var(--bg); }
+  .cols { display:grid; grid-template-columns: 1.5fr 1fr; gap:14px; }
+</style>
+</head>
+<body>
+<div id="app"><div class="layout">
+  <div class="page">
+    <div class="page-head">
+      <h1>Good morning, Adam</h1><span class="sub">Wednesday, Jul 15 · SDR · 3 projects</span>
+      <div class="right"><button class="btn ghost">Customize</button></div>
+    </div>
+
+    <div class="cols">
+      <div style="display:flex;flex-direction:column;gap:14px">
+
+        <div class="panel">
+          <div class="panel-head">Needs your attention <span class="hint">· 7</span><span class="right">sorted by urgency</span></div>
+          <div class="row"><span class="dot danger"></span><div class="grow"><div class="t">Meeting in 45 min — Scruffs Ltd × Iwoca</div><div class="s">Laura Cansfield, CFO · agenda confirmed</div></div><button class="btn">Join</button></div>
+          <div class="row"><span class="dot ok"></span><div class="grow"><div class="t">4 replies waiting — 2 with AI drafts ready</div><div class="s">Iwoca (2) · Acme Corp (2) · oldest 2h</div></div><button class="btn primary">Open queue</button></div>
+          <div class="row"><span class="dot accent"></span><div class="grow"><div class="t">Gate: sequence approval — “Re-engage” campaign</div><div class="s">Acme Corp · created by SDR Agent · waiting 3h</div></div><button class="btn">Review</button></div>
+          <div class="row"><span class="dot warn"></span><div class="grow"><div class="t">2 tasks overdue</div><div class="s">Follow-up L.Cansfield · Call script review</div></div><button class="btn ghost">View</button></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">Today <span class="right">4 tasks</span></div>
+          <div class="row"><span class="dot warn"></span><div class="grow"><div class="t">Follow-up in thread — John Wistow</div><div class="s">Iwoca · due 12:00</div></div><span class="end">overdue 1h</span></div>
+          <div class="row"><span class="dot muted"></span><div class="grow"><div class="t">Review pipeline gate — 187 companies qualified</div><div class="s">Acme Corp · Research Agent</div></div><span class="end">15:00</span></div>
+          <div class="row"><span class="dot muted"></span><div class="grow"><div class="t">QA rating — meeting with Clive Graham Group</div><div class="s">Iwoca</div></div><span class="end">17:00</span></div>
+          <div class="row" style="opacity:.5"><span class="dot ok"></span><div class="grow"><div class="t" style="text-decoration:line-through">Confirm meeting agenda — Scruffs</div></div><span class="end">done</span></div>
+        </div>
+
+        <div class="panel ai-block">
+          <div class="panel-head"><span class="ai-label">✦ Autopilot tonight</span><span class="right">while you were away</span></div>
+          <div class="panel-body" style="padding-top:10px">
+            <div style="font-size:12.5px;color:var(--text-2);line-height:1.6">31 replies handled automatically — 18 Out of office, 9 Not interested, 4 Unsubscribe. 2 contacts added to DNC. 6 follow-ups scheduled.</div>
+            <div style="margin-top:8px"><a href="#" style="font-size:12px">Review log →</a></div>
+          </div>
+        </div>
+
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+
+        <div class="panel">
+          <div class="panel-head">My KPI <span class="hint">· July</span></div>
+          <div class="metric" style="padding-bottom:8px">
+            <div class="lbl">Meetings booked</div>
+            <div class="num">12 <span style="font-size:13px;color:var(--text-3);font-weight:450">/ 20</span></div>
+            <div style="margin:8px 0 4px" class="bar"><i style="width:60%"></i></div>
+            <div class="sub"><span class="dot ok"></span>on track · 8 to go, 12 working days left</div>
+          </div>
+          <div class="row"><div class="grow s">Replies handled</div><span class="end" style="color:var(--text-1);font-weight:600">94</span></div>
+          <div class="row"><div class="grow s">Avg response time</div><span class="end" style="color:var(--text-1);font-weight:600">1.2h</span></div>
+          <div class="row"><div class="grow s">Reply → meeting</div><span class="end" style="color:var(--text-1);font-weight:600">14.3%</span></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">My projects</div>
+          <div class="row"><span class="dot ok"></span><div class="grow"><div class="t">Iwoca</div><div class="s">KPI 14/20 · 2 campaigns running</div></div><span class="end">on track</span></div>
+          <div class="row"><span class="dot warn"></span><div class="grow"><div class="t">Acme Corp</div><div class="s">KPI 6/15 · reply rate falling</div></div><span class="end">at risk</span></div>
+          <div class="row"><span class="dot ok"></span><div class="grow"><div class="t">TechFlow</div><div class="s">KPI 9/12 · pipeline running</div></div><span class="end">on track</span></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">Next meeting</div>
+          <div class="panel-body" style="display:flex;gap:11px;align-items:center">
+            <div class="ini" style="width:34px;height:34px;font-size:11px">SC</div>
+            <div class="grow"><div style="font-weight:600;font-size:13px">Scruffs Ltd × Iwoca</div><div class="s" style="color:var(--text-3);font-size:11.5px">Today 11:30 · Google Meet · Laura Cansfield, CFO</div></div>
+            <button class="btn primary">Join</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div></div>
+<script>window.SHELL={area:'workspace',active:'day',context:'',crumbs:'<b>My Day</b>',user:'AR'}</script>
+<script src="shell.js"></script>
+</body>
+</html>
