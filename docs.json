@@ -125,6 +125,41 @@
         ]
       },
       {
+        "tab": "V3 — Простая версия",
+        "groups": [
+          {
+            "group": "Обзор",
+            "pages": [
+              "v3/index",
+              "v3/home"
+            ]
+          },
+          {
+            "group": "Setup",
+            "pages": [
+              "v3/setup"
+            ]
+          },
+          {
+            "group": "Delivery",
+            "pages": [
+              "v3/strategy",
+              "v3/leads",
+              "v3/campaign",
+              "v3/replies",
+              "v3/meetings"
+            ]
+          },
+          {
+            "group": "Разделы",
+            "pages": [
+              "v3/client",
+              "v3/project"
+            ]
+          }
+        ]
+      },
+      {
         "tab": "V2 — Целевой продукт",
         "groups": [
           {
