@@ -1,0 +1,47 @@
+---
+title: "Settings · Биллинг"
+description: "Подписки, инвойсы, расходы и маржа проекта"
+---
+
+Деньги одного проекта: что клиент платит (Subscriptions, Invoices) и во что обходится доставка (Costs). Сквозная картина по всем клиентам — в [Admin → Finance](/v4/admin/finance).
+
+## Кто использует
+
+AD, Finance, C-level. Остальные роли раздел **не видят вовсе** — включая маржу.
+
+## Как работает
+
+**Billing Information** — Legal name, Location, Email для инвойсов, контакт, привязка Wave customer, NET (дней на оплату).
+
+**Subscriptions** — сервисы из [глобального каталога](/v4/admin/finance): цена подставляется, редактируется. Recurring (price/month, cycle, contract length, start) или One-time (price, invoice date). Обе формы: Setup fee, Discount (amount/percent × длительность). Справа — живой **Preview** будущих инвойсов.
+
+**Invoices** — таблица: Status (Draft / Created / Sent / Paid / Overdue), Total, Issue/Due (Due = Issue + NET), Source (Subscription — создан платформой / Synced — из Wave). Recurring генерирует инвойсы сам; отправка — через Gate (Finance approve) или автоматически.
+
+**Costs** — расходы на инструменты и AI: Summary (total, avg daily, projected), дневной bar-chart, Breakdown по инструментам, **Margin** (выручка − costs), Transaction Log (агрегированный, raw — по раскрытию/Export).
+
+## Правила и эдж-кейсы
+
+| Ситуация | Поведение |
+|---|---|
+| Инвойс Overdue | Алерт Finance + AD, бейдж на проекте, вход в Health Score; 30+ дней — авто-пауза кампаний ([lifecycle](/v4/admin/projects/lifecycle), порог настраивается) |
+| Смена цены подписки | Со следующего инвойса; уже созданные не меняются. История цен хранится |
+| Отмена подписки | Будущие инвойсы не создаются; созданные остаются к оплате. Подписка завершается, не удаляется — история неприкосновенна |
+| Удаление подписки/инвойса | Недоступно. Ошибочный инвойс — Void с причиной (в audit log); в Wave уходит соответствующий void |
+| Refund / credit note | Через [Admin → Finance](/v4/admin/finance) — на уровне проекта нет |
+| Пауза проекта | Диалог «остановить и биллинг?» — Recurring можно приостановить с датой возобновления |
+| Смена тарифа посреди цикла | Пропорция: текущий инвойс закрывается частично, новый — с даты смены. Preview показывает расчёт до подтверждения |
+| Wave недоступен | Инвойсы создаются локально со статусом «Sync pending», досинхронизация автоматом; алерт Finance при 24ч+ |
+| Расход без привязки к проекту | Попадает в общие расходы [Admin → Finance](/v4/admin/finance), не в проектный Costs |
+
+## Чеклист функционала
+
+- [ ] Billing Information: правка, привязка Wave customer, NET
+- [ ] Подписка Recurring и One-time: создание, Setup fee, Discount, живой Preview инвойсов
+- [ ] Смена цены со следующего инвойса, история цен
+- [ ] Завершение подписки (без удаления), пауза с датой возобновления
+- [ ] Инвойсы: статусы, автогенерация из Recurring, Gate на отправку / автоотправка
+- [ ] Void инвойса с причиной вместо удаления
+- [ ] Wave-синк: статус, Sync pending, алерт при недоступности
+- [ ] Overdue-цепочка: алерт → бейдж → Health Score → авто-пауза по порогу
+- [ ] Costs: Summary, дневной график, Breakdown, Margin, Transaction Log с Export
+- [ ] Смена тарифа с пропорцией и preview расчёта

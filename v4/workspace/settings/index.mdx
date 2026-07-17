@@ -1,0 +1,46 @@
+---
+title: "Project Settings — обзор"
+description: "Настройки одного проекта: клиент, команда, каналы, таргетинг, биллинг"
+---
+
+Настройки проекта — нижний пункт проектного [сайдбара](/v4/layout). Принцип V4: **частое настраивается по месту** (inline из форм стратегий, кампаний, оверлея), Settings — библиотека переиспользуемых объектов и редкие настройки.
+
+Layout — [паттерн рельсы D-010](/v4/decisions): глобальный сайдбар сжат в иконки, панель модуля — навигация по пяти разделам (видимость по ролям) с поиском «Find a setting…» и алерт-бейджами; Details-панели нет — контент занимает всю ширину. Скрин — на [странице Каналов](/v4/workspace/settings/channels).
+
+## Кто использует
+
+| Раздел | Кто работает |
+|---|---|
+| [Клиент и KPI](/v4/workspace/settings/client) | AS, AD |
+| [Команда](/v4/workspace/settings/team) | AS, AD |
+| [Каналы](/v4/workspace/settings/channels) | EDS (здоровье), AS (подключение) |
+| [Таргетинг](/v4/workspace/settings/targeting) | AS, LR; SDR — чтение |
+| [Биллинг](/v4/workspace/settings/billing) | AD, Finance, C-level — остальные раздел не видят |
+
+Недоступные роли разделы не видят вовсе (не disabled). Полная матрица — [Роли и права](/v4/platform/roles).
+
+## Подстраницы
+
+<CardGroup cols={2}>
+  <Card title="Клиент и KPI" icon="id-card" href="/v4/workspace/settings/client">
+    General, продукты, план встреч по месяцам
+  </Card>
+  <Card title="Команда" icon="users" href="/v4/workspace/settings/team">
+    Сотрудники, AI-агенты проекта, клиентский доступ
+  </Card>
+  <Card title="Каналы" icon="tower-broadcast" href="/v4/workspace/settings/channels">
+    Ящики, LinkedIn, календари, Slack
+  </Card>
+  <Card title="Таргетинг" icon="bullseye" href="/v4/workspace/settings/targeting">
+    Аудитории, критерии квалификации, колонки, DNC, списки
+  </Card>
+  <Card title="Биллинг" icon="file-invoice-dollar" href="/v4/workspace/settings/billing">
+    Подписки, инвойсы, расходы и маржа
+  </Card>
+</CardGroup>
+
+## Чеклист функционала (сводный)
+
+- [ ] Пять разделов с видимостью по ролям
+- [ ] Inline-создание объектов таргетинга из мест использования
+- [ ] Алерты каналов выведены бейджем на пункт Settings в сайдбаре ([Layout](/v4/layout))

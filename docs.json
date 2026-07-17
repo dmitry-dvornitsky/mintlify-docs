@@ -11,6 +11,102 @@
   "navigation": {
     "tabs": [
       {
+        "tab": "V4 — Финальная версия",
+        "groups": [
+          {
+            "group": "Обзор",
+            "pages": [
+              "v4/index",
+              "v4/layout",
+              "v4/ui-kit",
+              "v4/decisions"
+            ]
+          },
+          {
+            "group": "Workspace — Delivery",
+            "pages": [
+              "v4/workspace/home",
+              "v4/workspace/dashboard",
+              {
+                "group": "Client",
+                "pages": [
+                  "v4/workspace/client/index",
+                  "v4/workspace/client/materials",
+                  "v4/workspace/client/documents",
+                  "v4/workspace/client/document-schemas"
+                ]
+              },
+              {
+                "group": "Strategies",
+                "pages": [
+                  "v4/workspace/strategies/index",
+                  "v4/workspace/strategies/find-leads"
+                ]
+              },
+              "v4/workspace/leads",
+              {
+                "group": "Campaigns",
+                "pages": [
+                  "v4/workspace/campaigns/index",
+                  "v4/workspace/campaigns/create",
+                  "v4/workspace/campaigns/sending"
+                ]
+              },
+              "v4/workspace/inbox",
+              "v4/workspace/meetings",
+              "v4/workspace/tasks",
+              "v4/workspace/overlay",
+              {
+                "group": "Settings",
+                "pages": [
+                  "v4/workspace/settings/index",
+                  "v4/workspace/settings/client",
+                  "v4/workspace/settings/team",
+                  "v4/workspace/settings/channels",
+                  "v4/workspace/settings/targeting",
+                  "v4/workspace/settings/billing"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Admin",
+            "pages": [
+              "v4/admin/command-center",
+              {
+                "group": "Projects",
+                "pages": [
+                  "v4/admin/projects/index",
+                  "v4/admin/projects/list",
+                  "v4/admin/projects/create",
+                  "v4/admin/projects/lifecycle"
+                ]
+              },
+              "v4/admin/clients",
+              "v4/admin/team",
+              "v4/admin/finance",
+              "v4/admin/quality",
+              "v4/admin/system"
+            ]
+          },
+          {
+            "group": "Client Portal",
+            "pages": [
+              "v4/portal/index"
+            ]
+          },
+          {
+            "group": "Платформа",
+            "pages": [
+              "v4/platform/guarantees",
+              "v4/platform/roles",
+              "v4/platform/automation",
+              "v4/platform/notifications"
+            ]
+          }
+        ]
+      },
+      {
         "tab": "V1 — Текущий продукт",
         "groups": [
           {
@@ -108,114 +204,6 @@
               "roadmap/index",
               "roadmap/personal-dashboard",
               "roadmap/must-have-features"
-            ]
-          },
-          {
-            "group": "Редизайн & Предложения",
-            "pages": [
-              "redesigns/strategy-redesign",
-              "redesigns/leads-pipeline",
-              "redesigns/campaigns-overview",
-              "redesigns/leads-find-companies",
-              "redesigns/leads-find-contacts",
-              "redesigns/settings-usage",
-              "redesigns/settings-team"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "V3 — Простая версия",
-        "groups": [
-          {
-            "group": "Обзор",
-            "pages": [
-              "v3/index",
-              "v3/home"
-            ]
-          },
-          {
-            "group": "Setup",
-            "pages": [
-              "v3/setup"
-            ]
-          },
-          {
-            "group": "Delivery",
-            "pages": [
-              "v3/strategy",
-              "v3/leads",
-              "v3/campaign",
-              "v3/replies",
-              "v3/meetings"
-            ]
-          },
-          {
-            "group": "Разделы",
-            "pages": [
-              "v3/client",
-              "v3/project"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "V2 — Целевой продукт",
-        "groups": [
-          {
-            "group": "Обзор",
-            "pages": [
-              "v2/index",
-              "v2/overview/vision",
-              "v2/overview/platform-architecture",
-              "v2/overview/roles",
-              "v2/overview/client-lifecycle"
-            ]
-          },
-          {
-            "group": "Workspace",
-            "pages": [
-              "v2/workspace/my-day",
-              "v2/workspace/projects",
-              "v2/workspace/strategy-hub",
-              "v2/workspace/leads",
-              "v2/workspace/campaigns",
-              "v2/workspace/inbox",
-              "v2/workspace/meetings",
-              "v2/workspace/tasks",
-              "v2/workspace/insights",
-              "v2/workspace/client-portal",
-              {
-                "group": "Settings",
-                "pages": [
-                  "v2/workspace/settings/index",
-                  "v2/workspace/settings/client",
-                  "v2/workspace/settings/team",
-                  "v2/workspace/settings/channels",
-                  "v2/workspace/settings/targeting"
-                ]
-              }
-            ]
-          },
-          {
-            "group": "Admin",
-            "pages": [
-              "v2/admin/index",
-              "v2/admin/command-center",
-              "v2/admin/clients",
-              "v2/admin/team-performance",
-              "v2/admin/finance",
-              "v2/admin/quality",
-              "v2/admin/system"
-            ]
-          },
-          {
-            "group": "Automation & MCP",
-            "pages": [
-              "v2/automation/index",
-              "v2/automation/agents",
-              "v2/automation/workflows",
-              "v2/automation/mcp"
             ]
           }
         ]
