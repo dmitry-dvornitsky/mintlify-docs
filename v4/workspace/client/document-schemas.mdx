@@ -47,7 +47,7 @@ Rules:
 |---|---|
 | `{{parsed_materials}}` | Распарсенные материалы с id (`[m1]…`), типом и датой |
 | `{{website_content}}` | Спарсенный сайт клиента и указанные ссылки |
-| `{{project_settings}}` | [Settings · Клиент](/v4/workspace/settings/client): продукты, KPI, план встреч, гео |
+| `{{project_settings}}` | [Settings · Клиент](/v4/workspace/settings/client): KPI, план встреч, гео, таймзона (сущности «Продукты» нет — [D-042](/v4/decisions)) |
 | `{{doc_about_client}}` / `{{doc_product}}` / `{{doc_icp}}` | Последняя Approved-версия соответствующего документа |
 | `{{change_request}}` | Текст из поля «What to change…» при направленном regenerate (пусто при первой генерации) |
 | `{{workspace_language}}` | Язык воркспейса |
@@ -105,7 +105,7 @@ Guidance:
 | **Objections** | Частые возражения и рабочие ответы | Транскрипты звонков; иначе `insufficient_data` |
 | **Cases** | Кейсы с цифрами: клиент, задача, результат — что можно цитировать как proof | Кейсы, сайт |
 
-**Источники:** sales-деки и прайсы · страницы продукта на сайте · ссылки на конкурентов · транскрипты звонков · кейсы · продукты из `{{project_settings}}`.
+**Источники:** sales-деки и прайсы · страницы продукта на сайте · ссылки на конкурентов · транскрипты звонков · кейсы.
 
 ```text
 Build the "Product" document for {{client_name}}.
@@ -118,7 +118,6 @@ Inputs:
 - Uploaded materials (decks, price lists, case studies, transcripts):
   {{parsed_materials}}
 - Website product pages and competitor links: {{website_content}}
-- Product list from project settings: {{project_settings}}
 
 Guidance:
 - pricing: only numbers that appear in sources; mark each price as
