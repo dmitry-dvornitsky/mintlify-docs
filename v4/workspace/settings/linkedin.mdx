@@ -1,0 +1,33 @@
+---
+title: "Settings · LinkedIn Accounts"
+description: "LinkedIn-аккаунты команды: подключение через Unipile, статусы, лимиты"
+---
+
+Аккаунты для LinkedIn-переписки ([Inbox](/v4/workspace/inbox), Overlay). Устройство раздела **зеркалит [Mailboxes](/v4/workspace/settings/mailboxes)** — «ничем не отличается» ([D-067](/v4/decisions)).
+
+## Кто использует
+
+Подключение и настройка — уровни **1–3** (SDR подключает свой аккаунт сам).
+
+## Как работает
+
+Таблица с кнопкой **Add LinkedIn Account**. Подключение — редирект на аутентификацию через **Unipile** (сервис-прослойка для LinkedIn).
+
+Механика — как у ящиков: Status **Active / Disconnected**, действие **Reconnect**, лимиты дефолтные и правятся через **Edit**. У аккаунта есть **тип — Free / Premium**; лимиты **раздельные**: инвайты и сообщения.
+
+| Account | Owner | Type | Status | Invites | Messages | Added |
+|---|---|---|---|---|---|---|
+| Kate Miller — /in/katemiller | Kate Miller | Premium | Active | 12 / 25 | 34 / 80 | 02.06 |
+| Alex Chen — /in/alexchen | Alex Chen | Free | Disconnected | 0 / 15 | 0 / 40 | 15.06 |
+
+## Правила
+
+- Лимиты раздельные — **инвайты** и **сообщения**; дефолты зависят от типа аккаунта (Free / Premium), правятся через Edit.
+- Disconnected виден только в таблице — причина и уведомления пока отсутствуют.
+- Ограничений со стороны LinkedIn (Restricted) не бывает — статуса такого нет.
+- Входящие и исходящие LinkedIn-сообщения идут через Inbox и Overlay.
+
+## TODO
+
+- [ ] **Вся механика Mailboxes применяется зеркально** ([D-067](/v4/decisions)): причина отключения + подсветка ([D-064](/v4/decisions)) · уведомления об отвале in-app + Slack ([D-065](/v4/decisions)) · колонка Campaigns · история отправок · Archive со Stop + освобождением и «Вернуть в набор» из кампейна ([D-066](/v4/decisions), [D-047](/v4/decisions))
+- [ ] Дефолтные значения лимитов по типам Free / Premium — цифры от Dmitry (ожидаются)

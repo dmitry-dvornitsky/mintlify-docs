@@ -64,7 +64,10 @@
                   "v4/workspace/settings/general",
                   "v4/workspace/settings/kpi",
                   "v4/workspace/settings/team",
-                  "v4/workspace/settings/channels",
+                  "v4/workspace/settings/mailboxes",
+                  "v4/workspace/settings/linkedin",
+                  "v4/workspace/settings/calendars",
+                  "v4/workspace/settings/notifications",
                   "v4/workspace/settings/targeting",
                   "v4/workspace/settings/billing"
                 ]

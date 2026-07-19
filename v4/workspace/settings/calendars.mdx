@@ -1,0 +1,39 @@
+---
+title: "Settings · Calendars"
+description: "Календари для букинга встреч и выбора слотов"
+---
+
+Календари, через которые букаются встречи и предлагаются слоты ([Meetings](/v4/workspace/meetings)).
+
+## Кто использует
+
+Подключение и настройка — уровни **1–3** ([D-068](/v4/decisions)).
+
+## Как работает
+
+Таблица подключённых календарей, количество не ограничено. Кнопка **Add calendar** — поп-ап с выбором типа:
+
+| Тип | Способ подключения |
+|---|---|
+| Google Calendar | OAuth — редирект на авторизацию Google |
+| Microsoft Calendar | OAuth — редирект на авторизацию Microsoft |
+| Calendly | API key — вставляется вручную |
+
+## Правила
+
+- Минимум один подключённый календарь необходим для работы [Meetings](/v4/workspace/meetings).
+
+## TODO
+
+- [ ] **Колонка Status** — как у ящиков: Active / Disconnected / Archived ([D-068](/v4/decisions))
+- [ ] **Reconnect** ([D-068](/v4/decisions)) — Disconnected при отвале (отзыв OAuth, невалидный API key) + переподключение из строки
+- [ ] **Archive** ([D-068](/v4/decisions)) — забуканные встречи остаются, новые с этого календаря забукать нельзя (слоты не предлагаются)
+- [ ] **Уведомление об отвале календаря** — Slack: SDR (владелец), PM, AS ([D-068](/v4/decisions))
+
+Целевой вид таблицы:
+
+| Calendar | Owner | Provider | Status | Added |
+|---|---|---|---|---|
+| kate@acme-outreach.com | Kate Miller | Google | Active | 02.06 |
+| Calendly — Acme team | Kate Miller | Calendly | ⚠ Disconnected · **Reconnect** | 15.06 |
+| old-cal@acme.com | Alex Chen | Microsoft | Archived | 01.03 |
