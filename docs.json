@@ -61,7 +61,8 @@
                 "group": "Settings",
                 "pages": [
                   "v4/workspace/settings/index",
-                  "v4/workspace/settings/client",
+                  "v4/workspace/settings/general",
+                  "v4/workspace/settings/kpi",
                   "v4/workspace/settings/team",
                   "v4/workspace/settings/channels",
                   "v4/workspace/settings/targeting",
@@ -84,7 +85,7 @@
                 ]
               },
               "v4/admin/clients",
-              "v4/admin/team",
+              "v4/admin/people",
               "v4/admin/finance",
               "v4/admin/quality",
               "v4/admin/system"

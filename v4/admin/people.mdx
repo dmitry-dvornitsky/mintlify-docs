@@ -1,0 +1,27 @@
+---
+title: "Admin · People"
+description: "Все сотрудники компании: позиции, доступ, проекты, активность"
+---
+
+Глобальный список сотрудников — кто есть в системе, с какой позицией и каким доступом. Проектные команды ([Settings · Team](/v4/workspace/settings/team)) набираются из этого пула.
+
+## Кто использует
+
+Уровни **1–2** (Admin и Manager).
+
+## Как работает
+
+Список сотрудников существует: добавление человека по **email** с указанием позиции. Детальный состав текущего экрана — уточняется.
+
+## TODO
+
+Целевой дизайн — [D-062](/v4/decisions):
+
+- [ ] **Переименовать раздел в People** — «Team» занято проектным разделом
+- [ ] **Модель юзера**: **Title** — позиция (AS / PM / Sales / SDR / LR / EDS / Content Writer), **Role** — уровень доступа текстом (Admin / Manager / Member), **Employment** — Full-time / Freelance
+- [ ] **Колонки списка**: Name (без аватара, email под ним) · Title · Role · Employment · Projects (число, по hover — список) · Status (Active / Pending / Deactivated) · Last active
+- [ ] Поиск + фильтры: Title, Role, Employment, Status
+- [ ] **Меню строки**: Edit · Deactivate · Resend (для Pending)
+- [ ] **Форма приглашения**: Email · First name / Last name · Title · Role · Employment · Projects (опционально — сразу в проекты)
+- [ ] **Оверлей сотрудника** (паттерн Company Overlay): шапка (имя, Title, Role, Employment, статус, действия) · Info (email, дата добавления, кто пригласил) · таб Projects (его проекты с переходом) · таб Activity (лента действий из audit log, период 7/30/90 дней)
+- [ ] **Deactivate / Reactivate**: деактивация снимает доступ, юзер выпадает из выборок active users (например, при добавлении в проект), история и ссылки сохраняются; реактивация возвращает
