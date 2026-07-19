@@ -13,15 +13,13 @@ AS, AD, Ops, C-level. Sales — read-only по своим клиентам. За
 
 Таблица проектов, клик по строке → [дашборд проекта](/v4/workspace/dashboard) в Workspace.
 
-| Колонка | Содержимое |
-|---|---|
-| Project | Название + логотип клиента |
-| Stage | Draft / Onboarding / Active / Paused / Closed — см. [жизненный цикл](/v4/admin/projects/lifecycle) |
-| Health | Health Score 0–100, тот же что в [Admin → Clients](/v4/admin/clients) |
-| KPI | Mini-bar: встречи за месяц против плана |
-| Campaigns | Число активных кампейнов |
-| Team | Аватары команды |
-| Last activity | Последнее действие в проекте |
+| Project | Stage | Health | KPI | Campaigns | Team | Last activity |
+|---|---|---|---|---|---|---|
+| Acme Corp | Active | 82 | 6 / 12 | 3 | KM · AC · +2 | 2 часа назад |
+| BuildCo | Onboarding | — | 0 / 8 | 0 | KM | вчера |
+| FinPeak · ⚠ инвойс | Paused | 45 | 2 / 10 | 1 | ML | 14 дней назад |
+
+Stage — по [жизненному циклу](/v4/admin/projects/lifecycle); Health — скор 0–100, тот же что в [Admin → Clients](/v4/admin/clients); KPI — встречи месяца против плана.
 
 **Quick Filters:** My projects (по умолчанию) · Stage · Health · Account Strategist.
 
