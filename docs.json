@@ -20,6 +20,7 @@
               "v4/layout",
               "v4/ui-kit",
               "v4/decisions",
+              "v4/decisions-archive",
               "v4/flows"
             ]
           },
