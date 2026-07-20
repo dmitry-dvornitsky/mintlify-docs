@@ -68,6 +68,8 @@
                   "v4/workspace/settings/linkedin",
                   "v4/workspace/settings/calendars",
                   "v4/workspace/settings/notifications",
+                  "v4/workspace/settings/personas",
+                  "v4/workspace/settings/columns",
                   "v4/workspace/settings/targeting",
                   "v4/workspace/settings/billing"
                 ]

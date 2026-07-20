@@ -79,11 +79,24 @@ description: "Реестр пользовательских флоу по каж
 - ✅ **Подключить Slack-канал проекта** — сейчас уходят только события о новых митах
 - 📋 **Настроить алерты** — таблица «событие → канал → получатели → вкл/выкл» ([D-069](/v4/decisions))
 
-## Таргетинг — [Settings · Таргетинг](/v4/workspace/settings/targeting)
+## Personas — [Settings · Personas](/v4/workspace/settings/personas)
 
-- ✅ **Создать аудиторию** — inline из поиска или в библиотеке; ✦ Improve
-- ✅ **Создать критерии квалификации** — ✦ Suggest из ICP; следить за Accuracy feedback
-- ✅ **Создать кастомную колонку** с AI-инструкцией обогащения
+- ✅ **Создать persona** — Name · Description (для AI-квалификации тайтлов) · Job Titles · Excludes (предзаполнены); ✦ Improve with AI
+- ✅ **Использовать в поиске контактов** — First / Secondary Priority (приоритет уедет на поиск — 📋 [D-070](/v4/decisions))
+- ✅ **Редактировать / архивировать** — правка не влияет на прошедшие поиски
+- 📋 **История правок + Updated at** ([D-070](/v4/decisions))
+- 📋 **✦ Suggest titles from documents** — одноразовая генерация ([D-041](/v4/decisions))
+
+## Columns — [Settings · Columns](/v4/workspace/settings/columns)
+
+- ✅ **Создать колонку** — Name · Type (7 типов) · Description · AI enrichment instructions; табы Companies / Contacts
+- ✅ **Enrich выбранных** — AI заполняет по сайту / LinkedIn; сейчас все колонки сразу
+- ✅ **Квалифицировать фильтром** — bool/number колонки + фильтр = «подходит» ([D-074](/v4/decisions))
+- 📋 **Выбор колонок при Enrich** — попап с чекбоксами ([D-075](/v4/decisions))
+- 📋 **✦ Generate instructions** — AI-инструкция из Name + Description ([D-076](/v4/decisions))
+- 📋 **Re-enrich stale** — освежить значения, помеченные «по старой инструкции» ([D-076](/v4/decisions))
+
+## Таргетинг (остальное) — [Settings · Таргетинг](/v4/workspace/settings/targeting)
 - ✅ **Добавить в DNC** — вручную / CSV / автоматически из ответов
 - ✅ **Удалить из DNC** — только AS, с причиной; Auto-записи не удаляются
 - ✅ **Создать список**; использовать как фильтр в Leads и при наборе кампейна
