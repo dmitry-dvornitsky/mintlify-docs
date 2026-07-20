@@ -11,6 +11,9 @@ description: "История продуктовых решений Dmitry по V
 
 | # | Решение | |
 |---|---|---|
+| D-085 | Reply Templates (бывш. Message Templates) + Labels: режим группы single/multi, цвет, AI auto-label |  |
+| D-084 | Billing: разбит на 3 подстраницы; Summary-строка; оплата по вебхуку Wave (факт); автоотправка отложена |  |
+| D-083 | Billing = только клиентские деньги (Info/Services/Invoices); Costs/Margin вынесены в Usage/Admin |  |
 | D-082 | Lists: разбор V1 в свою страницу; drill-in не делаем (клик → Leads с фильтром); targeting расформирован |  |
 | D-081 | Do Not Contact: железное правило вместо чекбокса; автопополнение из unsubscribe; Source; уровни |  |
 | D-080 | Навигация: группы только для разделов с внутренними табами, не для любых связанных страниц |  |
@@ -96,6 +99,46 @@ description: "История продуктовых решений Dmitry по V
 
 
 ## 2026-07-20
+
+### D-085 · Reply Templates и Labels
+
+**Reply Templates** (в V1 — Message Templates): таблица шаблонов ответов (Name, Updated By), форма Template Name + Template Content с форматированием и AI ✦; работают в Email и LinkedIn, вставляются из редактора в оверлее. Порт как есть, переименование. TODO: переменные `{{...}}` как в кампейнах, usage/updated at.
+
+**Labels:** ядро сохраняется — двухуровневая иерархия **Labels Group → Labels**, метки вешаются на треды в Inbox. **Паттерн создания:** группа — поп-ап (Name + режим/описание); метка — action **Add label** на группе → поп-ап (Name · Color · Auto-label with AI · AI instructions). Inline отпал: с цветом и AI-инструкцией редактор в строку не влезает. Улучшения (TODO):
+- **Режим группы single / multi** (сильное) — Single: одна метка из группы на тред (метки-«статусы», напр. Stage), Multi: сколько угодно (метки-«теги», напр. Topic).
+- **Цвет у метки** — чипом на треде в Inbox; декоративный, не путать со статус-семантикой ([D-009](/v4/decisions)).
+- **Auto-label with AI** (на метке) — тогл в inline-редакторе метки; при включении — обязательное поле **AI instructions** «когда ставить эту метку» (как enrichment instructions в [Columns](/v4/workspace/settings/columns), с ✦ Generate). AI по правилам сам размечает треды в Inbox. Редактор метки: Name · Color · Auto-label with AI · AI instructions.
+- Usage count, reorder внутри группы, архив/переименование без потери меток на тредах.
+
+**Почему:** шаблоны — тривиальный порт; в Labels ценность в режиме single/multi (превращает часть меток в статусы) и AI-разметке — они реально ускоряют разбор Inbox.
+**Где:** [Reply Templates](/v4/workspace/settings/reply-templates), [Labels](/v4/workspace/settings/labels)
+
+### D-084 · Billing — разбивка на подстраницы и улучшения
+
+Экран Billing (3 таба) разбит в доке на группу подстраниц ([D-080](/v4/decisions)): **index** (overview) · **information** · **services** · **invoices**. Реквизиты хранятся на проекте, источник правды — Billing Information ([D-052](/v4/decisions)).
+
+Решения по улучшениям (разбор вместе):
+- **Оплата инвойса — по вебхуку Wave (факт):** статус Paid и Paid-сумма проставляются автоматически, ручной сверки нет.
+- **Summary-строка** *(TODO)* — сверху экрана, над табами: MRR · Outstanding · Overdue · дата следующего инвойса.
+- **Автоотправка Recurring-инвойсов — отложена (future):** Finance отправляет вручную, опасаясь, что автогенерация наплодит лишних инвойсов; автоотправку с Gate/правилом сделаем после починки контроля генерации.
+- **Напоминание о продлении** *(TODO)* — по End date Recurring → задача + Health (ловим churn).
+- **Инвойс ↔ подписка ↔ доставка** *(TODO)* — из инвойса к подписке и периоду доставки (QBR, споры).
+- **Инвойсы в Client Portal** *(TODO)* — клиент видит свои Paid/Outstanding/Overdue.
+- **Dunning** *(later)* — автонапоминания клиенту до/после Due.
+
+**Почему:** три таба Billing объёмны — по подстранице читается лучше; сверка оплат уже автоматизирована вебхуком, поэтому это факт, а не идея; автоотправка отложена осознанно из-за реального риска в процессе Finance.
+**Где:** [Settings · Billing](/v4/workspace/settings/billing)
+
+### D-083 · Billing — только клиентские деньги; Costs/Margin вынесены
+
+Раздел **Billing** описывает исключительно **деньги клиента**: реквизиты (Billing Information), подписки (Services — Recurring / One-time, setup fee, discount, живой Preview) и инвойсы (статусы Draft/Created/Paid/Overdue, Source Subscription/Synced, Send to Wave вручную). **Факт:** Recurring генерит инвойсы автоматически; отправка — вручную Send to Wave. Доступ: уровень 1 (Admin) + AS (2); остальные не видят.
+
+**Costs / Margin вынесены из Billing.** Расходы на инструменты и AI и маржа (выручка − затраты) — это внутренние деньги, другая аудитория и данные; смешивать с клиентским биллингом нельзя. Уходят в [Usage](/v4/workspace/settings/usage) (внутреннее потребление/расход) и/или [Admin · Finance](/v4/admin/finance) (сквозная маржа по проектам). Прежняя V4-страница валила Costs в Billing — исправлено.
+
+TODO Billing (спроектировано, не факт): Void вместо удаления, завершение/пауза подписки, история цен, пропорция при смене тарифа, статус Sent, Gate/автоотправка, Overdue-цепочка (алерт→бейдж→Health→авто-пауза), Wave-fallback «Sync pending», refund/credit note через Admin.
+
+**Почему:** «что платит клиент» и «во что нам обходится доставка» — разные вопросы к разным людям; на одной странице они путают (и рискуют показать маржу не тем). Разделение чистит и доступы.
+**Где:** [Settings · Billing](/v4/workspace/settings/billing), [Usage](/v4/workspace/settings/usage)
 
 ### D-082 · Lists — своя страница; drill-in не делаем; targeting расформирован
 

@@ -1,0 +1,31 @@
+---
+title: "Settings · Billing"
+description: "Деньги клиента: реквизиты, подписки и инвойсы проекта"
+---
+
+Что клиент платит по проекту. **В приложении** — один экран Billing с тремя табами; в документации каждый таб вынесен подстраницей ([D-080](/v4/decisions)). Синхронизируется с Wave (внешний сервис инвойсинга).
+
+**Внутренние расходы на доставку (инструменты, AI) и маржа — не здесь**, это [Usage](/v4/workspace/settings/usage) / [Admin · Finance](/v4/admin/finance) ([D-083](/v4/decisions)).
+
+## Кто использует
+
+Уровень **1 (Admin)** и **AS (2)**. Остальные роли раздел не видят вовсе.
+
+## Табы
+
+<CardGroup cols={3}>
+  <Card title="Billing Information" icon="id-card" href="/v4/workspace/settings/billing/information">
+    Реквизиты для инвойсов, Wave customer, NET
+  </Card>
+  <Card title="Services" icon="cubes" href="/v4/workspace/settings/billing/services">
+    Подписки Recurring / One-time, setup fee, discount
+  </Card>
+  <Card title="Invoices" icon="file-invoice-dollar" href="/v4/workspace/settings/billing/invoices">
+    Инвойсы: статусы, Source, Send to Wave
+  </Card>
+</CardGroup>
+
+## TODO
+
+- [ ] **Summary-строка «состояние денег»** *(предложение)*: сверху экрана Billing, над табами — **MRR · Outstanding (неоплачено) · Overdue · дата следующего инвойса**. Ответ с одного взгляда «платят ли и сколько висит», без пролистывания Invoices
+- [ ] **Показ инвойсов клиенту в [Client Portal](/v4/portal)** *(предложение)*: клиент видит свои инвойсы (Paid / Outstanding / Overdue) — снимает поток писем «где счёт»

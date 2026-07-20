@@ -79,7 +79,18 @@
                   },
                   "v4/workspace/settings/dnc",
                   "v4/workspace/settings/lists",
-                  "v4/workspace/settings/billing"
+                  {
+                    "group": "Billing",
+                    "pages": [
+                      "v4/workspace/settings/billing/index",
+                      "v4/workspace/settings/billing/information",
+                      "v4/workspace/settings/billing/services",
+                      "v4/workspace/settings/billing/invoices"
+                    ]
+                  },
+                  "v4/workspace/settings/usage",
+                  "v4/workspace/settings/reply-templates",
+                  "v4/workspace/settings/labels"
                 ]
               }
             ]

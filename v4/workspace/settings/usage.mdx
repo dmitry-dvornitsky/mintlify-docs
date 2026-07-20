@@ -1,0 +1,58 @@
+---
+title: "Settings · Usage"
+description: "Расход проекта на внешние инструменты и AI — по инструментам, модулям и юзерам"
+---
+
+Во что обходится доставка по проекту — расход на внешние инструменты и AI (Generect, OpenAI, Apollo и др.). Это **внутренние деньги**, парные к клиентской выручке в [Billing](/v4/workspace/settings/billing): выручка − Usage = маржа ([D-083](/v4/decisions)). Сквозная картина по всем проектам — [Admin · Finance](/v4/admin/finance).
+
+## Кто использует
+
+Уровень **1 (Admin)** и **AS (2)** — как Billing. Остальные роли раздел не видят.
+
+## Как работает
+
+**Фильтры сверху:** Module (All / Insights / Campaigns / Leads / Inbox / Tasks / Meetings / Other) · User (All / System / конкретные) · Date range · **Export**.
+
+**Total Spent** — суммарный расход за выбранный период.
+
+**Daily Usage** — bar-chart по дням с переключателем группировки **Tool / Feature**:
+- **Tool** — цвет = инструмент (Apollo, Generect, Gsuite, Hunter, OpenAI, Quickemail, Rapidapi);
+- **Feature** — цвет = фича внутри инструмента.
+
+**Breakdown** — таблица итогов за период (переключатель Tool / Feature): Tool/Feature · Share (полоса) · Credits · Cost · %.
+
+**Request Log** — лог каждого API-вызова: Tool · Feature · Credits · Cost / Credit · Total Cost · Date.
+
+Инструменты и за что списывается:
+
+| Инструмент | Назначение |
+|---|---|
+| Generect | Парсинг LinkedIn-профилей и данных компаний |
+| OpenAI | AI: AI Editor, Company Analysis, Column Enrichment, Campaigns |
+| Hunter | Поиск и верификация email |
+| Apollo | LinkedIn по email, Phone Enrichment |
+| Quickemail | Email delivery / warming |
+| Rapidapi | Дополнительные API-запросы |
+| Gsuite | Google Calendar / Gmail |
+
+## Правила
+
+- Расход **без привязки к проекту** сюда не попадает — он в [Admin · Finance](/v4/admin/finance) (общие расходы).
+- Cost — в деньгах ($); Credits — сырое потребление инструмента.
+
+## TODO
+
+- [ ] **Margin по проекту** *(предложение)*: выручка (из [Billing](/v4/workspace/settings/billing)) − Total Spent = маржа проекта, строкой в Summary. Полная маржа по всем проектам — в [Admin · Finance](/v4/admin/finance) ([D-083](/v4/decisions))
+- [ ] **Summary: avg daily + projected** *(предложение)*: сейчас рядом с Total Spent три карточки **Coming Soon** — доделать средний расход в день и прогноз на период/месяц
+- [ ] **UX и названия** *(предложение)*: раздел исторически требует чистки терминологии и подачи (бывший redesign-заметка) — пройтись при реализации
+- [ ] **Алерт по расходу** *(предложение)*: порог на проект/инструмент → уведомление, когда расход резко выше среднего (ловить утечки кредитов)
+
+Целевой вид (Breakdown · Tool):
+
+| Tool | Share | Credits | Cost | % |
+|---|---|---|---|---|
+| OpenAI | ▓▓▓▓▓░░░ | 12,400 | $148.00 | 41% |
+| Generect | ▓▓▓░░░░░ | 8,100 | $96.00 | 27% |
+| Hunter | ▓▓░░░░░░ | 5,300 | $62.00 | 17% |
+| Apollo | ▓░░░░░░░ | 2,000 | $38.00 | 11% |
+| Quickemail | ░░░░░░░░ | 900 | $14.00 | 4% |

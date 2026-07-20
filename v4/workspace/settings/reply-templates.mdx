@@ -1,0 +1,36 @@
+---
+title: "Settings · Reply Templates"
+description: "Заготовленные шаблоны ответов для быстрой вставки в переписку"
+---
+
+Шаблоны ответов, которые SDR вставляет в переписку в один клик — без печати с нуля. Работают в обоих каналах: **Email** и **LinkedIn** (в V1 назывались Message Templates).
+
+## Кто использует
+
+SDR (пишут ответы); создают шаблоны — уровни **1–3**.
+
+## Как работает
+
+Таблица с кнопкой **Add Template**. Колонки: **Name**, **Updated By**.
+
+Форма:
+
+| Поле | Описание |
+|---|---|
+| Template Name | Название для поиска в списке |
+| Template Content | Текст шаблона; форматирование (**A**) и AI-генерация (**✦**) |
+
+Шаблоны доступны в редакторе сообщений в [Overlay](/v4/workspace/overlay) — в табах Email и LinkedIn.
+
+## TODO
+
+- [ ] **Переменные** *(предложение)*: `{{first_name}}`, `{{company}}`, любые [custom columns](/v4/workspace/settings/columns) с фоллбеками — как в [кампейнах](/v4/workspace/campaigns/create)
+- [ ] **Usage / Updated at** *(предложение)*: как часто вставляется + дата правки — чтобы вычищать мёртвые шаблоны
+
+Целевой вид:
+
+| Name | Updated By |
+|---|---|
+| Intro follow-up | Kate Miller |
+| Meeting confirmation | Alex Chen |
+| Not interested — polite close | Sam Lee |
