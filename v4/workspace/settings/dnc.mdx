@@ -1,0 +1,52 @@
+---
+title: "Settings · Do Not Contact"
+description: "Списки исключений: компании и контакты, которым нельзя писать"
+---
+
+Списки исключений проекта — домены компаний и email контактов, которые отфильтровываются при поиске и импорте, чтобы не писать тем, кому нельзя.
+
+## Кто использует
+
+Смотрят все; пополняют и правят — уровни **1–3**.
+
+## Как работает
+
+Два таба — **Companies** и **Contacts**.
+
+- **Companies** — таблица доменов: Domain · Company Name · Added. Действия: **+ Add Domain** (вручную) и **Import CSV** (массовый импорт).
+- **Contacts** — таблица исключённых контактов (email), аналогичная структура.
+
+**Применение — чекбоксом при операции** (по умолчанию включён): Find Companies, Import Companies → «Apply Companies DNC»; Find Contacts, Find Contacts in Companies → «Apply Contacts DNC». Записи из DNC пропускаются и не попадают в Leads.
+
+## Правила
+
+- Сейчас DNC применяется в момент поиска/импорта, если чекбокс включён; по умолчанию включён.
+- Домен в Companies DNC отсекает всю компанию, email в Contacts DNC — один контакт.
+
+## TODO
+
+- [ ] **DNC — железное правило, не чекбокс** ([D-081](/v4/decisions)): применяется всегда и приоритетнее любого другого фильтра, чекбокс «Apply DNC» убираем. Выключаемый DNC = риск написать тому, кто отписался
+- [ ] **Уровень блокировки** ([D-081](/v4/decisions)): домен компании (вся компания) · **поддомены** домена (eu.acme.com при acme.com) · email контакта. Блокировки «по имени компании» не делаем — риск ложных совпадений
+- [ ] **Автопополнение из ответов** ([D-081](/v4/decisions)): unsubscribe / «не пишите» в [Inbox](/v4/workspace/inbox) добавляет контакт (и, по решению, домен) в DNC автоматически с **Added via: Auto** и проставленным **Reason** (Unsubscribed / Complaint)
+- [ ] **Reason + Added via / by / on** ([D-081](/v4/decisions)) — чтобы видеть, как и почему запись попала в список:
+  - **Reason** — причина исключения: Unsubscribed · Complaint · Competitor · Existing customer · Client request · Bounced · Other *(набор — предложение)*; для Manual выбирается при добавлении (+ опциональная заметка), для Auto ставится автоматически
+  - **Added via** — канал: Manual · Import · Auto *(отдельно от enrichment-Source в Columns — намеренно другое слово)*
+  - **Added by** — кто добавил (для Manual/Import) или «System» (для Auto)
+  - **Added on** — дата
+- [ ] **Удаление с причиной** ([D-081](/v4/decisions)): Manual- и Import-записи удаляются с обязательным reason (право 1–3); **Auto-записи из unsubscribe удалять нельзя** — юридически «никогда не писать» необратимо
+- [ ] **Снятие активных контактов на лету** ([D-081](/v4/decisions)): попадание в DNC (в т.ч. авто из unsubscribe) останавливает запланированные письма и вынимает контакт из активных кампейнов — как Dropped ([D-066](/v4/decisions))
+
+Целевой вид (таб Contacts):
+
+| Email | Company | Reason | Added via | Added by | Added on |
+|---|---|---|---|---|---|
+| john@acme.com | Acme Corp | Existing customer | Manual | Kate Miller | 02.06 |
+| ceo@rival.io | Rival | Unsubscribed 🔒 | Auto | System | 11.07 |
+| ops@spam.co | — | Competitor | Import | Alex Chen | 15.06 |
+
+Целевой вид (таб Companies):
+
+| Domain | Company | Reason | Added via | Added by | Added on |
+|---|---|---|---|---|---|
+| acme.com | Acme Corp | Existing customer | Manual | Kate Miller | 02.06 |
+| bigcorp.io | BigCorp (+поддомены) | Competitor | Import | Alex Chen | 15.06 |

@@ -98,19 +98,17 @@ description: "Реестр пользовательских флоу по каж
 - 📋 **Выбор источника enrich** — Website / LinkedIn / Web search на колонке ([D-078](/v4/decisions))
 - 📋 **Enrich новых записей** — опция в импорте и после поиска лидов, с выбором колонок ([D-078](/v4/decisions))
 - 📋 **Enrich точечно из оверлея** одной компании/контакта ([D-078](/v4/decisions))
+- 📋 **Таб Enrichment History** — прогоны; клик → детальная (Updated / No change / Skipped / Failed), AI-обоснование значения + источник (в детальной и в ячейке Leads), фильтр + Retry ([D-079](/v4/decisions))
 
-## Enrichment History — [Settings · Enrichment History](/v4/workspace/settings/enrichments)
+## Do Not Contact — [Settings · Do Not Contact](/v4/workspace/settings/dnc)
+- ✅ **Добавить в DNC** — вручную / CSV / автоматически из ответов (unsubscribe → Added via: Auto)
+- ✅ **Удалить из DNC** — право 1–3, с причиной; Auto-записи из unsubscribe не удаляются ([D-081](/v4/decisions))
+- 📋 **DNC как железное правило** — применяется всегда, приоритетнее всего, без чекбокса ([D-081](/v4/decisions))
 
-- 📋 **Открыть прогон** — детальная: записи Updated / No change / Skipped / Failed ([D-079](/v4/decisions))
-- 📋 **Посмотреть AI-обоснование значения** — почему заполнено так + источник; в детальной и в ячейке Leads ([D-079](/v4/decisions))
-- 📋 **Фильтр по результату + Retry** упавших/пропущенных ([D-079](/v4/decisions))
-
-## Таргетинг (остальное) — [Settings · Таргетинг](/v4/workspace/settings/targeting)
-- ✅ **Добавить в DNC** — вручную / CSV / автоматически из ответов
-- ✅ **Удалить из DNC** — только AS, с причиной; Auto-записи не удаляются
+## Lists — [Settings · Lists](/v4/workspace/settings/lists)
 - ✅ **Создать список**; использовать как фильтр в Leads и при наборе кампейна
-- ✅ **Архивировать объект** — активные стратегии продолжают на снапшоте
-- ✅ **Посмотреть «где используется»** — из объекта к стратегиям/кампейнам
+- ✅ **Добавить в список** — поштучно из оверлея или bulk из Leads
+- 📋 **Удалить / архивировать список** — сущности остаются в Leads, снимается группировка
 
 ## Materials — [Client · Materials](/v4/workspace/client/materials)
 
