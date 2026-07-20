@@ -18,11 +18,12 @@ description: "Кастомные поля компаний и контактов
 | Name * | Название, например «Tech Stack», «Produces tin cans» |
 | Type * | Text · Long text · Number · Date · True/False · Single choice · Multiple choice |
 | Description | Что хранится в поле |
-| AI enrichment instructions | Что и откуда искать: «главные языки разработки по сайту и вакансиям» |
+| AI enrichment instructions | Что искать: «главные языки разработки по сайту и вакансиям» |
+| Source | Откуда искать — Website / LinkedIn / Web search (мультивыбор); атрибут колонки, правится в Edit ([D-078](/v4/decisions)) |
 
 После создания колонка появляется в таблицах Leads → Companies / Contacts как поле.
 
-**Enrich** — запуск AI-обогащения: выбрать компании/контакты чекбоксами → тулбар **Enrich custom columns** → AI ищет по сайту компании / LinkedIn контакта и заполняет поля. История запусков — в Requests (переезжает в историю).
+**Enrich** — запуск AI-обогащения: выбрать компании/контакты чекбоксами в Leads → тулбар **Enrich custom columns** → AI ищет по сайту компании / LinkedIn контакта и заполняет поля. История запусков — в Requests (переезжает в историю).
 
 ## Правила
 
@@ -32,16 +33,26 @@ description: "Кастомные поля компаний и контактов
 
 ## TODO
 
-- [ ] **Выбор колонок при Enrich** ([D-075](/v4/decisions)): попап со списком колонок и чекбоксами — обогащать только выбранные; сейчас запускаются все сразу
+- [ ] **Source — атрибут колонки** ([D-078](/v4/decisions)): мультивыбор **Website / LinkedIn / Web search** при создании + в Edit; дефолт по табу (Companies → Website, Contacts → LinkedIn); Web search дороже — стоимость видна в попапе Enrich до запуска. Правка Source, как и инструкции, помечает старые значения stale ([D-076](/v4/decisions))
+- [ ] **Точки запуска Enrich** ([D-078](/v4/decisions)): bulk из Leads (попап выбора колонок — D-075) · точечно из оверлея одной записи · опция **«Enrich custom columns»** шагом в импорте и после поиска лидов (с выбором колонок — обогащение новых записей контролируемо, а не флагом на колонке)
+- [ ] **Таб History** ([D-078](/v4/decisions)) — прогоны enrichment; клик по строке → детали (записи с результатом, причины пропусков/ошибок)
 - [ ] **✦ Generate instructions** ([D-076](/v4/decisions)) — сгенерировать AI-инструкцию из Name + Description (как ✦ Improve в Personas)
 - [ ] **Метка stale у значений** ([D-076](/v4/decisions)): значение помнит `enriched at`; если инструкцию правили позже — помечается «по старой инструкции»; bulk **Re-enrich stale** освежает только их
-- [ ] **История правок инструкции** — кто, когда, что менял (как KPI History)
 - [ ] Архив колонки — по [D-007](/v4/decisions): значения сохраняются, колонка скрыта, разархивирование возвращает (платформенно, спец-логики нет)
 
-Целевой вид таблицы (таб Companies):
+Целевой вид таблицы колонок (таб Companies):
 
-| Name | Type | AI enrichment | Filled |
-|---|---|---|---|
-| Produces tin cans | True/False | «проверь по сайту, делает ли жестяную тару» | 142 / 180 |
-| Locations | Number | «сколько физических локаций по сайту» | 138 / 180 |
-| Tech Stack | Multiple choice | «языки и фреймворки по сайту и вакансиям» | 90 / 180 |
+| Name | Type | Source | AI enrichment | Filled |
+|---|---|---|---|---|
+| Produces tin cans | True/False | Website | «делает ли жестяную тару» | 142 / 180 |
+| Locations | Number | Website | «сколько физических локаций» | 138 / 180 |
+| Tech Stack | Multiple choice | Website · Web search | «языки и фреймворки по сайту и вакансиям» | 90 / 180 |
+| Recent funding | Text | Web search | «последний раунд и дата по новостям» | 60 / 180 |
+
+Целевой вид таба History:
+
+| Date | Run by | Columns | Records | Source | Cost | Status |
+|---|---|---|---|---|---|---|
+| 20.07 14:20 | Kate Miller | Tech Stack, Locations | 180 | Website | $12.40 | Готово · 168 · 12 пропущено |
+| 19.07 10:05 | из импорта | Produces tin cans | 240 | Website | $16.00 | Готово · 240 |
+| 18.07 16:40 | Alex Chen | Recent funding | 180 | Web search | $33.00 | Упало на 40 · Retry |
