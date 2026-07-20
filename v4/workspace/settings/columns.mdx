@@ -19,9 +19,8 @@ description: "Кастомные поля компаний и контактов
 | Type * | Text · Long text · Number · Date · True/False · Single choice · Multiple choice |
 | Description | Что хранится в поле |
 | AI enrichment instructions | Что искать: «главные языки разработки по сайту и вакансиям» |
-| Source | Откуда искать — Website / LinkedIn / Web search (мультивыбор); атрибут колонки, правится в Edit ([D-078](/v4/decisions)) |
 
-После создания колонка появляется в таблицах Leads → Companies / Contacts как поле.
+После создания колонка появляется в таблицах Leads → Companies / Contacts как поле. Откуда AI берёт данные, сейчас не выбирается — сам решает (сайт для компании, LinkedIn для контакта); выбор источника — [D-078](/v4/decisions) в TODO.
 
 **Enrich** — запуск AI-обогащения: выбрать компании/контакты чекбоксами в Leads → тулбар **Enrich custom columns** → AI ищет по сайту компании / LinkedIn контакта и заполняет поля. История запусков — в Requests (переезжает в историю).
 
@@ -35,7 +34,7 @@ description: "Кастомные поля компаний и контактов
 
 - [ ] **Source — атрибут колонки** ([D-078](/v4/decisions)): мультивыбор **Website / LinkedIn / Web search** при создании + в Edit; дефолт по табу (Companies → Website, Contacts → LinkedIn); Web search дороже — стоимость видна в попапе Enrich до запуска. Правка Source, как и инструкции, помечает старые значения stale ([D-076](/v4/decisions))
 - [ ] **Точки запуска Enrich** ([D-078](/v4/decisions)): bulk из Leads (попап выбора колонок — D-075) · точечно из оверлея одной записи · опция **«Enrich custom columns»** шагом в импорте и после поиска лидов (с выбором колонок — обогащение новых записей контролируемо, а не флагом на колонке)
-- [ ] **Таб History** ([D-078](/v4/decisions)) — прогоны enrichment; клик по строке → детали (записи с результатом, причины пропусков/ошибок)
+- [ ] **История обогащений** — отдельная подстраница [Enrichment History](/v4/workspace/settings/enrichments) с детализацией прогонов и AI-обоснованием ([D-079](/v4/decisions))
 - [ ] **✦ Generate instructions** ([D-076](/v4/decisions)) — сгенерировать AI-инструкцию из Name + Description (как ✦ Improve в Personas)
 - [ ] **Метка stale у значений** ([D-076](/v4/decisions)): значение помнит `enriched at`; если инструкцию правили позже — помечается «по старой инструкции»; bulk **Re-enrich stale** освежает только их
 - [ ] Архив колонки — по [D-007](/v4/decisions): значения сохраняются, колонка скрыта, разархивирование возвращает (платформенно, спец-логики нет)
@@ -49,10 +48,4 @@ description: "Кастомные поля компаний и контактов
 | Tech Stack | Multiple choice | Website · Web search | «языки и фреймворки по сайту и вакансиям» | 90 / 180 |
 | Recent funding | Text | Web search | «последний раунд и дата по новостям» | 60 / 180 |
 
-Целевой вид таба History:
-
-| Date | Run by | Columns | Records | Source | Cost | Status |
-|---|---|---|---|---|---|---|
-| 20.07 14:20 | Kate Miller | Tech Stack, Locations | 180 | Website | $12.40 | Готово · 168 · 12 пропущено |
-| 19.07 10:05 | из импорта | Produces tin cans | 240 | Website | $16.00 | Готово · 240 |
-| 18.07 16:40 | Alex Chen | Recent funding | 180 | Web search | $33.00 | Упало на 40 · Retry |
+История прогонов и AI-обоснование значений — на подстранице [Enrichment History](/v4/workspace/settings/enrichments) ([D-079](/v4/decisions)).
