@@ -17,6 +17,7 @@
             "group": "Обзор",
             "pages": [
               "v4/index",
+              "v4/login",
               "v4/layout",
               "v4/ui-kit",
               "v4/decisions",
@@ -28,6 +29,7 @@
             "group": "Workspace — Delivery",
             "pages": [
               "v4/workspace/home",
+              "v4/workspace/profile",
               "v4/workspace/dashboard",
               {
                 "group": "Client",
@@ -42,7 +44,8 @@
                 "group": "Strategies",
                 "pages": [
                   "v4/workspace/strategies/index",
-                  "v4/workspace/strategies/find-leads"
+                  "v4/workspace/strategies/find-leads",
+                  "v4/workspace/strategies/import-leads"
                 ]
               },
               "v4/workspace/leads",
