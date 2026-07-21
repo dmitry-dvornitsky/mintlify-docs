@@ -1,9 +1,9 @@
 ---
-title: "Client · Схемы документов и промпты"
-description: "Фиксированные секции четырёх AI-документов, источники данных и промпты генерации"
+title: "Client · Схемы документов"
+description: "Фиксированные секции четырёх AI-документов и источники данных для генерации"
 ---
 
-Справочник к [AI-документам](/v4/workspace/client/documents): из каких секций состоит каждый документ, какие данные нужны для генерации и какими промптами она выполняется. Структура секций фиксирована — это контракт между людьми и AI: схема на этой странице и есть тот контракт.
+Из каких секций состоит каждый документ и какие данные нужны для генерации. Структура секций фиксирована — это контракт между людьми и AI ([D-015](/v4/decisions)): схема на этой странице и есть тот контракт. Промпты генерации — инженерная деталь, не часть продуктовой спеки, здесь не приводятся.
 
 ## Порядок генерации
 
@@ -13,218 +13,62 @@ description: "Фиксированные секции четырёх AI-доку
 Materials + Website
         │
         ▼
-① About the client ──▶ ② Product ──▶ ③ Who we sell to ──▶ ④ What we say
+① О клиенте ──▶ ② Продукт ──▶ ③ Кому продаём ──▶ ④ Что говорим
 ```
 
-При «Regenerate all» конвейер идёт по порядку; при regenerate одного документа в контекст подставляются **последние Approved-версии** остальных.
-
-## Общие правила генерации
-
-Единый system prompt для всех четырёх документов:
-
-```text
-You are a senior B2B outbound strategist at a lead-generation agency.
-You produce internal working documents about the agency's client. These
-documents are the single source of truth for AI and humans who will build
-strategies, qualify leads and write outreach on the client's behalf.
-
-Rules:
-- Use ONLY the provided sources. Never invent facts, numbers, names or quotes.
-- Every claim must be traceable: end each bullet with source refs like [m12].
-- If a section cannot be filled from sources, output it empty with
-  "insufficient_data" and list what inputs are missing (this is shown to
-  the user as a hint — never pad sections with generic filler).
-- If sources contradict each other, pick nothing: emit a "conflict" entry
-  with both values and their sources.
-- Write tersely: bullets over prose, concrete numbers over adjectives.
-- Output valid JSON matching the given section schema, in the workspace
-  language ({{workspace_language}}).
-```
-
-Плейсхолдеры, доступные всем промптам:
-
-| Плейсхолдер | Что подставляется |
-|---|---|
-| `{{parsed_materials}}` | Распарсенные материалы с id (`[m1]…`), типом и датой |
-| `{{website_content}}` | Спарсенный сайт клиента и указанные ссылки |
-| `{{project_settings}}` | [Settings · General](/v4/workspace/settings/general) и [KPI](/v4/workspace/settings/kpi): контракт, гео, план встреч (сущности «Продукты» нет — [D-042](/v4/decisions)) |
-| `{{doc_about_client}}` / `{{doc_product}}` / `{{doc_icp}}` | Последняя Approved-версия соответствующего документа |
-| `{{change_request}}` | Текст из поля «What to change…» при направленном regenerate (пусто при первой генерации) |
-| `{{workspace_language}}` | Язык воркспейса |
-
-Промпты живут в конфиге платформы и не кастомизируются per-project в V4 — вопрос per-project overrides открыт (THINK).
+При «Regenerate all» конвейер идёт по порядку; при regenerate одного документа в контекст подставляются последние Approved-версии остальных.
 
 ---
 
-## ① About the client — «О клиенте»
-
-Кто клиент, что за бизнес и чего он ждёт от нас.
+## ① О клиенте
 
 | Секция | Что содержит | Минимально нужные данные |
 |---|---|---|
-| **Company snapshot** | Индустрия, размер, гео, стадия, ключевые продукты — 5–7 строк | Сайт |
-| **Business model** | Как зарабатывают: модель, средний чек, цикл сделки, каналы продаж | Сайт + discovery-звонок |
-| **Goals & expectations** | Зачем наняли нас: цели, KPI (встречи/мес), критерии успеха, сроки | Discovery-звонок, контракт/KPI из Settings |
-| **Constraints & context** | Ограничения: compliance, тон бренда, запретные темы, сезонность, прошлый негативный опыт outreach | Discovery-звонок, бриф |
+| Company snapshot | Индустрия, размер, гео, стадия, ключевые продукты | Сайт |
+| Business model | Как зарабатывают: модель, средний чек, цикл сделки, каналы продаж | Сайт + discovery-звонок |
+| Goals & expectations | Зачем наняли нас: цели, KPI, критерии успеха, сроки | Discovery-звонок, контракт/KPI из Settings |
+| Constraints & context | Ограничения: compliance, тон бренда, запретные темы, прошлый негативный опыт outreach | Discovery-звонок, бриф |
 
-**Источники:** сайт · транскрипты discovery/onboarding звонков · бриф или анкета · `{{project_settings}}` (KPI, гео).
+**Источники:** сайт · транскрипты discovery/onboarding · бриф · [Settings · General](/v4/workspace/settings/general) и [KPI](/v4/workspace/settings/kpi).
 
-```text
-Build the "About the client" document for {{client_name}}.
-
-Sections (JSON keys): company_snapshot, business_model,
-goals_and_expectations, constraints_and_context.
-
-Inputs:
-- Client website and provided links: {{website_content}}
-- Uploaded materials (transcripts, briefs, decks): {{parsed_materials}}
-- Project settings (contracted KPI, geography, products): {{project_settings}}
-
-Guidance:
-- goals_and_expectations must state the contracted KPI as numbers and
-  quote (paraphrased, with source ref) what the client called success.
-- constraints_and_context: include everything a copywriter or SDR could
-  accidentally violate — legal restrictions, brand tone, topics to avoid,
-  competitors we must not mention.
-- Snapshot is for a new team member: after reading it they can explain
-  in one minute who this client is.
-{{change_request}}
-```
-
----
-
-## ② Product — «Продукт»
-
-Что продаём, почём и почему это лучше альтернатив.
+## ② Продукт
 
 | Секция | Что содержит | Минимально нужные данные |
 |---|---|---|
-| **What we sell** | Продукты/услуги и их use cases — что именно предлагаем в outreach | Сайт или sales-дек |
-| **Pricing** | Планы, цены, скидки, модель (per seat / usage); что можно называть в письмах | Прайс или дек; иначе `insufficient_data` |
-| **Differentiators** | Чем лучше конкурентов и статус-кво, по пунктам «против кого — чем бьём» | Дек, сайт, ссылки на конкурентов |
-| **Objections** | Частые возражения и рабочие ответы | Транскрипты звонков; иначе `insufficient_data` |
-| **Cases** | Кейсы с цифрами: клиент, задача, результат — что можно цитировать как proof | Кейсы, сайт |
+| What we sell | Продукты/услуги и их use cases | Сайт или sales-дек |
+| Pricing | Планы, цены, скидки, модель | Прайс или дек |
+| Differentiators | Чем лучше конкурентов и статус-кво | Дек, сайт, ссылки на конкурентов |
+| Objections | Частые возражения и рабочие ответы | Транскрипты звонков |
+| Cases | Кейсы: клиент, задача, результат | Кейсы, сайт |
 
 **Источники:** sales-деки и прайсы · страницы продукта на сайте · ссылки на конкурентов · транскрипты звонков · кейсы.
 
-```text
-Build the "Product" document for {{client_name}}.
-
-Sections (JSON keys): what_we_sell, pricing, differentiators,
-objections, cases.
-
-Inputs:
-- Approved "About the client": {{doc_about_client}}
-- Uploaded materials (decks, price lists, case studies, transcripts):
-  {{parsed_materials}}
-- Website product pages and competitor links: {{website_content}}
-
-Guidance:
-- pricing: only numbers that appear in sources; mark each price as
-  "public" (from website) or "internal" (from decks/calls) — SDRs may
-  only quote public ones.
-- differentiators: frame as "vs <competitor or status quo>: <edge>".
-  No unverifiable superlatives ("best", "leading").
-- objections: real objections heard on calls first, each with the answer
-  that actually worked; generic objections only if sources are empty.
-- cases: each case = customer (or anonymized segment), problem, metric
-  result. A case without a number goes last and is flagged "weak proof".
-{{change_request}}
-```
-
----
-
-## ③ Who we sell to — «Кому продаём» (ICP)
-
-Целевые компании и люди, критерии квалификации.
+## ③ Кому продаём (ICP)
 
 | Секция | Что содержит | Минимально нужные данные |
 |---|---|---|
-| **Target companies** | Фирмографика: индустрии, размер, гео, стек, триггеры (найм, раунд, запуск) | Discovery-звонок или ICP-список |
-| **Target people** | Роли и уровни: кто ЛПР, кто чемпион, кто блокер; job titles для поиска | Discovery-звонок, ICP-список |
-| **Qualification criteria** | Must-have признаки лида; из них строятся [Custom Columns](/v4/workspace/settings/columns) для фильтрации ([D-074](/v4/decisions)) | Всё выше |
-| **Anti-ICP** | Кого не трогаем: сегменты, конкуренты, текущие клиенты, гео-исключения | Discovery, списки исключений |
+| Target companies | Фирмографика: индустрии, размер, гео, стек, триггеры (найм, раунд, запуск) | Discovery-звонок или ICP-список |
+| Target people | Роли: кто ЛПР, кто чемпион, кто блокер; job titles для поиска | Discovery-звонок, ICP-список |
+| Qualification criteria | Must-have признаки лида; из них строятся [Custom Columns](/v4/workspace/settings/columns) ([D-074](/v4/decisions)) | Всё выше |
+| Anti-ICP | Кого не трогаем: сегменты, конкуренты, текущие клиенты, гео-исключения | Discovery, списки исключений |
 
-**Источники:** ICP-списки (XLSX) · выгрузки won/lost из CRM клиента · транскрипты · Approved «About the client» и «Product».
+**Источники:** ICP-списки (XLSX) · выгрузки won/lost из CRM клиента · транскрипты · Approved «О клиенте» и «Продукт».
 
-```text
-Build the "Who we sell to" (ICP) document for {{client_name}}.
-
-Sections (JSON keys): target_companies, target_people,
-qualification_criteria, anti_icp.
-
-Inputs:
-- Approved "About the client": {{doc_about_client}}
-- Approved "Product": {{doc_product}}
-- Uploaded materials (ICP lists, CRM exports, transcripts):
-  {{parsed_materials}}
-
-Guidance:
-- target_companies: express every attribute as a filterable criterion
-  (industry, headcount range, geography, tech stack, funding stage,
-  trigger events) — this section feeds audience builders directly.
-- target_people: for each role state why they care (their stake), and
-  give 3-6 real job-title variants for search.
-- qualification_criteria: split into must_have and disqualifiers;
-  each criterion must be checkable from a company/person profile.
-- anti_icp: explicit exclusions incl. client's existing customers and
-  direct competitors; if sources don't mention them, add
-  "confirm with client" flag instead of guessing.
-{{change_request}}
-```
-
----
-
-## ④ What we say — «Что говорим»
-
-Боль, оффер и тезисы для писем — рабочий материал CW и AI-копирайтинга.
+## ④ Что говорим
 
 | Секция | Что содержит | Минимально нужные данные |
 |---|---|---|
-| **Pain & triggers** | Что болит у каждого сегмента ICP и какие события делают боль острой | Approved ICP + транскрипты |
-| **Offer** | Оффер для outreach: формулировка ценности, CTA (встреча), варианты по сегментам | Approved Product |
-| **Talking points** | Тезисы и хуки по ролям: что цепляет CTO vs VP Sales; углы персонализации | Всё выше |
-| **Avoid** | Чего не говорим: запретные темы, клише, compliance, слова-триггеры спам-фильтров | Constraints из «About the client» |
-| **Proof to use** | Какой кейс/цифру подставлять под какой сегмент и возражение | Cases из «Product» |
+| Pain & triggers | Что болит у сегмента ICP и какие события обостряют боль | Approved ICP + транскрипты |
+| Offer | Оффер для outreach: ценность, CTA, варианты по сегментам | Approved Product |
+| Talking points | Тезисы и хуки по ролям | Всё выше |
+| Avoid | Чего не говорим: запретные темы, клише, compliance | Constraints из «О клиенте» |
+| Proof to use | Какой кейс подставлять под какой сегмент/возражение | Cases из «Продукт» |
 
-**Источники:** Approved «About the client», «Product», «Who we sell to» · транскрипты (voice of customer) · примеры прошлых рассылок, если загружены.
+**Источники:** Approved «О клиенте», «Продукт», «Кому продаём» · транскрипты (voice of customer) · примеры прошлых рассылок, если загружены.
 
-```text
-Build the "What we say" document for {{client_name}}.
+## TODO
 
-Sections (JSON keys): pain_and_triggers, offer, talking_points,
-avoid, proof_to_use.
-
-Inputs:
-- Approved "About the client": {{doc_about_client}}
-- Approved "Product": {{doc_product}}
-- Approved "Who we sell to": {{doc_icp}}
-- Uploaded materials (call transcripts, past outreach samples):
-  {{parsed_materials}}
-
-Guidance:
-- pain_and_triggers: map pains to ICP segments from "Who we sell to";
-  use the customer's own vocabulary from transcripts where available.
-- offer: one primary value proposition + per-segment variants; CTA is
-  always a meeting. No feature lists — outcomes only.
-- talking_points: group by target role; each point is one sentence an
-  SDR could paste into an email. Mark personalization slots like
-  <recent_trigger>, <case_for_industry>.
-- avoid: merge client constraints with outbound hygiene (no spam-trigger
-  wording, no unverifiable claims, no competitor bashing).
-- proof_to_use: reference cases from "Product" by name; map each to the
-  segments and objections it answers. Do not restate full cases.
-{{change_request}}
-```
-
----
-
-## Чеклист функционала
-
-- [ ] Конвейер генерации ①→②→③→④; в контекст подставляются только Approved-версии
-- [ ] Единый system prompt: без выдумок, source refs `[mN]`, `insufficient_data`, конфликты — наружу
+- [ ] Единый system prompt для всех документов: только предоставленные источники (без выдумок), source refs `[mN]` на каждый пункт, `insufficient_data` при нехватке данных вместо додумывания, конфликт источников — выводится наружу, а не разрешается автоматически. Держать в конфиге платформы, не в этой доке
 - [ ] Выход — JSON по схеме секций (гарантия фиксированной структуры)
-- [ ] Пометки «public / internal» у цен; «weak proof» у кейсов без цифр
 - [ ] `{{change_request}}` из поля «What to change…» при направленном regenerate
-- [ ] Язык вывода = язык воркспейса
-- [ ] Промпты в конфиге платформы; per-project overrides — открытый вопрос (THINK)
+- [ ] Per-project overrides промптов — открытый вопрос

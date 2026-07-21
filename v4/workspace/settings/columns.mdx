@@ -39,10 +39,10 @@ description: "Кастомные поля компаний и контактов
 ## TODO
 
 **Таб Columns:**
-- [ ] **Source — атрибут колонки** ([D-078](/v4/decisions)): мультивыбор **Website / LinkedIn / Web search** при создании + в Edit; дефолт по табу (Companies → Website, Contacts → LinkedIn); Web search дороже — стоимость видна в попапе Enrich до запуска. Правка Source, как и инструкции, помечает старые значения stale ([D-076](/v4/decisions))
-- [ ] **Точки запуска Enrich** ([D-078](/v4/decisions)): bulk из Leads (попап выбора колонок — D-075) · точечно из оверлея одной записи · опция **«Enrich custom columns»** шагом в импорте и после поиска лидов (с выбором колонок — обогащение новых записей контролируемо, а не флагом на колонке)
+- [ ] **Source — атрибут колонки** ([D-078](/v4/decisions)): мультивыбор **Website / LinkedIn / Web search** при создании + в Edit; дефолт по табу (Companies → Website, Contacts → LinkedIn); Web search дороже. Правка Source, как и инструкции, помечает старые значения stale ([D-076](/v4/decisions))
+- [ ] **Единый попап Enrich — одинаковый из всех точек запуска** ([D-086](/v4/decisions)): bulk из Leads (checkbox-выбор колонок — D-075) · точечно из оверлея одной записи · опция «Enrich custom columns» шагом в импорте и после поиска лидов. Во всех трёх — **один и тот же попап**: список колонок чекбоксами, у каждой — Source-бейдж и, если есть, счётчик **N stale**; внизу — живой пересчёт **Records × колонки → оценка стоимости в $** (снял колонку — сумма меняется), кнопка **Run Enrich**. Без единого попапа три точки запуска рискуют разойтись в поведении и рождать вопрос «а сколько это будет стоить»
 - [ ] **✦ Generate instructions** ([D-076](/v4/decisions)) — сгенерировать AI-инструкцию из Name + Description (как ✦ Improve в Personas)
-- [ ] **Метка stale у значений** ([D-076](/v4/decisions)): значение помнит `enriched at`; если инструкцию правили позже — помечается «по старой инструкции»; bulk **Re-enrich stale** освежает только их
+- [ ] **Метка stale у значений** ([D-076](/v4/decisions), [D-086](/v4/decisions)): значение помнит `enriched at`; если инструкцию/Source правили позже — помечается stale. **Видна прямо в ячейке** в Leads/Overlay — тот же бейдж-попап, что и AI reasoning ([Enrichment History](/v4/workspace/settings/enrichments)), чтобы не гадать «почему пусто/старое» не открывая History. Bulk **Re-enrich stale** освежает только помеченные
 - [ ] Архив колонки — по [D-007](/v4/decisions): значения сохраняются, колонка скрыта, разархивирование возвращает
 
 Таб **Enrichment History** и его TODO — на подстранице [Enrichment History](/v4/workspace/settings/enrichments).
