@@ -17,9 +17,9 @@ description: "База компаний и контактов проекта —
 
 **Колонки Companies:** Name · Domain · Industry · Size · [Custom Columns](/v4/workspace/settings/columns) проекта · **Strategy** (в скольких стратегиях состоит, чип на каждую) · **Lists** (состоит в) · Added.
 
-**Колонки Contacts:** Full name · Title · Company · Email · LinkedIn · **Persona**, по которой найден ([D-041](/v4/decisions)) · Job started on — с **бейджем «New in role»** (< 1 года) / «Recently joined» (1–2 года) вместо сырой даты · **LinkedIn Score** с tooltip «Last analyzed: …» (полная карточка — в [Overlay](/v4/workspace/overlay)) · **Strategy** · статус занятости — эксклюзивность кампейна ([D-026](/v4/decisions)): занят «до 12.08 · Q3 Outbound» или свободен · свежесть — «stale» после 90 дней ([D-027](/v4/decisions)).
+**Колонки Contacts:** Full name · Title · Company · Email · LinkedIn · **Persona**, по которой найден ([D-041](/v4/decisions)) · Job started on — с **бейджем «New in role»** (< 1 года) / «Recently joined» (1–2 года) вместо сырой даты · **LinkedIn Score** с tooltip «Last analyzed: …» (полная карточка — в [Overlay](/v4/workspace/overlay)) · **Strategy** · **Usage** ([D-102](/v4/decisions)) — один статус вместо отдельной колонки занятости: **New** (не был в кампейнах) / **Active** («до 12.08 · Q3 Outbound» — эксклюзивность [D-026](/v4/decisions)) / **Contacted** с исходом последнего кампейна (No reply · Replied · Positive · Meeting · Bounced) · свежесть — «stale» после 90 дней ([D-027](/v4/decisions)).
 
-**Фильтры и Quick Filters:** по стратегии · по списку (Lists) · по [batch](/v4/workspace/strategies/find-leads) конкретной стратегии (переход из детальной batch, [D-100](/v4/decisions)) · по значениям Custom Columns · «High LinkedIn score» / «Has LinkedIn activity» · по свежести (stale/fresh) · по занятости (свободен/занят).
+**Фильтры и Quick Filters:** по стратегии · по списку (Lists) · по [batch](/v4/workspace/strategies/find-leads) конкретной стратегии (переход из детальной batch, [D-100](/v4/decisions)) · по значениям Custom Columns · «High LinkedIn score» / «Has LinkedIn activity» · по свежести (stale/fresh) · **по Usage** ([D-102](/v4/decisions)): New / Active / Contacted, включая исход — «Contacted · No reply» и есть список кандидатов на переиспользование, отдельного флоу reuse нет.
 
 **Bulk-тулбар** над выделенными строками:
 - **Enrich custom columns** — запуск AI-обогащения ([Columns](/v4/workspace/settings/columns), [D-078](/v4/decisions))
@@ -35,6 +35,7 @@ description: "База компаний и контактов проекта —
 
 ## Правила
 
+- **Usage — вычисляемый статус, не поле** ([D-102](/v4/decisions)): выводится из истории кампейнов контакта, руками не правится и рассинхрониться не может. Исход — по последнему завершённому кампейну; полная история касаний — в [Overlay](/v4/workspace/overlay) → Activity. Unsubscribe — не исход Usage, а перевод в [DNC](/v4/workspace/settings/dnc).
 - **Квалификация — не отдельный вердикт, а значения Custom Columns** ([D-074](/v4/decisions)): факт на компании/контакте общий, не зависит от стратегии; каждая стратегия применяет свой фильтр по колонкам, чтобы решить, что подходит именно ей. Никакого кэшируемого «вердикта, привязанного к стратегии», нет — данные и есть кэш.
 - **Контакт сменил компанию** (LinkedIn показывает новое место работы): создаётся **новый контакт** на новой компании; старый остаётся на прежней компании со своей историей (треды, встречи, эксклюзивность) нетронутой — не переезжает и не архивируется автоматически.
 - Атрибуция: «источник лида» (какая стратегия/запуск нашёл) — отдельное поле от метрик кампейна, который вёл коммуникацию ([D-027](/v4/decisions)).
